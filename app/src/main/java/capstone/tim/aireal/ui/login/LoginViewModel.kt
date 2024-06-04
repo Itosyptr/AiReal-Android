@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import capstone.tim.aireal.api.ApiConfig
-import capstone.tim.aireal.data.lib.pref.UserModel
-import capstone.tim.aireal.data.lib.pref.UserPreference
+import capstone.tim.aireal.data.pref.UserModel
+import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.response.LoginResponse
 import kotlinx.coroutines.launch
 import retrofit2.Call

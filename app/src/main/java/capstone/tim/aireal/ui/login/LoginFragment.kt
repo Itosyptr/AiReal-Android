@@ -18,7 +18,7 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.datastore.preferences.preferencesDataStore
 import capstone.tim.aireal.ViewModelFactory
-import capstone.tim.aireal.data.lib.pref.UserPreference
+import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {

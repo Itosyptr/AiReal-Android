@@ -72,6 +72,8 @@
                 android:maxLines="1"
                 android:padding="16dp"
                 android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivregis"
@@ -88,11 +90,13 @@
                 android:inputType="textEmailAddress"
                 android:padding="16dp"
                 android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_regular"
                 android:translationZ="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.49"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_Password"
+                app:layout_constraintTop_toBottomOf="@+id/edt_name"
                 tools:alpha="500" />
 
             <capstone.tim.aireal.customview.PasswordActivity
@@ -108,10 +112,12 @@
                 android:padding="16dp"
                 android:textColor="@color/white"
                 android:translationZ="0dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.509"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_name"
+                app:layout_constraintTop_toBottomOf="@+id/edt_Email"
                 tools:alpha="500" />
 
             <Button
@@ -124,10 +130,12 @@
                 android:text="@string/registerbutton"
                 android:translationZ="0dp"
                 app:backgroundTint="@null"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.471"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_Email"
+                app:layout_constraintTop_toBottomOf="@+id/edt_Password"
                 tools:alpha="500" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

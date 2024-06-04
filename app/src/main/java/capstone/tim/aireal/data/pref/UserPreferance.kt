@@ -1,4 +1,4 @@
-package capstone.tim.aireal.data.lib.pref
+package capstone.tim.aireal.data.pref
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

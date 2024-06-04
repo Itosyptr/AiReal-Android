@@ -1,4 +1,4 @@
-package capstone.tim.aireal.data.lib.pref
+package capstone.tim.aireal.data.pref
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

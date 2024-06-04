@@ -2,7 +2,7 @@ package capstone.tim.aireal
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import capstone.tim.aireal.data.lib.pref.UserPreference
+import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.ui.login.LoginViewModel
 
 @Suppress("UNCHECKED_CAST")
