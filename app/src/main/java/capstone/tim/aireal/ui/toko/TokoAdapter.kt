@@ -1,42 +1,53 @@
 package capstone.tim.aireal.ui.toko
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import capstone.tim.aireal.R
-import capstone.tim.aireal.databinding.ItemProdukBinding
+import capstone.tim.aireal.databinding.ItemTokoBinding
+import capstone.tim.aireal.model.Product
+import com.google.android.gms.analytics.ecommerce.Product
 
-class TokoAdapter : RecyclerView.Adapter<TokoAdapter.TokoViewHolder>() {
+class TokoAdapter(
+    private var products: List<Product>,
+    private val onItemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<TokoAdapter.ViewHolder>() {
 
-    private val tokoList = ArrayList<Toko>()
-
-    fun setList(toko: List<Toko>) {
-        tokoList.clear()
-        tokoList.addAll(toko)
-        notifyDataSetChanged()
+    interface OnItemClickListener {
+        fun onItemClick(product: Product)
+        fun onItemLongClick(product: Product)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TokoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_produk, parent, false)
-        return TokoViewHolder(view)
-    }
+    inner class ViewHolder(private val binding: ItemTokoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(product: Product) {
+            binding.ivProduct.setImageResource(product.imageResId)
+            binding.tvProductName.text = product.name
+            binding.tvProductPrice.text = "Rp. ${product.price}"
 
-    override fun onBindViewHolder(holder: TokoViewHolder, position: Int) {
-        holder.bind(tokoList[position])
-    }
+            binding.root.setOnClickListener {
+                onItemClickListener.onItemClick(product)
+            }
 
-    override fun getItemCount(): Int = tokoList.size
-
-    class TokoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemProdukBinding.bind(itemView)
-
-        fun bind(toko: toko) {
-            binding.apply {
-                ivProductImage.setImageResource(toko.imageResId) // Assuming image is a drawable resource ID
-                tvProductName.text = toko.name
-                tvProductPrice.text = toko.price.toString()
+            binding.root.setOnLongClickListener {
+                onItemClickListener.onItemLongClick(product)
+                true
             }
         }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemTokoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(products[position])
+    }
+
+    override fun getItemCount(): Int = products.size
+
+    fun updateProducts(newProducts: List<Product>) {
+        products = newProducts
+        notifyDataSetChanged()
     }
 }

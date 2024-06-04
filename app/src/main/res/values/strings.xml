@@ -18,5 +18,9 @@
     <string name="tab_1">Produk\n</string>
     <string name="tab_2">Penjualan</string>
     <string name="rp">Rp. %s</string>
+    <string name="checkout">Checkout</string>
+    <string name="keranjang">Keranjang</string>
+    <string name="total">Total</string>
+    <string name="profile">Image Profile</string>
 
 </resources>
