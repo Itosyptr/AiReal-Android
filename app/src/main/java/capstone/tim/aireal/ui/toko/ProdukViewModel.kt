@@ -1,38 +1,27 @@
 package capstone.tim.aireal.ui.toko
 
-import android.util.Log
-import capstone.tim.aireal.R
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
+class ProdukViewModel : ViewModel() {
+    val listProduk = MutableLiveData<ArrayList<Product>>() // Gunakan model data produk Anda
 
-class ProdukViewModel :  ViewModel() {
-    val listProduk = MutableLiveData<ArrayList<Toko>>()
-
-    fun setListProduk(username:String){
-        Retrofitclient.apiInstance
-            .getFollowing(username)
-            .enqueue(object : Callback<ArrayList<Toko>> {
-                override fun onResponse(
-                    call: Call<ArrayList<Toku>>,
-                    response: Response<ArrayList<Toko>>
-                ) {
-                    if (response.isSuccessful) {
-                        listPenjualan.postValue(response.body())
-                    }
-                }
-
-                override fun onFailure(call: Call<ArrayList<Toko>>, t: Throwable) {
-                    t.message?.let { Log.d("Failure", it) }
-                }
-
-            })
+    fun setListProduk() {
+        enqueue()
     }
-    fun getListProduk(): LiveData<ArrayList<Toko>>{
-        return listPenjualan
+
+    data class Product(
+        val id: String, // Atau Int, tergantung kebutuhan
+        val nama: String,
+        val harga: Int,
+    )
+
+    fun getListProduk(): LiveData<ArrayList<Product>> {
+        return listProduk
     }
+}
+
+private fun enqueue() {
+
 }

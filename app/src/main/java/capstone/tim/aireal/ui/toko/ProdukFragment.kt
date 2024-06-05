@@ -2,43 +2,55 @@ package capstone.tim.aireal.ui.toko
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import capstone.tim.aireal.R
-import capstone.tim.aireal.databinding.FragmentTokoBinding
-import capstone.tim.aireal.ui.toko.TokoAdapter
+import capstone.tim.aireal.databinding.FragmentTokokuBinding
+import capstone.tim.aireal.api.ApiService
+import capstone.tim.aireal.api.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProdukFragment : Fragment(R.layout.fragment_tokoku) {
-
-    private var _binding: FragmentTokoBinding? = null
+    private var _binding: FragmentTokokuBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: ProdukViewModel
+    private lateinit var viewModel: PenjualanViewModel
     private lateinit var adapter: TokoAdapter
-    private lateinit var tokoId: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentTokokuBinding.bind(view)
 
-        _binding = FragmentTokoBinding.bind(view)
+        adapter = TokoAdapter(
+            products = emptyList(),
+            onItemClickListener = object : TokoAdapter.OnItemClickListener {
+                override fun onItemClick(product: PenjualanViewModel.Penjualan) {
+                    // Handle item click
+                }
 
-        adapter = TokoAdapter()
-        adapter.notifyDataSetChanged()
+                override fun onItemLongClick(product: PenjualanViewModel.Penjualan) {
+                    // Handle item long click
+                }
+            }
+        )
+
         binding.apply {
-            rvToko.setHasFixedSize(true)
-            rvToko.layoutManager = LinearLayoutManager(activity)
-            rvToko.adapter = adapter
+            rvProduk.setHasFixedSize(true)
+            rvProduk.layoutManager = LinearLayoutManager(activity)
+            rvProduk.adapter = adapter
         }
 
-        showLoading(true)
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(ProdukViewModel::class.java)
-        viewModel.setListProduk(tokoId) // You should set tokoId accordingly
-        viewModel.listProduk.observe(viewLifecycleOwner, {
-            if (it != null) {
-                adapter.setList(it)
+        viewModel = ViewModelProvider(this)[PenjualanViewModel::class.java]
+        viewModel.setListPenjualan()
+        viewModel.listPenjualan.observe(viewLifecycleOwner) { products ->
+            products?.let {
+                adapter.updateProducts(it)
                 showLoading(false)
             }
-        })
+        }
     }
 
     override fun onDestroyView() {
@@ -46,11 +58,7 @@ class ProdukFragment : Fragment(R.layout.fragment_tokoku) {
         _binding = null
     }
 
-    private fun showLoading(state: Boolean) {
-        if (state) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

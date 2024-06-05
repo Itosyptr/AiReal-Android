@@ -1,38 +1,43 @@
 package capstone.tim.aireal.ui.toko
 
-import android.util.Log
-import capstone.tim.aireal.R
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import capstone.tim.aireal.api.ApiService
+import capstone.tim.aireal.api.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+class PenjualanViewModel : ViewModel() {
 
-class PenjualanViewModel: ViewModel() {
-    val listPenjualan = MutableLiveData<ArrayList<Toko>>()
+    data class Penjualan(
+        val imageResId: Int,
+        val name: String,
+        val price: String
+        // ... tambahkan atribut lain sesuai kebutuhan
+    )
 
-    fun setListPenjualan(username:String){
-        Retrofitclient.apiInstance
-            .getFollowing(username)
-            .enqueue(object : Callback<ArrayList<Toko>> {
-                override fun onResponse(
-                    call: Call<ArrayList<Toku>>,
-                    response: Response<ArrayList<Toko>>
-                ) {
-                    if (response.isSuccessful) {
-                        listPenjualan.postValue(response.body())
-                    }
-                }
+    private val _listPenjualan = MutableLiveData<List<Penjualan>>()
+    val listPenjualan: LiveData<List<Penjualan>> = _listPenjualan
 
-                override fun onFailure(call: Call<ArrayList<Toko>>, t: Throwable) {
-                    t.message?.let { Log.d("Failure", it) }
-                }
-
-            })
+    init {
+        setListPenjualan()
     }
-    fun getListFollowing(): LiveData<ArrayList<Toko>>{
-        return listPenjualan
+
+    fun setListPenjualan() {
+        RetrofitClient.apiInstance.getPenjualan().enqueue(object : Callback<List<Penjualan>> {
+            override fun onResponse(call: Call<List<Penjualan>>, response: Response<List<Penjualan>>) {
+                if (response.isSuccessful) {
+                    _listPenjualan.value = response.body()
+                } else {
+                    // Handle error
+                }
+            }
+
+            override fun onFailure(call: Call<List<Penjualan>>, t: Throwable) {
+                // Handle failure
+            }
+        })
     }
 }

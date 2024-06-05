@@ -22,5 +22,7 @@
     <string name="keranjang">Keranjang</string>
     <string name="total">Total</string>
     <string name="profile">Image Profile</string>
+    <string name="massage_name">Please enter your name.</string>
+    <string name="Loginbutton">LoginButon\n</string>
 
 </resources>
