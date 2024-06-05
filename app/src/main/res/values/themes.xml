@@ -1,17 +1,80 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AIREAL" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="android:colorBackground">@color/green</item>
-        <item name="android:windowBackground">@color/green2</item>
-
-
-
-        <!-- Mengatur latar belakang menjadi warna hijau -->
-
+    <style name="Base.Theme.AIREAL" parent="Theme.Material3.DayNight">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionModeOverlay">false</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="Theme.AIREAL" parent="Base.Theme.AIREAL" />
+    <style name="BackButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:contentDescription">@string/back_button</item>
+        <item name="android:src">@drawable/baseline_chevron_left_24</item>
+    </style>
+
+    <style name="TitleEdit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SaveButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:contentDescription">@string/save_changes</item>
+        <item name="android:src">@drawable/baseline_done_24</item>
+    </style>
+
+    <style name="UploadImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:contentDescription">@string/upload_image</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:src">@drawable/baseline_camera_alt</item>
+    </style>
+
+    <style name="ShareButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:contentDescription">@string/share_button</item>
+        <item name="android:src">@drawable/baseline_share_24</item>
+    </style>
+
+
+    <style name="CardTextInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">25dp</item>
+    </style>
+
+    <style name="CardTextInputTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CardTextInputFill">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="ProductTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 
 </resources>

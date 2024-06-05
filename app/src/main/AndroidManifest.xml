@@ -30,6 +30,30 @@
         android:theme="@style/Base.Theme.AIREAL"
         tools:targetApi="31">
         <activity
+            android:name=".ui.shopDisplay.ShopDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.orderHistory.OrderHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.explore.ExploreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.editShop.EditShopActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.editProfile.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detailProduct.DetailProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detailEdit.DetailEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addProduct.AddProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.regis.RegisterActivity"
             android:exported="true" />
         <activity
@@ -37,16 +61,16 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
