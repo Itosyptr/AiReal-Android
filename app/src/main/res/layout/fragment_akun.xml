@@ -11,7 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="72dp"
-        android:background="@drawable/circle_background"
+        tools:src="@tools:sample/avatars"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,50 +45,50 @@
         android:id="@+id/textViewPesananSaya"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_pesanaan"
         android:drawablePadding="8dp"
         android:padding="16dp"
         android:text="Pesanan Saya"
         app:layout_constraintEnd_toEndOf="@+id/nameTextView"
         app:layout_constraintStart_toStartOf="@+id/nameTextView"
         tools:layout_editor_absoluteY="337dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        app:drawableStartCompat="@drawable/ic_pesanaan" />
 
     <TextView
         android:id="@+id/textViewEditProfile"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:drawableStart="@drawable/ic_account"
         android:drawablePadding="8dp"
         android:padding="16dp"
         android:text="Edit Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPesananSaya" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPesananSaya"
+        app:drawableStartCompat="@drawable/ic_account" />
 
     <TextView
         android:id="@+id/textViewPusatInformasi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:drawableStart="@drawable/ic_call"
         android:drawablePadding="8dp"
         android:padding="16dp"
         android:text="Pusat Informasi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewEditProfile" />
+        app:layout_constraintTop_toBottomOf="@id/textViewEditProfile"
+        app:drawableStartCompat="@drawable/ic_call" />
 
     <TextView
         android:id="@+id/textViewSyaratKetentuan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/ic_syarat"
+        android:layout_marginTop="12dp"
         android:drawablePadding="8dp"
         android:padding="16dp"
         android:text="Syarat dan Ketentuan"
+        app:drawableStartCompat="@drawable/ic_syarat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,13 +98,13 @@
         android:id="@+id/textViewKebijakanPrivasi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/ic_privasi"
+        android:layout_marginTop="16dp"
         android:drawablePadding="8dp"
         android:padding="16dp"
         android:text="Kebijakan Privasi"
+        app:drawableStartCompat="@drawable/ic_privasi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSyaratKetentuan" />
 

@@ -1,36 +1,28 @@
 package capstone.tim.aireal.ui.regis
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import capstone.tim.aireal.api.ApiConfig
+import capstone.tim.aireal.api.RetrofitClient
 import capstone.tim.aireal.response.RegisterResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterViewModel : ViewModel() {
-    val data = MutableLiveData<RegisterResponse>()
 
-    fun register(name: String?, email: String?, password: String?) {
-        val retro = ApiConfig.getApiService().register(name, email, password)
-        retro.enqueue(object : Callback<RegisterResponse> {
+    private val _registerResponse = MutableLiveData<RegisterResponse>()
+    val getRegister: LiveData<RegisterResponse> = _registerResponse
+
+    fun register(name: String, email: String, password: String) {
+        RetrofitClient.apiInstance.register(name, email, password).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                if (response.isSuccessful) {
-                    data.postValue(response.body())
-                }
-                else {
-                    Log.d("Error :", response.message())
-                }
+                _registerResponse.value = response.body()
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                Log.d("onFailure", t.message!!)
+                _registerResponse.value = RegisterResponse(true, "Gagal melakukan registrasi")
             }
         })
-    }
-    fun getRegister(): LiveData<RegisterResponse> {
-        return data
     }
 }

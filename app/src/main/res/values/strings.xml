@@ -2,7 +2,6 @@
     <string name="app_name">AIREAL</string>
     <string name="logo_description">Logo Description</string>
     <string name="top">top</string>
-    <string name="email">Email</string>
     <string name="password">Password\n</string>
     <string name="don_t_have_an_account">Not have an account?\n</string>
     <string name="register_now">Register</string>
@@ -16,7 +15,115 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_1">Produk\n</string>
-    <string name="tab_2">Penjualan</string>
+    <string name="tab_2">Penjualann</string>
     <string name="rp">Rp. %s</string>
+    <string name="checkout">Checkout</string>
+    <string name="keranjang">Keranjang</string>
+    <string name="total">Total</string>
+    <string name="profile">Image Profile</string>
+    <string name="massage_name">Please enter your name.</string>
+    <string name="Loginbutton">LoginButon\n</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="back_button">Back to activity</string>
+    <string name="save_changes">Save changes</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="full_name">Name</string>
+    <string name="full_name_example">fullname</string>
+    <string name="gender">Gender</string>
+    <string name="gender_example">gender</string>
+    <string name="birthdate">Birth Date</string>
+    <string name="birthdate_example">birthdate</string>
+    <string name="email">Email</string>
+    <string name="email_example">email address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="phone_number_example">phone number</string>
+    <string name="address">Address</string>
+    <string name="address_example">home address</string>
+    <string name="answer_hint">Input your answer here…</string>
+    <string name="change_title">Edit %s</string>
+    <string name="max_character">Maks. 100 characters</string>
+    <string name="save_changes_confirm">Save</string>
+    <string name="delete_changes_confirm">Delete</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
+    <string name="cancelled_confirmation">Are you sure want to cancel the changes?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save_changes_confirmation">Are you sure want to save the changes?</string>
+    <string name="choose_camera">choose camera</string>
+    <string name="choose_gallery">choose gallery</string>
+    <string name="choose_photo">choose photo</string>
+    <string name="edit_shop">Edit Shop</string>
+    <string name="shop_name">Shop Name</string>
+    <string name="shop_name_example">shop name</string>
+    <string name="shop_description"> Shop Description</string>
+    <string name="shop_description_example">description</string>
+    <string name="shop_address">Shop Address</string>
+    <string name="detail_address">Address</string>
+    <string name="shop_address_example">detail address</string>
+    <string name="regency">Regency</string>
+    <string name="regency_example">regency</string>
+    <string name="province">Province</string>
+    <string name="province_example">Province</string>
+    <string name="order_history">Order History</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_count">x %s</string>
+    <string name="product_price">Rp %s</string>
+    <string name="location">shop location</string>
+    <string name="share_shop">share shop</string>
+    <string name="share_button">share button</string>
+    <string name="shop_products">Products</string>
+    <string name="product_image">product image</string>
+    <string name="visit_store">Visit Store</string>
+    <string name="product_details">Product Details</string>
+    <string name="product_description_example">Product Description</string>
+    <string name="cart">Cart</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="search_bar">search something</string>
+    <string name="product_category">Category</string>
+    <string name="add_product">Add Product</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="product_photos">Product Photo</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="price">Price</string>
+    <string name="product_stock">Stock</string>
+    <string name="cancelled_add_product">Are you sure to cancel add product?</string>
+    <string name="title_home">Home</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_profile">Profile</string>
+
+    <string-array name="product_categories">
+        <item>Electronics</item>
+        <item>Clothing</item>
+        <item>Accessories</item>
+        <item>Beauty</item>
+        <item>Kids</item>
+        <item>Sports &amp; Outdoors</item>
+        <item>Food</item>
+        <item>Books</item>
+        <item>Tools</item>
+        <item>Furniture</item>
+        <item>Shoes</item>
+        <item>Other</item>
+    </string-array>
+
+    <integer-array name="image_categories">
+        <item>@drawable/electronics</item>
+        <item>@drawable/clothes</item>
+        <item>@drawable/accessories</item>
+        <item>@drawable/lipstics</item>
+        <item>@drawable/kids</item>
+        <item>@drawable/sports</item>
+        <item>@drawable/food</item>
+        <item>@drawable/book</item>
+        <item>@drawable/tools</item>
+        <item>@drawable/furnitures</item>
+        <item>@drawable/shoes</item>
+        <item>@drawable/other</item>
+    </integer-array>
+
 
 </resources>

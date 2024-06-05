@@ -9,7 +9,7 @@
     android:paddingEnd="15dp"
     android:paddingTop="20dp"
     android:background="@color/white"
-    tools:context=".ui.regis.RegisterFragment">
+    tools:context=".ui.regis.RegisterActivity">
 
     <ScrollView
         android:id="@+id/scroll_view"

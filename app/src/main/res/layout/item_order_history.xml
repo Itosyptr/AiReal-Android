@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginTop="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="81dp"
+            android:layout_height="61dp"
+            android:layout_margin="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:maxLines="1"
+            android:text="@string/product_name"
+            android:layout_marginStart="15dp"
+            style="@style/ProductTextStyle"
+            app:layout_constraintStart_toEndOf="@+id/product_image"
+            app:layout_constraintTop_toTopOf="@+id/product_image" />
+
+        <TextView
+            android:id="@+id/product_count"
+            android:text="@string/product_count"
+            android:textColor="@color/grey"
+            android:layout_marginVertical="5dp"
+            style="@style/ProductTextStyle"
+            app:layout_constraintStart_toStartOf="@+id/product_name"
+            app:layout_constraintTop_toBottomOf="@+id/product_name" />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_marginVertical="5dp"
+            android:text="@string/product_price"
+            android:textColor="@color/light_blue_600"
+            style="@style/ProductTextStyle"
+            app:layout_constraintStart_toStartOf="@+id/product_count"
+            app:layout_constraintTop_toBottomOf="@+id/product_count" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
