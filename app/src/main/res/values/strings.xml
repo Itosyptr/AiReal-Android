@@ -24,5 +24,165 @@
     <string name="profile">Image Profile</string>
     <string name="massage_name">Please enter your name.</string>
     <string name="Loginbutton">LoginButon\n</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="back_button">Back to activity</string>
+    <string name="save_changes">Save changes</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="full_name">Name</string>
+    <string name="full_name_example">fullname</string>
+    <string name="gender">Gender</string>
+    <string name="gender_example">gender</string>
+    <string name="birthdate">Birth Date</string>
+    <string name="birthdate_example">birthdate</string>
+    <string name="email_example">email address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="phone_number_example">phone number</string>
+    <string name="address">Address</string>
+    <string name="address_example">home address</string>
+    <string name="answer_hint">Input your answer here…</string>
+    <string name="change_title">Edit %s</string>
+    <string name="max_character">Maks. 100 characters</string>
+    <string name="save_changes_confirm">Save</string>
+    <string name="delete_changes_confirm">Delete</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
+    <string name="cancelled_confirmation">Are you sure want to cancel the changes?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save_changes_confirmation">Are you sure want to save the changes?</string>
+    <string name="choose_camera">choose camera</string>
+    <string name="choose_gallery">choose gallery</string>
+    <string name="choose_photo">choose photo</string>
+    <string name="edit_shop">Edit Shop</string>
+    <string name="shop_name">Shop Name</string>
+    <string name="shop_name_example">shop name</string>
+    <string name="shop_description"> Shop Description</string>
+    <string name="shop_description_example">description</string>
+    <string name="shop_address">Shop Address</string>
+    <string name="detail_address">Address</string>
+    <string name="shop_address_example">detail address</string>
+    <string name="regency">Regency</string>
+    <string name="regency_example">regency</string>
+    <string name="province">Province</string>
+    <string name="province_example">Province</string>
+    <string name="order_history">Order History</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_count">x %s</string>
+    <string name="product_price">Rp %s</string>
+    <string name="location">shop location</string>
+    <string name="share_shop">share shop</string>
+    <string name="share_button">share button</string>
+    <string name="shop_products">Products</string>
+    <string name="product_image">product image</string>
+    <string name="visit_store">Visit Store</string>
+    <string name="product_details">Product Details</string>
+    <string name="product_description_example">Product Description</string>
+    <string name="cart">Cart</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="search_bar">search something</string>
+    <string name="product_category">Category</string>
+    <string name="add_product">Add Product</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="product_photos">Product Photo</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="price">Price</string>
+    <string name="product_stock">Stock</string>
+    <string name="cancelled_add_product">Are you sure to cancel add product?</string>
+    <string name="title_home">Home</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_profile">Profile</string>
+    <string name="pesanan_saya">Pesanan Saya\n</string>
+    <string name="pusat_informasi">Pusat Informasi</string>
+    <string name="syarat_dan_ketentuan">Syarat Dan Ketentuan</string>
+    <string name="kebijakan_privasi">Kebijakan Privasi</string>
+    <string name="action_logout">Logout</string>
+    <string name="intro_kebijakan_privasi">Kami berkomitmen untuk melindungi privasi Anda. Kebijakan privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat Anda menggunakan aplikasi dan layanan kami.</string>
+
+    <string name="informasi_yang_dikumpulkan">Informasi yang Kami Kumpulkan</string>
+    <string name="detail_informasi_yang_dikumpulkan">
+        Kami dapat mengumpulkan informasi berikut:
+        \n• **Informasi yang Anda berikan secara langsung:** Nama, alamat email, nomor telepon, alamat pengiriman, informasi pembayaran, dan informasi lain yang Anda berikan saat membuat akun, melakukan pembelian, atau menghubungi layanan pelanggan.
+        \n• **Informasi yang dikumpulkan secara otomatis:** Informasi perangkat (seperti model perangkat, sistem operasi, alamat IP), informasi lokasi (jika Anda mengizinkan), data penggunaan aplikasi (seperti halaman yang dikunjungi, produk yang dilihat), dan cookie.
+    </string>
+
+    <string name="penggunaan_informasi">Bagaimana Kami Menggunakan Informasi Anda</string>
+    <string name="detail_penggunaan_informasi">
+        Kami menggunakan informasi Anda untuk:
+        \n• Memproses pesanan dan pembayaran Anda.
+        \n• Mengirimkan informasi tentang produk, layanan, promosi, dan penawaran khusus.
+        \n• Menanggapi pertanyaan dan permintaan Anda.
+        \n• Meningkatkan pengalaman pengguna dan layanan kami.
+        \n• Mencegah penipuan dan aktivitas ilegal lainnya.
+        \n• Mematuhi kewajiban hukum kami.
+    </string>
+
+    <string name="pengungkapan_informasi_kepada_pihak_ketiga">Pengungkapan Informasi kepada Pihak Ketiga</string>
+    <string name="detail_pengungkapan_informasi_kepada_pihak_ketiga">
+        Kami tidak akan menjual atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali:
+        \n• **Penyedia layanan pihak ketiga:** Kami dapat berbagi informasi Anda dengan penyedia layanan pihak ketiga yang membantu kami dalam menjalankan bisnis kami, seperti penyedia layanan pembayaran, pengiriman, dan pemasaran.
+        \n• **Kewajiban hukum:** Kami dapat mengungkapkan informasi Anda jika diwajibkan oleh hukum, peraturan, atau proses hukum.
+    </string>
+
+    <string name="keamanan_informasi">Keamanan Informasi</string>
+    <string name="detail_keamanan_informasi">
+        Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, penggunaan, atau pengungkapan yang tidak sah. Namun, tidak ada metode transmisi melalui Internet atau metode penyimpanan elektronik yang 100% aman.
+    </string>
+
+    <string name="perubahan_pada_kebijakan_privasi">Perubahan pada Kebijakan Privasi</string>
+    <string name="detail_perubahan_pada_kebijakan_privasi">
+        Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Kami akan memberi tahu Anda tentang perubahan apa pun dengan memposting kebijakan privasi yang baru di aplikasi atau situs web kami.
+    </string>
+
+    <string name="hubungi_kami">Hubungi Kami</string>
+    <string name="detail_hubungi_kami">
+        Jika Anda memiliki pertanyaan atau masalah tentang kebijakan privasi ini, silakan hubungi kami melalui:
+        \n• Email: [alamat email Anda]
+        \n• Telepon: [nomor telepon Anda]
+    </string>
+    <string name="terms_and_conditions">Syarat dan Ketentuan</string>
+    <string name="terms_and_conditions_content">
+        1. Dengan menggunakan platform ecommerce kami, Anda setuju dengan syarat dan ketentuan ini.\n\n
+        2. Semua produk dan layanan yang ditawarkan di platform kami tergantung pada ketersediaan dan dapat berubah sewaktu-waktu tanpa pemberitahuan.\n\n
+        3. Harga yang ditampilkan di platform kami dapat berubah sewaktu-waktu. Kami berhak untuk memperbaiki kesalahan harga yang mungkin terjadi.\n\n
+        4. Anda bertanggung jawab untuk memberikan informasi yang akurat dan terkini saat membuat akun atau melakukan pemesanan. Kami tidak bertanggung jawab atas masalah yang mungkin timbul akibat informasi yang salah atau tidak lengkap yang Anda berikan.\n\n
+        5. Semua pesanan tunduk pada penerimaan dan ketersediaan. Kami berhak untuk membatalkan atau memodifikasi pesanan kapan saja.\n\n
+        6. Anda bertanggung jawab atas keamanan akun dan kata sandi Anda. Kami tidak bertanggung jawab atas akses atau penggunaan yang tidak sah atas akun Anda.\n\n
+        7. Kami dapat mengumpulkan dan menggunakan informasi pribadi Anda sesuai dengan kebijakan privasi kami. Dengan menggunakan platform kami, Anda menyetujui pengumpulan dan penggunaan informasi pribadi Anda.\n\n
+        8. Kami berhak untuk memodifikasi syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Ini adalah tanggung jawab Anda untuk meninjau syarat dan ketentuan secara berkala untuk melihat perubahan apa pun.\n\n
+        9. Syarat dan ketentuan ini diatur oleh hukum negara tempat platform ecommerce kami berbasis. Setiap perselisihan yang timbul dari syarat dan ketentuan ini akan tunduk pada yurisdiksi eksklusif pengadilan di negara tersebut.
+    </string>
+
+    <string-array name="product_categories">
+        <item>Electronics</item>
+        <item>Clothing</item>
+        <item>Accessories</item>
+        <item>Beauty</item>
+        <item>Kids</item>
+        <item>Sports &amp; Outdoors</item>
+        <item>Food</item>
+        <item>Books</item>
+        <item>Tools</item>
+        <item>Furniture</item>
+        <item>Shoes</item>
+        <item>Other</item>
+    </string-array>
+
+    <integer-array name="image_categories">
+        <item>@drawable/electronics</item>
+        <item>@drawable/clothes</item>
+        <item>@drawable/accessories</item>
+        <item>@drawable/lipstics</item>
+        <item>@drawable/kids</item>
+        <item>@drawable/sports</item>
+        <item>@drawable/food</item>
+        <item>@drawable/book</item>
+        <item>@drawable/tools</item>
+        <item>@drawable/furnitures</item>
+        <item>@drawable/shoes</item>
+        <item>@drawable/other</item>
+    </integer-array>
 
 </resources>

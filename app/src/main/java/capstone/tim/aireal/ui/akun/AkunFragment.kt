@@ -1,5 +1,6 @@
 package capstone.tim.aireal.ui.akun
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import capstone.tim.aireal.R
 import capstone.tim.aireal.databinding.FragmentAkunBinding
+import capstone.tim.aireal.ui.editProfile.EditProfileActivity
+import capstone.tim.aireal.ui.kebijakan.KebijakanActivity
+import capstone.tim.aireal.ui.orderHistory.OrderHistoryActivity
+import capstone.tim.aireal.ui.pusatinformasi.PusatInformasiActivity
+import capstone.tim.aireal.ui.syarat.SyaratActivity
 
 @Suppress("DEPRECATION")
 class AkunFragment : Fragment() {
@@ -39,7 +45,28 @@ class AkunFragment : Fragment() {
         })
 
         // Update profile as an example (replace with real data update mechanism)
-        viewModel.updateProfile(R.drawable.logo, "New Name")
+        viewModel.updateProfile(R.drawable.profile_image, "New Name")
+        binding.textViewPesananSaya.setOnClickListener {
+            val intent = Intent(requireContext(), OrderHistoryActivity::class.java)  // Use requireContext() to get the context
+            startActivity(intent)
+        }
+
+        binding.textViewEditProfile.setOnClickListener {
+            val intent = Intent(requireContext(), EditProfileActivity::class.java)  // Use requireContext() to get the context
+            startActivity(intent)
+        }
+        binding.textViewPusatInformasi.setOnClickListener {
+            val intent = Intent(requireContext(), PusatInformasiActivity::class.java)  // Use requireContext() to get the context
+            startActivity(intent)
+        }
+        binding.textViewSyaratKetentuan.setOnClickListener {
+            val intent = Intent(requireContext(), SyaratActivity::class.java)  // Use requireContext() to get the context
+            startActivity(intent)
+        }
+        binding.textViewKebijakanPrivasi.setOnClickListener {
+            val intent = Intent(requireContext(), KebijakanActivity::class.java)  // Use requireContext() to get the context
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
