@@ -15,7 +15,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/profile" />
 
 
     <TextView
@@ -47,7 +48,7 @@
         android:layout_height="wrap_content"
         android:drawablePadding="8dp"
         android:padding="16dp"
-        android:text="Pesanan Saya"
+        android:text="@string/pesanan_saya"
         app:layout_constraintEnd_toEndOf="@+id/nameTextView"
         app:layout_constraintStart_toStartOf="@+id/nameTextView"
         tools:layout_editor_absoluteY="337dp"
@@ -61,7 +62,7 @@
         android:layout_marginTop="8dp"
         android:drawablePadding="8dp"
         android:padding="16dp"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPesananSaya"
@@ -74,7 +75,7 @@
         android:layout_marginTop="8dp"
         android:drawablePadding="8dp"
         android:padding="16dp"
-        android:text="Pusat Informasi"
+        android:text="@string/pusat_informasi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewEditProfile"
@@ -87,7 +88,7 @@
         android:layout_marginTop="12dp"
         android:drawablePadding="8dp"
         android:padding="16dp"
-        android:text="Syarat dan Ketentuan"
+        android:text="@string/syarat_dan_ketentuan"
         app:drawableStartCompat="@drawable/ic_syarat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -101,7 +102,7 @@
         android:layout_marginTop="16dp"
         android:drawablePadding="8dp"
         android:padding="16dp"
-        android:text="Kebijakan Privasi"
+        android:text="@string/kebijakan_privasi"
         app:drawableStartCompat="@drawable/ic_privasi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

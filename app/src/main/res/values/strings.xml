@@ -24,5 +24,11 @@
     <string name="profile">Image Profile</string>
     <string name="massage_name">Please enter your name.</string>
     <string name="Loginbutton">LoginButon\n</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="pesanan_saya">Pesanan Saya</string>
+    <string name="pusat_informasi">Pusat Informasi</string>
+    <string name="syarat_dan_ketentuan">Syarat dan Ketentuan</string>
+    <string name="kebijakan_privasi">Kebijakan Privasi</string>
+    <string name="action_logout">logout</string>
 
 </resources>

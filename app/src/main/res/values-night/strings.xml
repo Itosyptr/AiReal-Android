@@ -11,4 +11,7 @@
     <string name="tab_1">Produk\n</string>
     <string name="tab_2">Penjualann</string>
     <string name="Loginbutton">LoginButon\n</string>
+    <string name="pesanan_saya">Pesanan Saya</string>
+    <string name="pusat_informasi">Pusat Informasi</string>
+    <string name="action_logout">logout</string>
 </resources>
