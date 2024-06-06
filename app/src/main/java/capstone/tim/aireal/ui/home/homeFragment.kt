@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,13 +55,11 @@ class homeFragment : Fragment() {
         val listCategoryAdapter = ProductCategoriesAdapter(list)
         rvCategories.adapter = listCategoryAdapter
 
-//        listCategoryAdapter.setOnItemClickCallback(object : ProductCategoriesAdapter.OnItemClickCallback {
-//            override fun onItemClicked(data: Categories) {
-//                val item = Categories(data.photo, data.name)
-//                val intent = Intent(context, ExploreActivity::class.java)
-//                intent.putExtra(ExploreActivity.EXTRA_ITEM, item)
-//                startActivity(intent)
-//            }
-//        })
+        listCategoryAdapter.setOnItemClickCallback(object : ProductCategoriesAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Categories) {
+                val item = Categories(data.photo, data.name)
+                Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

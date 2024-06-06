@@ -4,6 +4,9 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowActionModeOverlay">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">@color/deep_grey2</item>
+        <item name="colorOnSurfaceVariant">@color/deep_grey2</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
     </style>
 
     <style name="BackButton">
