@@ -1,5 +1,6 @@
 package capstone.tim.aireal.api
 
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,14 +8,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
     fun getApiService(): ApiService {
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ik1MTUVxR1ZqV3V6QjhpNk1HcWo4IiwiZW1haWwiOiJyaWZxaUBnbWFpbC5jb20iLCJpYXQiOjE3MTc4MzE1ODQsImV4cCI6MTcxNzgzNTE4NH0.tEjchGgFMkwX94mTOpWOPcb-jsZSYoMV_I6_9_1OgDE"
         val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        val authInterceptor = Interceptor { chain ->
+            val req = chain.request()
+            val requestHeaders = req.newBuilder()
+                .addHeader("Authorization", "Bearer $token")
+                .build()
+            chain.proceed(requestHeaders)
+        }
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://story-api.dicoding.dev/v1/")
+            .baseUrl("https://capstone-aireal.et.r.appspot.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

@@ -1,23 +1,27 @@
 package capstone.tim.aireal.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import capstone.tim.aireal.R
+import capstone.tim.aireal.databinding.FragmentHomeBinding
+import capstone.tim.aireal.response.DataItem
+import capstone.tim.aireal.response.ProductsResponse
 
 class homeFragment : Fragment() {
+    private lateinit var _binding: FragmentHomeBinding
+    private val binding get() = _binding
+
     private lateinit var rvCategories: RecyclerView
     private val list = ArrayList<Categories>()
-
-    companion object {
-        fun newInstance() = homeFragment()
-    }
 
     private lateinit var viewModel: HomeViewModel
 
@@ -25,17 +29,34 @@ class homeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        rvCategories = requireView().findViewById(R.id.rv_category)
+        setHasOptionsMenu(true)
+
+        val layoutManager = GridLayoutManager(this.context, 2)
+        binding.rvProducts.layoutManager = layoutManager
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
+        viewModel.listProducts.observe(viewLifecycleOwner) { listUser ->
+            setProductsData(listUser)
+        }
+
+        viewModel.isError.observe(viewLifecycleOwner) {
+            showToastError(it)
+        }
+
+        rvCategories = binding.rvCategory
         rvCategories.setHasFixedSize(true)
         list.addAll(getListCategories())
         showRecyclerList()
+
+        return root
     }
 
     private fun getListCategories(): ArrayList<Categories> {
@@ -61,5 +82,23 @@ class homeFragment : Fragment() {
                 Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun setProductsData(listProducts: List<DataItem?>?) {
+        val adapter = ProductsAdapter()
+        adapter.submitList(listProducts)
+        binding.rvProducts.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToastError(isError: Boolean) {
+        if (isError) Toast.makeText(
+            this.context,
+            "Terjadi kesalahan!! Mohon Bersabar",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

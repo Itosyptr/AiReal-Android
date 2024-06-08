@@ -30,4 +30,8 @@ class DetailProductActivity : AppCompatActivity() {
 
         sliderView.setSliderAdapter(adapter)
     }
+
+    companion object {
+        const val ID_PRODUCT= "id_product"
+    }
 }
