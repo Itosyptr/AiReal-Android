@@ -101,6 +101,7 @@
     <string name="action_logout">Logout</string>
     <string name="intro_kebijakan_privasi">Kami berkomitmen untuk melindungi privasi Anda. Kebijakan privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat Anda menggunakan aplikasi dan layanan kami.</string>
 
+    <string name="coba">Kebijakan Privasi</string>
     <string name="informasi_yang_dikumpulkan">Informasi yang Kami Kumpulkan</string>
     <string name="detail_informasi_yang_dikumpulkan">
         Kami dapat mengumpulkan informasi berikut:
