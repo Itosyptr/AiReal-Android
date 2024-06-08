@@ -14,7 +14,6 @@ import capstone.tim.aireal.R
 import capstone.tim.aireal.databinding.ActivityRegisterBinding
 import capstone.tim.aireal.ui.login.LoginActivity
 
-
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
@@ -29,14 +28,34 @@ class RegisterActivity : AppCompatActivity() {
 
         registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
-        registerViewModel.getRegister.observe(this) { response ->
+        registerViewModel.registerResult.observe(this) { response ->
             showLoading(false)
             response?.let {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                if (!it.error) {
+                if ((it.status ?: true) as Boolean) {
                     startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                 }
+                registerViewModel.registerResult.observe(this) { response ->
+                    response?.let {
+                        // Handle successful registration (e.g., navigate to login screen)
+                        // Save the token (it.token) in SharedPreferences or a data store
+                    }
+                }
+
+
+                registerViewModel.errorMessage.observe(this) { errorMessage ->
+                    errorMessage?.let {
+                        // Display the error message to the user (e.g., in a Toast)
+                    }
+                }
+
+
+                registerViewModel.isLoading.observe(this) { loading ->
+                    // Show/hide loading indicator based on the value of `loading`
+                }
+
+
             }
         }
         setUpAction()
@@ -44,6 +63,8 @@ class RegisterActivity : AppCompatActivity() {
         buttonEnable()
         passwordEditText()
     }
+
+
 
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -64,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
                 email.isEmpty() -> Toast.makeText(this, getString(R.string.massage_email), Toast.LENGTH_SHORT).show()
                 password.isEmpty() -> Toast.makeText(this, getString(R.string.massage_password), Toast.LENGTH_SHORT).show()
                 else -> {
-                    registerViewModel.register(name, email, password)
+                    registerViewModel.register(name, email, password) // Menambahkan argumen yang diperlukan
                     showLoading(true)
                 }
             }

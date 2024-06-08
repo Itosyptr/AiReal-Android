@@ -12,6 +12,7 @@ import capstone.tim.aireal.R
 import capstone.tim.aireal.databinding.FragmentAkunBinding
 import capstone.tim.aireal.ui.editProfile.EditProfileActivity
 import capstone.tim.aireal.ui.kebijakan.KebijakanActivity
+import capstone.tim.aireal.ui.login.LoginActivity
 import capstone.tim.aireal.ui.orderHistory.OrderHistoryActivity
 import capstone.tim.aireal.ui.pusatinformasi.PusatInformasiActivity
 import capstone.tim.aireal.ui.syarat.SyaratActivity
@@ -67,6 +68,12 @@ class AkunFragment : Fragment() {
             val intent = Intent(requireContext(), KebijakanActivity::class.java)  // Use requireContext() to get the context
             startActivity(intent)
         }
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(requireContext(), LoginActivity::class.java)  // Use requireContext() to get the context
+            startActivity(intent)
+        }
+
+
     }
 
     override fun onDestroyView() {

@@ -14,98 +14,112 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import capstone.tim.aireal.MainActivity
 import capstone.tim.aireal.R
 import capstone.tim.aireal.ViewModelFactory
+import capstone.tim.aireal.data.pref.UserModel
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.ActivityLoginBinding
 import capstone.tim.aireal.response.DataLogin
 import capstone.tim.aireal.ui.regis.RegisterActivity
 import capstone.tim.aireal.utils.InputValidator
+import kotlinx.coroutines.launch
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class LoginActivity : AppCompatActivity() {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var pref: UserPreference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
+        supportActionBar?.hide() // Sembunyikan action bar bawaan (jika ada)
 
+        pref = UserPreference.getInstance(dataStore)
+        setupViewModel()
+        setupInputListeners()
         playAnimation()
         setUpAction()
-        buttonEnable()
-        passwordEditText()
+        checkLogin() // Periksa status login di awal
     }
 
-    private fun setUpAction() {
-        loginViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
-        )[LoginViewModel::class.java]
-
-        loginViewModel.isLoading.observe(this) {
-            showLoading(it)
+    private fun checkLogin() {
+        lifecycleScope.launch {
+            if (pref.isLoggedIn()) {
+                startMainActivity() // Jika sudah login, langsung ke MainActivity
+            }
         }
+    }
 
+    private fun setupViewModel() {
+        loginViewModel = ViewModelProvider(this, ViewModelFactory(pref, applicationContext))[LoginViewModel::class.java]
+
+        loginViewModel.isLoading.observe(this, ::showLoading) // Tampilkan loading indicator
+
+        loginViewModel.loginResult.observe(this) { loginResponse ->
+            showLoading(false) // Sembunyikan loading indicator setelah respons diterima
+            loginResponse?.let { response ->
+                if (!response.error) {
+                    // Login berhasil, simpan data pengguna ke preferensi
+                    loginViewModel.saveUser(UserModel(
+                        name = response.data?.name ?: "",
+                        email = response.data?.email ?: "",
+                        userId = response.data?.id ?: "",
+                        token = response.token ?: "",
+                        isLogin = true
+                    ))
+                } else {
+                    // Login gagal
+                    showErrorToast(response.message ?: "Login gagal")
+                }
+            } ?: showErrorToast("Terjadi kesalahan saat login")
+        }
+    }
+
+
+    private fun setUpAction() {
         binding.btnlogin.setOnClickListener {
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
 
-            val dataLogin = DataLogin(email, password)
-
-            when {
-                email.isEmpty() -> {
-                    Toast.makeText(this, getString(R.string.massage_email), Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                password.isEmpty() -> {
-                    Toast.makeText(this, getString(R.string.massage_password), Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                else -> {
-                    loginViewModel.login(dataLogin)
-                }
-            }
-        }
-
-        loginViewModel.isError.observe(this) { isError ->
-            if (isError) {
-                loginViewModel.errorMessage.observe(this) { errorMessage ->
-                    Toast.makeText(
-                        this,
-                        errorMessage,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                loginViewModel.login(DataLogin(email, password))
             } else {
-                Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
+                showErrorToast(getString(R.string.message_empty_field)) // Pesan error jika field kosong
             }
         }
 
         binding.tvRegister.setOnClickListener {
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
+    private fun setupInputListeners() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.edtEmail.error = null
+                binding.edtPassword.error = null
+                buttonEnable()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        }
+
+        binding.edtEmail.addTextChangedListener(textWatcher)
+        binding.edtPassword.addTextChangedListener(textWatcher)
+    }
+
     private fun buttonEnable() {
-        val emailEditText = binding.edtEmail.text?.toString()
-        val passwordEditText = binding.edtPassword.text?.toString()
-        binding.btnlogin.isEnabled =
-            InputValidator.isValidEmail(emailEditText ?: "") &&
-                    InputValidator.validateMinLegth(passwordEditText ?: "")
+        val emailEditText = binding.edtEmail.text.toString()
+        val passwordEditText = binding.edtPassword.text.toString()
+        binding.btnlogin.isEnabled = InputValidator.isValidEmail(emailEditText) && passwordEditText.isNotEmpty()
     }
 
     private fun playAnimation() {
@@ -136,15 +150,13 @@ class LoginActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
 
-    private fun passwordEditText() {
-        binding.edtPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                buttonEnable()
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
+    private fun showErrorToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+    private fun startMainActivity() {
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish() // Menutup LoginActivity setelah berhasil login
     }
 }

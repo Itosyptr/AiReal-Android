@@ -156,6 +156,7 @@
         9. Syarat dan ketentuan ini diatur oleh hukum negara tempat platform ecommerce kami berbasis. Setiap perselisihan yang timbul dari syarat dan ketentuan ini akan tunduk pada yurisdiksi eksklusif pengadilan di negara tersebut.
     </string>
     <string name="login_success">Login Success</string>
+    <string name="message_empty_field">empty</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

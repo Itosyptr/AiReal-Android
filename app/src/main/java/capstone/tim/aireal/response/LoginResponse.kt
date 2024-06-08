@@ -7,7 +7,9 @@ import android.os.Parcelable
 data class LoginResponse(
 	val data: Data? = null,
 	val status: String? = null,
-	val token: String? = null
+	val token: String? = null,
+	val message: String?,
+	val error: Boolean
 ) : Parcelable
 
 @Parcelize
