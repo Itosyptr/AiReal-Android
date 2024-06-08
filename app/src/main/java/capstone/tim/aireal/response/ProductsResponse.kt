@@ -38,8 +38,3 @@ data class CreatedAt(
     val nanoseconds: Int? = null,
     val seconds: Int? = null
 ) : Parcelable
-
-@Parcelize
-data class Image(
-    val image: String? = null
-) : Parcelable

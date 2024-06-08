@@ -1,25 +1,22 @@
 package capstone.tim.aireal.api
 
+import capstone.tim.aireal.response.DataLogin
 import capstone.tim.aireal.response.LoginResponse
 import capstone.tim.aireal.response.ProductsResponse
 import capstone.tim.aireal.response.RegisterResponse
 import capstone.tim.aireal.ui.toko.PenjualanViewModel
 import capstone.tim.aireal.ui.toko.ProdukViewModel
-import capstone.tim.aireal.ui.toko.TokoAdapter
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-
 interface ApiService {
-    @FormUrlEncoded
+
     @POST("login")
-    fun login(
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): Call<LoginResponse>
+    fun login(@Body dataLogin: DataLogin?): Call<LoginResponse?>?
 
     @FormUrlEncoded
     @POST("register")

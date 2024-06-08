@@ -154,6 +154,7 @@
         8. Kami berhak untuk memodifikasi syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Ini adalah tanggung jawab Anda untuk meninjau syarat dan ketentuan secara berkala untuk melihat perubahan apa pun.\n\n
         9. Syarat dan ketentuan ini diatur oleh hukum negara tempat platform ecommerce kami berbasis. Setiap perselisihan yang timbul dari syarat dan ketentuan ini akan tunduk pada yurisdiksi eksklusif pengadilan di negara tersebut.
     </string>
+    <string name="login_success">Login Success</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

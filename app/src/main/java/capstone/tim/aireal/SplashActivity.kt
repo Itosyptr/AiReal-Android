@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import capstone.tim.aireal.ui.login.LoginActivity
 
 
 @SuppressLint("CustomSplashScreen")
@@ -21,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun startMainActivityWithDelay() {
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()
         }, DELAY)
     }

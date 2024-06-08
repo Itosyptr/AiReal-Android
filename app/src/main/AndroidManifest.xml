@@ -69,7 +69,7 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:windowTranslucentNavigation="true"
             android:exported="true">
             <intent-filter>
@@ -79,7 +79,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:exported="true" />
 
         <provider
