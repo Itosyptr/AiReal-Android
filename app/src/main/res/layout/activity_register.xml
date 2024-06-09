@@ -132,6 +132,7 @@
                 app:backgroundTint="@null"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="16sp"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.471"
                 app:layout_constraintStart_toStartOf="parent"

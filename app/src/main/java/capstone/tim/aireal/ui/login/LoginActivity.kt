@@ -14,7 +14,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import capstone.tim.aireal.MainActivity
 import capstone.tim.aireal.R
 import capstone.tim.aireal.ViewModelFactory
@@ -24,7 +23,6 @@ import capstone.tim.aireal.databinding.ActivityLoginBinding
 import capstone.tim.aireal.response.DataLogin
 import capstone.tim.aireal.ui.regis.RegisterActivity
 import capstone.tim.aireal.utils.InputValidator
-import kotlinx.coroutines.launch
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -47,16 +45,9 @@ class LoginActivity : AppCompatActivity() {
         setupInputListeners()
         playAnimation()
         setUpAction()
-        checkLogin() // Periksa status login di awal
+         // Periksa status login di awal
     }
 
-    private fun checkLogin() {
-        lifecycleScope.launch {
-            if (pref.isLoggedIn()) {
-                startMainActivity() // Jika sudah login, langsung ke MainActivity
-            }
-        }
-    }
 
     private fun setupViewModel() {
         loginViewModel = ViewModelProvider(this, ViewModelFactory(pref, applicationContext))[LoginViewModel::class.java]
@@ -152,11 +143,5 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showErrorToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-    private fun startMainActivity() {
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        finish() // Menutup LoginActivity setelah berhasil login
     }
 }

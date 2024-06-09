@@ -1,5 +1,10 @@
 package capstone.tim.aireal.ui.akun
 
+
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import capstone.tim.aireal.R
+import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentAkunBinding
 import capstone.tim.aireal.ui.editProfile.EditProfileActivity
 import capstone.tim.aireal.ui.kebijakan.KebijakanActivity
@@ -16,13 +23,15 @@ import capstone.tim.aireal.ui.login.LoginActivity
 import capstone.tim.aireal.ui.orderHistory.OrderHistoryActivity
 import capstone.tim.aireal.ui.pusatinformasi.PusatInformasiActivity
 import capstone.tim.aireal.ui.syarat.SyaratActivity
+import kotlinx.coroutines.launch
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 @Suppress("DEPRECATION")
 class AkunFragment : Fragment() {
-
     private lateinit var viewModel: AkunViewModel
     private var _binding: FragmentAkunBinding? = null
     private val binding get() = _binding!!
+    private lateinit var pref: UserPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +40,10 @@ class AkunFragment : Fragment() {
         _binding = FragmentAkunBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        pref = UserPreference.getInstance(requireContext().dataStore)
         viewModel = ViewModelProvider(this).get(AkunViewModel::class.java)
 
         viewModel.profileImage.observe(viewLifecycleOwner, Observer { imageResId ->
@@ -48,32 +57,51 @@ class AkunFragment : Fragment() {
         // Update profile as an example (replace with real data update mechanism)
         viewModel.updateProfile(R.drawable.profile_image, "New Name")
         binding.textViewPesananSaya.setOnClickListener {
-            val intent = Intent(requireContext(), OrderHistoryActivity::class.java)  // Use requireContext() to get the context
+            val intent = Intent(
+                requireContext(),
+                OrderHistoryActivity::class.java
+            )  // Use requireContext() to get the context
             startActivity(intent)
         }
 
         binding.textViewEditProfile.setOnClickListener {
-            val intent = Intent(requireContext(), EditProfileActivity::class.java)  // Use requireContext() to get the context
+            val intent = Intent(
+                requireContext(),
+                EditProfileActivity::class.java
+            )  // Use requireContext() to get the context
             startActivity(intent)
         }
         binding.textViewPusatInformasi.setOnClickListener {
-            val intent = Intent(requireContext(), PusatInformasiActivity::class.java)  // Use requireContext() to get the context
+            val intent = Intent(
+                requireContext(),
+                PusatInformasiActivity::class.java
+            )  // Use requireContext() to get the context
             startActivity(intent)
         }
         binding.textViewSyaratKetentuan.setOnClickListener {
-            val intent = Intent(requireContext(), SyaratActivity::class.java)  // Use requireContext() to get the context
+            val intent = Intent(
+                requireContext(),
+                SyaratActivity::class.java
+            )  // Use requireContext() to get the context
             startActivity(intent)
         }
         binding.textViewKebijakanPrivasi.setOnClickListener {
-            val intent = Intent(requireContext(), KebijakanActivity::class.java)  // Use requireContext() to get the context
+            val intent = Intent(
+                requireContext(),
+                KebijakanActivity::class.java
+            )  // Use requireContext() to get the context
             startActivity(intent)
         }
+
         binding.btnLogout.setOnClickListener {
-            val intent = Intent(requireContext(), LoginActivity::class.java)  // Use requireContext() to get the context
-            startActivity(intent)
+            lifecycleScope.launch {
+                pref.logout() // Log the user out in DataStore
+
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
-
-
     }
 
     override fun onDestroyView() {

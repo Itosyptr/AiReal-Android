@@ -26,54 +26,53 @@ class RegisterActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
-
-        registerViewModel.registerResult.observe(this) { response ->
-            showLoading(false)
-            response?.let {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                if ((it.status ?: true) as Boolean) {
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                }
-                registerViewModel.registerResult.observe(this) { response ->
-                    response?.let {
-                        // Handle successful registration (e.g., navigate to login screen)
-                        // Save the token (it.token) in SharedPreferences or a data store
-                    }
-                }
-
-
-                registerViewModel.errorMessage.observe(this) { errorMessage ->
-                    errorMessage?.let {
-                        // Display the error message to the user (e.g., in a Toast)
-                    }
-                }
-
-
-                registerViewModel.isLoading.observe(this) { loading ->
-                    // Show/hide loading indicator based on the value of `loading`
-                }
-
-
-            }
-        }
+        setupViewModel()
         setUpAction()
         playAnimation()
         buttonEnable()
         passwordEditText()
     }
 
+    private fun setupViewModel() {
+        registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
+        registerViewModel.isLoading.observe(this) { loading ->
+            showLoading(loading)
+        }
+
+        registerViewModel.registerResult.observe(this) { response ->
+            showLoading(false) // Hide loading indicator after getting a response
+            response?.let {
+                if (it.status == "success") {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                } else {
+                    showErrorToast(it.message)
+                }
+            } ?: showErrorToast("Terjadi kesalahan saat registrasi") // Handle null response
+        }
+
+        registerViewModel.errorMessage.observe(this) { errorMessage ->
+            errorMessage?.let {
+                showErrorToast(it)
+            }
+        }
+    }
 
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     private fun validateMinLength(password: String): Boolean {
-        return password.length >= 6 // Atau panjang minimum yang Anda inginkan
+        return password.length >= 6
     }
 
+    private fun buttonEnable() {
+        val emailEditText = binding.edtEmail.text
+        val passwordEditText = binding.edtPassword.text
+        binding.btnRegister.isEnabled = isValidEmail(emailEditText.toString()) && validateMinLength(passwordEditText.toString())
+    }
     private fun setUpAction() {
         binding.btnRegister.setOnClickListener {
             val name = binding.edtName.text.toString()
@@ -85,7 +84,7 @@ class RegisterActivity : AppCompatActivity() {
                 email.isEmpty() -> Toast.makeText(this, getString(R.string.massage_email), Toast.LENGTH_SHORT).show()
                 password.isEmpty() -> Toast.makeText(this, getString(R.string.massage_password), Toast.LENGTH_SHORT).show()
                 else -> {
-                    registerViewModel.register(name, email, password) // Menambahkan argumen yang diperlukan
+                    registerViewModel.register(name, email, password)
                     showLoading(true)
                 }
             }
@@ -96,11 +95,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun buttonEnable() {
-        val emailEditText = binding.edtEmail.text
-        val passwordEditText = binding.edtPassword.text
-        binding.btnRegister.isEnabled = isValidEmail(emailEditText.toString()) && validateMinLength(passwordEditText.toString())
-    }
+
 
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.ivregis, View.TRANSLATION_X, -30f, 30f).apply {
@@ -128,6 +123,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun showLoading(loading: Boolean) {
         binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
+
+    private fun showErrorToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun passwordEditText() {
         binding.edtPassword.addTextChangedListener(object : TextWatcher {
