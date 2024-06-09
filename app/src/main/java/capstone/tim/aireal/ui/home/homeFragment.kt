@@ -1,7 +1,9 @@
 package capstone.tim.aireal.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,8 @@ import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentHomeBinding
 import capstone.tim.aireal.response.DataItem
+import capstone.tim.aireal.ui.detailProduct.DetailProductActivity
+import capstone.tim.aireal.ui.explore.ExploreActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -104,14 +108,15 @@ class homeFragment : Fragment() {
         listCategoryAdapter.setOnItemClickCallback(object :
             ProductCategoriesAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Categories) {
-                val item = Categories(data.photo, data.name)
-                Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, ExploreActivity::class.java)
+                intent.putExtra(ExploreActivity.category, data.name)
+                startActivity(intent)
             }
         })
     }
 
     private fun setProductsData(listProducts: List<DataItem?>?) {
-        val adapter = ProductsAdapter()
+        val adapter = ProductsAdapter(requireContext())
         adapter.submitList(listProducts)
         binding.rvProducts.adapter = adapter
     }

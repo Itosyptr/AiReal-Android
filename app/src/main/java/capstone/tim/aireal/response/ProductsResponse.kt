@@ -30,7 +30,10 @@ data class DataItem(
     val shopId: String? = null,
     val stock: String? = null,
     val categoryId: String? = null,
-    val updatedAt: UpdatedAt? = null
+    val updatedAt: UpdatedAt? = null,
+    val location: String? = null,
+    val imageShop: String? = null,
+    val shopName: String? = null
 ) : Parcelable
 
 @Parcelize

@@ -32,6 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/share_button"
                 style="@style/ShareButtonStyle"
                 android:contentDescription="@string/share_button"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"

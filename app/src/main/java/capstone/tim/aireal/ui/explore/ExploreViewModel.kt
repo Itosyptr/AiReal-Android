@@ -1,4 +1,4 @@
-package capstone.tim.aireal.ui.home
+package capstone.tim.aireal.ui.explore
 
 import android.content.Context
 import android.util.Log
@@ -8,22 +8,18 @@ import androidx.lifecycle.ViewModel
 import capstone.tim.aireal.api.ApiConfig
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.response.DataItem
-import capstone.tim.aireal.response.DetailShopResponse
 import capstone.tim.aireal.response.ProductsResponse
-import capstone.tim.aireal.response.ShopData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(
+class ExploreViewModel(
     private val pref: UserPreference,
     private val context: Context
 ) : ViewModel() {
 
     private val _listProducts = MutableLiveData<List<DataItem?>?>()
     val listProducts: MutableLiveData<List<DataItem?>?> = _listProducts
-
-    var listData: MutableList<ShopData> = mutableListOf()
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -32,12 +28,12 @@ class HomeViewModel(
     val isError: LiveData<Boolean> = _isError
 
     companion object {
-        private const val TAG = "MainViewModel"
+        private const val TAG = "ExploreViewModel"
     }
 
-    fun getProducts(token: String) {
+    fun getProducts(token: String, category: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getProduct(token)
+        val client = ApiConfig.getApiService().getProductbyCategory(token, category)
         client.enqueue(object : Callback<ProductsResponse> {
             override fun onResponse(
                 call: Call<ProductsResponse>,
@@ -46,14 +42,6 @@ class HomeViewModel(
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     Log.d(TAG, "onResponse: ${response.body()?.data}")
-
-//                    val products = response.body()?.data ?: emptyList()
-//
-//                    for (product in products) {
-//                        getDetailShop(token, product?.shopId!!)
-//                    }
-
-                    Log.d("getDetail", "onResponse: $listData")
                     _listProducts.value = response.body()?.data
 
                 } else {
@@ -63,32 +51,6 @@ class HomeViewModel(
             }
 
             override fun onFailure(call: Call<ProductsResponse>, t: Throwable) {
-                _isLoading.value = false
-                _isError.value = true
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-    }
-
-    private fun getDetailShop(token: String, shopId: String) {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().getShopDetails(token, shopId)
-        client.enqueue(object : Callback<DetailShopResponse> {
-            override fun onResponse(
-                call: Call<DetailShopResponse>,
-                response: Response<DetailShopResponse>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    Log.d(TAG, "onResponse: ${response.body()?.data}")
-                    listData.add(response.body()?.data as ShopData)
-                } else {
-                    _isError.value = true
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<DetailShopResponse>, t: Throwable) {
                 _isLoading.value = false
                 _isError.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
