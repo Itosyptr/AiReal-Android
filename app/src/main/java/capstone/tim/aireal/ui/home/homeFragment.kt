@@ -1,24 +1,36 @@
 package capstone.tim.aireal.ui.home
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import capstone.tim.aireal.R
+import capstone.tim.aireal.ViewModelFactory
+import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentHomeBinding
 import capstone.tim.aireal.response.DataItem
-import capstone.tim.aireal.response.ProductsResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class homeFragment : Fragment() {
     private lateinit var _binding: FragmentHomeBinding
     private val binding get() = _binding
+
+    private lateinit var pref: UserPreference
 
     private lateinit var rvCategories: RecyclerView
     private val list = ArrayList<Categories>()
@@ -32,7 +44,20 @@ class homeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        pref = UserPreference.getInstance(requireContext().dataStore)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(pref, requireContext())
+        )[HomeViewModel::class.java]
+
+        lifecycleScope.launch {
+            val token = withContext(Dispatchers.IO) {
+                viewModel.getToken()
+            }
+
+            val bearerToken = "Bearer $token"
+            viewModel.getProducts(bearerToken)
+        }
 
         setHasOptionsMenu(true)
 
@@ -76,7 +101,8 @@ class homeFragment : Fragment() {
         val listCategoryAdapter = ProductCategoriesAdapter(list)
         rvCategories.adapter = listCategoryAdapter
 
-        listCategoryAdapter.setOnItemClickCallback(object : ProductCategoriesAdapter.OnItemClickCallback {
+        listCategoryAdapter.setOnItemClickCallback(object :
+            ProductCategoriesAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Categories) {
                 val item = Categories(data.photo, data.name)
                 Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()

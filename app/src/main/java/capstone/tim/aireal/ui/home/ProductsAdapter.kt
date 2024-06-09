@@ -1,11 +1,10 @@
 package capstone.tim.aireal.ui.home
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import capstone.tim.aireal.databinding.ItemProductCardBinding
 import capstone.tim.aireal.response.DataItem
@@ -14,16 +13,34 @@ import com.bumptech.glide.Glide
 
 class ProductsAdapter : ListAdapter<DataItem, ProductsAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemProductCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemProductCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val user = getItem(position)
-        holder.bind(user)
+        val product = getItem(position)
+        holder.bind(product)
+
+        val data = product?.let { it1 ->
+            DataItem(
+                it1.createdAt,
+                it1.price,
+                it1.imageUrl,
+                it1.longdescription,
+                it1.name,
+                it1.description,
+                it1.id,
+                it1.shopId,
+                it1.stock,
+                it1.categoryId,
+                it1.updatedAt
+            )
+        }
+
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, DetailProductActivity::class.java)
-            intent.putExtra(DetailProductActivity.ID_PRODUCT, user.id)
+            intent.putExtra(DetailProductActivity.LIST_PRODUCT, data)
             it.context.startActivity(intent)
         }
     }

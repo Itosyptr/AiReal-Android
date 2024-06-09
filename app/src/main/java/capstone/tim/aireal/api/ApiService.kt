@@ -12,6 +12,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
@@ -26,7 +27,9 @@ interface ApiService {
    suspend fun register(@Body registerDataRegister: DataRegister):Response<RegisterResponse>
 
     @GET("products")
-    fun getProduct(): Call<ProductsResponse>
+    fun getProduct(
+        @Header("Authorization") token: String,
+    ): Call<ProductsResponse>
 
     @GET("penjualan") // Sesuaikan dengan endpoint API Anda
     fun getPenjualan(): Call<List<PenjualanViewModel.Penjualan>>

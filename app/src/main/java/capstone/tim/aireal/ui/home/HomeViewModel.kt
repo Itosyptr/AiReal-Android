@@ -1,17 +1,24 @@
 package capstone.tim.aireal.ui.home
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import capstone.tim.aireal.api.ApiConfig
+import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.response.DataItem
 import capstone.tim.aireal.response.ProductsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val pref: UserPreference,
+    @SuppressLint("StaticFieldLeak") private val context: Context
+) : ViewModel() {
+
     private val _listProducts = MutableLiveData<List<DataItem?>?>()
     val listProducts: MutableLiveData<List<DataItem?>?> = _listProducts
 
@@ -25,16 +32,12 @@ class HomeViewModel : ViewModel() {
         private const val TAG = "MainViewModel"
     }
 
-    init {
-        getProducts()
-    }
-
-    private fun getProducts() {
+    fun getProducts(token: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getProduct()
+        val client = ApiConfig.getApiService().getProduct(token)
         client.enqueue(object : Callback<ProductsResponse> {
             override fun onResponse(
-                    call: Call<ProductsResponse>,
+                call: Call<ProductsResponse>,
                 response: Response<ProductsResponse>
             ) {
                 _isLoading.value = false
@@ -53,5 +56,9 @@ class HomeViewModel : ViewModel() {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
+    }
+
+    suspend fun getToken(): String {
+        return pref.getToken()
     }
 }
