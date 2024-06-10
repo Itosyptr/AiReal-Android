@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModel
 import capstone.tim.aireal.api.ApiConfig
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.response.DataItem
+import capstone.tim.aireal.response.DetailShopResponse
 import capstone.tim.aireal.response.ProductsResponse
+import capstone.tim.aireal.response.ShopData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +22,9 @@ class ExploreViewModel(
 
     private val _listProducts = MutableLiveData<List<DataItem?>?>()
     val listProducts: MutableLiveData<List<DataItem?>?> = _listProducts
+
+    var _listData: MutableList<ShopData> = mutableListOf()
+    val listData: MutableLiveData<MutableList<ShopData>> = MutableLiveData(_listData)
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -39,8 +44,13 @@ class ExploreViewModel(
                 call: Call<ProductsResponse>,
                 response: Response<ProductsResponse>
             ) {
-                _isLoading.value = false
                 if (response.isSuccessful) {
+                    val products = response.body()?.data ?: emptyList()
+
+                    for (product in products) {
+                        getDetailShop(token, product?.shopId!!)
+                    }
+
                     Log.d(TAG, "onResponse: ${response.body()?.data}")
                     _listProducts.value = response.body()?.data
 
@@ -57,6 +67,32 @@ class ExploreViewModel(
             }
         })
     }
+
+    private fun getDetailShop(token: String, shopId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getShopDetails(token, shopId)
+        client.enqueue(object : Callback<DetailShopResponse> {
+            override fun onResponse(
+                call: Call<DetailShopResponse>,
+                response: Response<DetailShopResponse>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "onResponse: ${response.body()?.data}")
+                    response.body()?.data?.let { _listData.add(it) }
+                } else {
+                    _isError.value = true
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DetailShopResponse>, t: Throwable) {
+                _isLoading.value = false
+                _isError.value = true
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
 
     suspend fun getToken(): String {
         return pref.getToken()

@@ -23,7 +23,8 @@ class HomeViewModel(
     private val _listProducts = MutableLiveData<List<DataItem?>?>()
     val listProducts: MutableLiveData<List<DataItem?>?> = _listProducts
 
-    var listData: MutableList<ShopData> = mutableListOf()
+    var _listData: MutableList<ShopData> = mutableListOf()
+    val listData: MutableLiveData<MutableList<ShopData>> = MutableLiveData(_listData)
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -43,15 +44,14 @@ class HomeViewModel(
                 call: Call<ProductsResponse>,
                 response: Response<ProductsResponse>
             ) {
-                _isLoading.value = false
                 if (response.isSuccessful) {
                     Log.d(TAG, "onResponse: ${response.body()?.data}")
 
-//                    val products = response.body()?.data ?: emptyList()
-//
-//                    for (product in products) {
-//                        getDetailShop(token, product?.shopId!!)
-//                    }
+                    val products = response.body()?.data ?: emptyList()
+
+                    for (product in products) {
+                        getDetailShop(token, product?.shopId!!)
+                    }
 
                     Log.d("getDetail", "onResponse: $listData")
                     _listProducts.value = response.body()?.data
@@ -78,10 +78,9 @@ class HomeViewModel(
                 call: Call<DetailShopResponse>,
                 response: Response<DetailShopResponse>
             ) {
-                _isLoading.value = false
                 if (response.isSuccessful) {
                     Log.d(TAG, "onResponse: ${response.body()?.data}")
-                    listData.add(response.body()?.data as ShopData)
+                    response.body()?.data?.let { _listData.add(it) }
                 } else {
                     _isError.value = true
                     Log.e(TAG, "onFailure: ${response.message()}")

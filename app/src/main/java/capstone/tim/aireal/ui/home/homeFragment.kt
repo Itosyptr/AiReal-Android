@@ -25,6 +25,7 @@ import capstone.tim.aireal.response.DataItem
 import capstone.tim.aireal.ui.detailProduct.DetailProductActivity
 import capstone.tim.aireal.ui.explore.ExploreActivity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -72,12 +73,51 @@ class homeFragment : Fragment() {
             showLoading(it)
         }
 
-        viewModel.listProducts.observe(viewLifecycleOwner) { listUser ->
-            setProductsData(listUser)
+        lifecycleScope.launch {
+            delay(1500L)
+            viewModel.listData.observe(viewLifecycleOwner) { listData ->
+                Log.d("getDetail", "onCreateView: $listData")
+
+                val listDetailProduct: MutableList<DataItem?>? = mutableListOf()
+
+                viewModel.listProducts.observe(viewLifecycleOwner) { listUser ->
+                    if (listUser != null && listData != null) {
+                        var i = 0
+
+                        for(item in listUser) {
+                            listDetailProduct?.add(
+                                DataItem(
+                                    price = item?.price,
+                                    imageUrl = item?.imageUrl,
+                                    longdescription = item?.longdescription,
+                                    name = item?.name,
+                                    id = item?.id,
+                                    shopId = item?.shopId,
+                                    stock = item?.stock,
+                                    categoryId = item?.categoryId,
+                                    description = item?.description,
+                                    createdAt = item?.createdAt,
+                                    updatedAt = item?.updatedAt,
+                                    location = listData[i].city
+                                )
+                            )
+                            i++
+                        }
+
+                        setProductsData(listDetailProduct)
+                        showLoading(false)
+                    }
+                }
+            }
         }
 
         viewModel.isError.observe(viewLifecycleOwner) {
             showToastError(it)
+        }
+
+        binding.view4.setOnClickListener {
+            val intent = Intent(context, ExploreActivity::class.java)
+            startActivity(intent)
         }
 
         rvCategories = binding.rvCategory

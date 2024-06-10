@@ -2,6 +2,7 @@ package capstone.tim.aireal.ui.explore
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import capstone.tim.aireal.databinding.ActivityExploreBinding
 import capstone.tim.aireal.response.DataItem
 import capstone.tim.aireal.ui.home.ProductsAdapter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -54,8 +56,42 @@ class ExploreActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        viewModel.listProducts.observe(this) { listUser ->
-            setProductsData(listUser)
+        lifecycleScope.launch {
+            delay(1500L)
+            viewModel.listData.observe(this@ExploreActivity) { listData ->
+                Log.d("getDetail", "onCreateView: $listData")
+
+                val listDetailProduct: MutableList<DataItem?>? = mutableListOf()
+
+                viewModel.listProducts.observe(this@ExploreActivity) { listUser ->
+                    if (listUser != null && listData != null) {
+                        var i = 0
+
+                        for(item in listUser) {
+                            listDetailProduct?.add(
+                                DataItem(
+                                    price = item?.price,
+                                    imageUrl = item?.imageUrl,
+                                    longdescription = item?.longdescription,
+                                    name = item?.name,
+                                    id = item?.id,
+                                    shopId = item?.shopId,
+                                    stock = item?.stock,
+                                    categoryId = item?.categoryId,
+                                    description = item?.description,
+                                    createdAt = item?.createdAt,
+                                    updatedAt = item?.updatedAt,
+                                    location = listData[i].city
+                                )
+                            )
+                            i++
+                        }
+
+                        setProductsData(listDetailProduct)
+                        showLoading(false)
+                    }
+                }
+            }
         }
 
         viewModel.isError.observe(this) {

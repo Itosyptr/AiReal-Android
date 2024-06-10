@@ -6,7 +6,9 @@ import capstone.tim.aireal.response.DataLogin
 import capstone.tim.aireal.response.DataRegister
 import capstone.tim.aireal.response.DetailShopResponse
 import capstone.tim.aireal.response.LoginResponse
+import capstone.tim.aireal.response.ProductByIdResponse
 import capstone.tim.aireal.response.ProductsResponse
+import capstone.tim.aireal.response.UserOrderResponse
 import capstone.tim.aireal.response.regisbg.RegisterResponse
 import capstone.tim.aireal.ui.toko.PenjualanViewModel
 import capstone.tim.aireal.ui.toko.ProdukViewModel
@@ -42,11 +44,17 @@ interface ApiService {
         @Query("category") category: String,
     ): Call<ProductsResponse>
 
-    @GET("/api/shops/{shopId}")
+    @GET("shops/{shopId}")
     fun getShopDetails(
         @Header("Authorization") token: String,
         @Path("shopId") shopId: String
     ): Call<DetailShopResponse>
+
+    @GET("products/{id}")
+    fun getProductDetails(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ProductByIdResponse>
 
     @Headers("Content-Type: application/json")
     @POST("cart")
@@ -55,6 +63,11 @@ interface ApiService {
         @Body dataCart: CartRequest
     ): Call<CartResponse>
 
+    @GET("order/")
+    fun getUserOrder(
+        @Header("Authorization") token: String,
+        @Query("userId") userId: String,
+    ): Call<UserOrderResponse>
 
     @GET("penjualan") // Sesuaikan dengan endpoint API Anda
     fun getPenjualan(): Call<List<PenjualanViewModel.Penjualan>>

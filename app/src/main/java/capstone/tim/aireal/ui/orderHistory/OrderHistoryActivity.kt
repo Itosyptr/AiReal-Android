@@ -1,19 +1,46 @@
 package capstone.tim.aireal.ui.orderHistory
 
+import android.content.Context
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import capstone.tim.aireal.R
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import capstone.tim.aireal.ViewModelFactory
+import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.ActivityOrderHistoryBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class OrderHistoryActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityOrderHistoryBinding
+    private lateinit var binding: ActivityOrderHistoryBinding
+    private lateinit var viewModel: OrderHistoryViewModel
+    private lateinit var pref: UserPreference
+    private var bearerToken = ""
+    private var userId = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
+        pref = UserPreference.getInstance(dataStore)
+        viewModel =
+            ViewModelProvider(this, ViewModelFactory(pref, this))[OrderHistoryViewModel::class.java]
+
+        viewModel.getUser().observe(this) { user ->
+            userId = user?.userId.toString()
+            bearerToken = "Bearer ${user?.token.toString()}"
+
+            viewModel.getOrderHistory(bearerToken, userId)
+        }
     }
 }

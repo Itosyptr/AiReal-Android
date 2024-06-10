@@ -52,7 +52,7 @@ class ProductsAdapter(private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: DataItem) {
             binding.productName.text = product.name
-//            binding.productLocation.text = product.longdescription
+            binding.productLocation.text = product.location
             binding.productPrice.text = context.getString(R.string.product_price, product.price)
             Glide.with(binding.root)
                 .load(product.imageUrl?.get(1))
