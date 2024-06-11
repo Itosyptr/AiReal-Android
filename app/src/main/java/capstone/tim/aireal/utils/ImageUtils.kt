@@ -46,7 +46,7 @@ private fun getImageUriForPreQ(context: Context): Uri {
     if (imageFile.parentFile?.exists() == false) imageFile.parentFile?.mkdir()
     return FileProvider.getUriForFile(
         context,
-        "${BuildConfig.APPLICATION_ID}.fileprovider",
+        "${BuildConfi.APPLICATION_ID}.fileprovider",
         imageFile
     )
 }
