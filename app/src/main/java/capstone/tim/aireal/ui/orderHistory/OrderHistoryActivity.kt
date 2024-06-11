@@ -18,6 +18,7 @@ import kotlinx.coroutines.withContext
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
+@Suppress("DEPRECATION")
 class OrderHistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrderHistoryBinding
     private lateinit var viewModel: OrderHistoryViewModel
@@ -31,6 +32,10 @@ class OrderHistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+        binding.imageView3.setOnClickListener {
+            onBackPressed()
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         pref = UserPreference.getInstance(dataStore)
         viewModel =
