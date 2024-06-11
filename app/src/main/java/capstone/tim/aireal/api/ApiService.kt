@@ -2,6 +2,7 @@ package capstone.tim.aireal.api
 
 import capstone.tim.aireal.response.CartRequest
 import capstone.tim.aireal.response.CartResponse
+import capstone.tim.aireal.response.CreateProductResponse
 import capstone.tim.aireal.response.DataLogin
 import capstone.tim.aireal.response.DataRegister
 import capstone.tim.aireal.response.DetailShopResponse
@@ -112,6 +113,19 @@ interface ApiService {
         @Part("province") gender: RequestBody,
         @Part image: MultipartBody.Part,
     ): Call<EditShopResponse>
+
+    @POST("products")
+    fun addProduct(
+        @Header("Authorization") token: String,
+        @Part("shopId") shopId: RequestBody,
+        @Part("categoryId") categoryId: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("longdescription") longdescription: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part("stock") stock: RequestBody,
+        @Part image: List<MultipartBody.Part>,
+    ): Call<CreateProductResponse>
 
     @GET("penjualan") // Sesuaikan dengan endpoint API Anda
     fun getPenjualan(): Call<List<PenjualanViewModel.Penjualan>>

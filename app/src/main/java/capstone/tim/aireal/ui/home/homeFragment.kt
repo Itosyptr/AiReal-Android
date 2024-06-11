@@ -119,7 +119,6 @@ class homeFragment : Fragment() {
         }
 
         rvCategories = binding.rvCategory
-        rvCategories.setHasFixedSize(true)
         list.addAll(getListCategories())
         showRecyclerList()
 

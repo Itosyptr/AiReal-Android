@@ -164,6 +164,8 @@
     <string name="user_name">Username</string>
     <string name="user_name_example">username</string>
     <string name="password_example">Password</string>
+    <string name="product_long_description_example">Product Long Description</string>
+    <string name="create_new_product">Are You sure want to add this product?</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>
@@ -178,6 +180,21 @@
         <item>Furniture</item>
         <item>Shoes</item>
         <item>Other</item>
+    </string-array>
+
+    <string-array name="product_categories_id">
+        <item>HLu6oM3T8IoOCF4Nr0T6</item>
+        <item>sfdWbMtLLqZuYH8R4U3L</item>
+        <item>50TYglTdJvQURPqRQuuK</item>
+        <item>wpC5KvKlM5zUuAAEmfrU</item>
+        <item>dJj9ZgpC8wiXEpnmT5xQ</item>
+        <item>hhvWMlsLURAAiY0QzDWl</item>
+        <item>qKHbFHaFkRV7IplGc3Zh</item>
+        <item>M09dWVXmjxACYMWb0Ja9</item>
+        <item>H8l1679lByaDwVnC9TIe</item>
+        <item>iixzG1y6172Ork2y3DRF</item>
+        <item>tGzfd0Ck7yGzF7qqQaPd</item>
+        <item>hMZNBox2OAbXWyCQlaIW</item>
     </string-array>
 
     <integer-array name="image_categories">
