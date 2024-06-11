@@ -22,10 +22,8 @@ import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentHomeBinding
 import capstone.tim.aireal.response.DataItem
-import capstone.tim.aireal.ui.detailProduct.DetailProductActivity
 import capstone.tim.aireal.ui.explore.ExploreActivity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -45,7 +43,7 @@ class homeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -74,18 +72,17 @@ class homeFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            delay(1500L)
             viewModel.listData.observe(viewLifecycleOwner) { listData ->
                 Log.d("getDetail", "onCreateView: $listData")
 
-                val listDetailProduct: MutableList<DataItem?>? = mutableListOf()
+                val listDetailProduct: MutableList<DataItem?> = mutableListOf()
 
                 viewModel.listProducts.observe(viewLifecycleOwner) { listUser ->
-                    if (listUser != null && listData != null) {
+                    if (listUser != null && listData != null && listData.size == listUser.size) {
                         var i = 0
 
-                        for(item in listUser) {
-                            listDetailProduct?.add(
+                        for (item in listUser) {
+                            listDetailProduct.add(
                                 DataItem(
                                     price = item?.price,
                                     imageUrl = item?.imageUrl,
@@ -98,12 +95,13 @@ class homeFragment : Fragment() {
                                     description = item?.description,
                                     createdAt = item?.createdAt,
                                     updatedAt = item?.updatedAt,
-                                    location = listData[i].city
+                                    location = listData[i]
                                 )
                             )
                             i++
                         }
 
+                        listData.clear()
                         setProductsData(listDetailProduct)
                         showLoading(false)
                     }

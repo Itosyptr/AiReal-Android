@@ -157,6 +157,8 @@
     </string>
     <string name="login_success">Login Success</string>
     <string name="message_empty_field">empty</string>
+    <string name="quantity">Quantity</string>
+    <string name="one">1</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

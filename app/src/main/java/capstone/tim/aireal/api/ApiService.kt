@@ -63,6 +63,12 @@ interface ApiService {
         @Body dataCart: CartRequest
     ): Call<CartResponse>
 
+    @GET("cart")
+    fun getCart(
+        @Header("Authorization") token: String,
+        @Query("userId") userId: String,
+    ): Call<CartResponse>
+
     @GET("order/")
     fun getUserOrder(
         @Header("Authorization") token: String,
@@ -74,6 +80,4 @@ interface ApiService {
 
     @GET("produk") // Sesuaikan dengan endpoint API untuk mengambil data penjualan
     fun getProduk(): Call<ArrayList<ProdukViewModel.Product>>
-
-
 }
