@@ -8,7 +8,7 @@
     <string name="register_now">Register</string>
     <string name="massage_email">Please fill in your email</string>
     <string name="massage_password">Please fill in your password</string>
-    <string name="name_hint">Name\n</string>
+    <string name="username_hint">Username\n</string>
     <string name="registerbutton">Register\n</string>
     <string name="back_to_login_description">back to login</string>
     <string name="name">Name</string>
@@ -23,7 +23,7 @@
     <string name="total">Total</string>
     <string name="profile">Image Profile</string>
     <string name="massage_name">Please enter your name.</string>
-    <string name="Loginbutton">LoginButon\n</string>
+    <string name="Loginbutton">Login\n</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="back_button">Back to activity</string>
     <string name="save_changes">Save changes</string>
@@ -99,62 +99,108 @@
     <string name="syarat_dan_ketentuan">Syarat Dan Ketentuan</string>
     <string name="kebijakan_privasi">Kebijakan Privasi</string>
     <string name="action_logout">Logout</string>
-    <string name="intro_kebijakan_privasi">Kami berkomitmen untuk melindungi privasi Anda. Kebijakan privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat Anda menggunakan aplikasi dan layanan kami.</string>
 
-    <string name="coba">Kebijakan Privasi</string>
-    <string name="informasi_yang_dikumpulkan">Informasi yang Kami Kumpulkan</string>
-    <string name="detail_informasi_yang_dikumpulkan">
+    <string name="kebijakan_privasi_aireal">Kebijakan Privasi Aplikasi AIREAL</string>
+
+    <string name="informasi_yang_kami_kumpulkan">Informasi yang Kami Kumpulkan</string>
+    <string name="detail_informasi_yang_dikumpulkan_aireal">
         Kami dapat mengumpulkan informasi berikut:
-        \n• **Informasi yang Anda berikan secara langsung:** Nama, alamat email, nomor telepon, alamat pengiriman, informasi pembayaran, dan informasi lain yang Anda berikan saat membuat akun, melakukan pembelian, atau menghubungi layanan pelanggan.
-        \n• **Informasi yang dikumpulkan secara otomatis:** Informasi perangkat (seperti model perangkat, sistem operasi, alamat IP), informasi lokasi (jika Anda mengizinkan), data penggunaan aplikasi (seperti halaman yang dikunjungi, produk yang dilihat), dan cookie.
+        \n• Informasi yang Anda berikan secara langsung: Nama, alamat email, nomor telepon, alamat pengiriman, informasi pembayaran, dan informasi lain yang Anda berikan saat membuat akun, melakukan pembelian, atau menghubungi layanan pelanggan.
+        \n• Informasi penggunaan: Informasi tentang bagaimana Anda menggunakan aplikasi AIREAL, termasuk halaman yang Anda kunjungi, produk yang Anda lihat, dan tindakan yang Anda lakukan.
+        \n• Informasi perangkat: Informasi tentang perangkat yang Anda gunakan untuk mengakses aplikasi AIREAL, seperti model perangkat, sistem operasi, dan alamat IP.
     </string>
 
-    <string name="penggunaan_informasi">Bagaimana Kami Menggunakan Informasi Anda</string>
-    <string name="detail_penggunaan_informasi">
+    <string name="bagaimana_kami_menggunakan_informasi_anda">Bagaimana Kami Menggunakan Informasi Anda</string>
+    <string name="detail_penggunaan_informasi_aireal">
         Kami menggunakan informasi Anda untuk:
         \n• Memproses pesanan dan pembayaran Anda.
-        \n• Mengirimkan informasi tentang produk, layanan, promosi, dan penawaran khusus.
-        \n• Menanggapi pertanyaan dan permintaan Anda.
+        \n• Mengirimkan produk yang Anda beli.
+        \n• Memberikan layanan pelanggan dan dukungan.
         \n• Meningkatkan pengalaman pengguna dan layanan kami.
+        \n• Mengirimkan informasi tentang produk, layanan, promosi, dan penawaran khusus (Anda dapat memilih untuk tidak menerima informasi ini).
         \n• Mencegah penipuan dan aktivitas ilegal lainnya.
         \n• Mematuhi kewajiban hukum kami.
     </string>
 
-    <string name="pengungkapan_informasi_kepada_pihak_ketiga">Pengungkapan Informasi kepada Pihak Ketiga</string>
-    <string name="detail_pengungkapan_informasi_kepada_pihak_ketiga">
-        Kami tidak akan menjual atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali:
-        \n• **Penyedia layanan pihak ketiga:** Kami dapat berbagi informasi Anda dengan penyedia layanan pihak ketiga yang membantu kami dalam menjalankan bisnis kami, seperti penyedia layanan pembayaran, pengiriman, dan pemasaran.
-        \n• **Kewajiban hukum:** Kami dapat mengungkapkan informasi Anda jika diwajibkan oleh hukum, peraturan, atau proses hukum.
+    <string name="bagaimana_kami_melindungi_informasi_anda">Bagaimana Kami Melindungi Informasi Anda</string>
+    <string name="detail_bagaimana_kami_melindungi_informasi_anda">
+        Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, penggunaan, atau pengungkapan yang tidak sah. Namun, tidak ada metode transmisi melalui Internet atau metode penyimpanan elektronik yang 100% aman.
     </string>
 
-    <string name="keamanan_informasi">Keamanan Informasi</string>
-    <string name="detail_keamanan_informasi">
-        Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, penggunaan, atau pengungkapan yang tidak sah. Namun, tidak ada metode transmisi melalui Internet atau metode penyimpanan elektronik yang 100% aman.
+    <string name="berbagi_informasi_dengan_pihak_ketiga">Berbagi Informasi dengan Pihak Ketiga</string>
+    <string name="detail_berbagi_informasi_dengan_pihak_ketiga">
+        Kami tidak akan menjual atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali:
+        \n• Penyedia layanan pihak ketiga: Kami dapat berbagi informasi Anda dengan penyedia layanan pihak ketiga yang membantu kami dalam menjalankan bisnis kami, seperti penyedia layanan pembayaran, pengiriman, dan pemasaran.
+        \n• Kewajiban hukum: Kami dapat mengungkapkan informasi Anda jika diwajibkan oleh hukum, peraturan, atau proses hukum.
     </string>
 
     <string name="perubahan_pada_kebijakan_privasi">Perubahan pada Kebijakan Privasi</string>
     <string name="detail_perubahan_pada_kebijakan_privasi">
-        Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Kami akan memberi tahu Anda tentang perubahan apa pun dengan memposting kebijakan privasi yang baru di aplikasi atau situs web kami.
+        Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Kami akan memberi tahu Anda tentang perubahan apa pun dengan memposting kebijakan privasi yang baru di aplikasi AIREAL.
     </string>
 
     <string name="hubungi_kami">Hubungi Kami</string>
     <string name="detail_hubungi_kami">
         Jika Anda memiliki pertanyaan atau masalah tentang kebijakan privasi ini, silakan hubungi kami melalui:
-        \n• Email: [alamat email Anda]
-        \n• Telepon: [nomor telepon Anda]
+        \n• Email: [Airealgood@gmail.com]
+        \n• Telepon: [6664129]
     </string>
-    <string name="terms_and_conditions">Syarat dan Ketentuan</string>
-    <string name="terms_and_conditions_content">
-        1. Dengan menggunakan platform ecommerce kami, Anda setuju dengan syarat dan ketentuan ini.\n\n
-        2. Semua produk dan layanan yang ditawarkan di platform kami tergantung pada ketersediaan dan dapat berubah sewaktu-waktu tanpa pemberitahuan.\n\n
-        3. Harga yang ditampilkan di platform kami dapat berubah sewaktu-waktu. Kami berhak untuk memperbaiki kesalahan harga yang mungkin terjadi.\n\n
-        4. Anda bertanggung jawab untuk memberikan informasi yang akurat dan terkini saat membuat akun atau melakukan pemesanan. Kami tidak bertanggung jawab atas masalah yang mungkin timbul akibat informasi yang salah atau tidak lengkap yang Anda berikan.\n\n
-        5. Semua pesanan tunduk pada penerimaan dan ketersediaan. Kami berhak untuk membatalkan atau memodifikasi pesanan kapan saja.\n\n
-        6. Anda bertanggung jawab atas keamanan akun dan kata sandi Anda. Kami tidak bertanggung jawab atas akses atau penggunaan yang tidak sah atas akun Anda.\n\n
-        7. Kami dapat mengumpulkan dan menggunakan informasi pribadi Anda sesuai dengan kebijakan privasi kami. Dengan menggunakan platform kami, Anda menyetujui pengumpulan dan penggunaan informasi pribadi Anda.\n\n
-        8. Kami berhak untuk memodifikasi syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Ini adalah tanggung jawab Anda untuk meninjau syarat dan ketentuan secara berkala untuk melihat perubahan apa pun.\n\n
-        9. Syarat dan ketentuan ini diatur oleh hukum negara tempat platform ecommerce kami berbasis. Setiap perselisihan yang timbul dari syarat dan ketentuan ini akan tunduk pada yurisdiksi eksklusif pengadilan di negara tersebut.
+
+
+    <string name="selamat_datang_di_aireal">Selamat datang di AIREAL! Syarat dan ketentuan ini ("Syarat") mengatur penggunaan Anda atas aplikasi AIREAL ("Aplikasi") dan layanan yang terkait ("Layanan"). Dengan mengakses atau menggunakan Aplikasi dan Layanan, Anda menyetujui untuk terikat oleh Syarat ini. Jika Anda tidak setuju dengan Syarat ini, jangan gunakan Aplikasi atau Layanan.</string>
+
+    <string name="akun_pengguna">Akun Pengguna</string>
+    <string name="detail_akun_pengguna">
+        \u2022 Anda harus berusia minimal 18 tahun atau memiliki izin orang tua/wali untuk menggunakan Aplikasi.
+        \n\u2022 Anda bertanggung jawab untuk menjaga kerahasiaan akun dan kata sandi Anda.
+        \n\u2022 Anda setuju untuk memberikan informasi yang akurat, lengkap, dan terbaru saat membuat akun.
     </string>
+
+    <string name="penggunaan_aplikasi">Penggunaan Aplikasi</string>
+    <string name="detail_penggunaan_aplikasi">
+        \u2022 Anda hanya boleh menggunakan Aplikasi untuk tujuan yang sah dan sesuai dengan Syarat ini.
+        \n\u2022 Anda dilarang menggunakan Aplikasi untuk melakukan aktivitas ilegal, menipu, atau merugikan pihak lain.
+        \n\u2022 Anda dilarang mengunggah, memposting, atau mengirimkan konten yang melanggar hak kekayaan intelektual, mengandung unsur pornografi, kekerasan, atau diskriminasi.
+    </string>
+
+    <string name="transaksi">Transaksi</string>
+    <string name="detail_transaksi">
+        \u2022 AIREAL menyediakan platform untuk penjual dan pembeli untuk melakukan transaksi.
+        \n\u2022 Anda bertanggung jawab penuh atas transaksi yang Anda lakukan melalui Aplikasi.
+        \n\u2022 AIREAL tidak bertanggung jawab atas kualitas, keamanan, atau legalitas produk atau layanan yang ditawarkan oleh penjual.
+    </string>
+
+    <string name="hak_kekayaan_intelektual">Hak Kekayaan Intelektual</string>
+    <string name="detail_hak_kekayaan_intelektual">
+        \u2022 Aplikasi dan Layanan dilindungi oleh hak cipta, merek dagang, dan hak kekayaan intelektual lainnya.
+        \n\u2022 Anda dilarang menyalin, memodifikasi, mendistribusikan, atau membuat karya turunan dari Aplikasi dan Layanan tanpa izin tertulis dari AIREAL.
+    </string>
+
+    <string name="pembatasan_tanggung_jawab">Pembatasan Tanggung Jawab</string>
+    <string name="detail_pembatasan_tanggung_jawab">
+        \u2022 AIREAL tidak bertanggung jawab atas kerugian atau kerusakan yang timbul akibat penggunaan Aplikasi atau Layanan, termasuk namun tidak terbatas pada kerugian finansial, kehilangan data, atau kerusakan perangkat.
+        \n\u2022 AIREAL tidak menjamin bahwa Aplikasi atau Layanan akan selalu tersedia, bebas dari kesalahan, atau aman dari virus atau malware.
+    </string>
+
+    <string name="perubahan_syarat">Perubahan Syarat</string>
+    <string name="detail_perubahan_syarat">
+        \u2022 AIREAL berhak untuk mengubah Syarat ini sewaktu-waktu tanpa pemberitahuan sebelumnya.
+        \n\u2022 Anda bertanggung jawab untuk memeriksa Syarat ini secara berkala.
+        \n\u2022 Penggunaan Anda atas Aplikasi atau Layanan setelah perubahan Syarat ini merupakan persetujuan Anda terhadap perubahan tersebut.
+    </string>
+
+    <string name="hukum_yang_berlaku">Hukum yang Berlaku</string>
+    <string name="detail_hukum_yang_berlaku">
+        \u2022 Syarat ini diatur dan ditafsirkan sesuai dengan hukum Indonesia.
+        \n\u2022 Setiap perselisihan yang timbul dari Syarat ini akan diselesaikan melalui pengadilan yang berwenang di Indonesia.
+    </string>
+
+    <string name="ketentuan_lain">Ketentuan Lain</string>
+    <string name="detail_ketentuan_lain">
+        \u2022 Jika ada ketentuan dalam Syarat ini yang dianggap tidak sah atau tidak dapat dilaksanakan, ketentuan tersebut akan dipisahkan dari Syarat ini tanpa mempengaruhi keabsahan dan keberlakuan ketentuan lainnya.
+        \n\u2022 Kegagalan AIREAL untuk menegakkan hak atau ketentuan dalam Syarat ini tidak akan dianggap sebagai pengabaian hak atau ketentuan tersebut.
+    </string>
+    <string name="persetujuan">Dengan menggunakan Aplikasi AIREAL, Anda menyetujui untuk mematuhi Syarat dan Ketentuan ini.</string>
     <string name="login_success">Login Success</string>
     <string name="message_empty_field">empty</string>
     <string name="quantity">Quantity</string>

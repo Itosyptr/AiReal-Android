@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import capstone.tim.aireal.R
 import capstone.tim.aireal.databinding.ActivityPusatInformasiBinding
 
+@Suppress("DEPRECATION")
 class PusatInformasiActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPusatInformasiBinding
