@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.ui.detailProduct.DetailProductViewModel
 import capstone.tim.aireal.ui.editProfile.EditProfileViewModel
+import capstone.tim.aireal.ui.editShop.EditShopViewModel
 import capstone.tim.aireal.ui.explore.ExploreViewModel
 import capstone.tim.aireal.ui.home.HomeViewModel
 import capstone.tim.aireal.ui.keranjang.KeranjangViewModel
@@ -43,6 +44,10 @@ class ViewModelFactory(private val pref: UserPreference, private val context: Co
 
             modelClass.isAssignableFrom(EditProfileViewModel::class.java) -> {
                 EditProfileViewModel(pref, context) as T
+            }
+
+            modelClass.isAssignableFrom(EditShopViewModel::class.java) -> {
+                EditShopViewModel(pref, context) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

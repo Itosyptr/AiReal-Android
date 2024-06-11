@@ -127,11 +127,11 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.apply {
-            binding.userName.text = detailUser?.name
-            binding.name.text = detailUser?.username
-            binding.userEmail.text = detailUser?.email
-            binding.userPhone.text = detailUser?.phoneNumber
-            binding.userAddress.text = detailUser?.address
+            userName.text = detailUser?.name
+            name.text = detailUser?.username
+            userEmail.text = detailUser?.email
+            userPhone.text = detailUser?.phoneNumber
+            userAddress.text = detailUser?.address
             binding.userGender.text = detailUser?.gender
 //            Glide.with(this@EditProfileActivity)
 //                .load(detailUser?.imageUrl?.get(0))
@@ -266,7 +266,7 @@ class EditProfileActivity : AppCompatActivity() {
             val requestGender = gender.toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
             val multipartBody =
-                MultipartBody.Part.createFormData("image", "image.jpg", requestImageFile)
+                MultipartBody.Part.createFormData("image", imageFile.name, requestImageFile)
 
             viewModel.updateProfile(
                 token,

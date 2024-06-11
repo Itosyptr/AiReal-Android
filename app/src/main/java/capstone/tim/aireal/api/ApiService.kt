@@ -6,6 +6,7 @@ import capstone.tim.aireal.response.DataLogin
 import capstone.tim.aireal.response.DataRegister
 import capstone.tim.aireal.response.DetailShopResponse
 import capstone.tim.aireal.response.EditProfileResponse
+import capstone.tim.aireal.response.EditShopResponse
 import capstone.tim.aireal.response.LoginResponse
 import capstone.tim.aireal.response.ProductByIdResponse
 import capstone.tim.aireal.response.ProductsResponse
@@ -97,6 +98,20 @@ interface ApiService {
         @Part("phone_number") phoneNumber: RequestBody,
         @Part image: MultipartBody.Part,
     ): Call<EditProfileResponse>
+
+    @Multipart
+    @PUT("shops/{shopId}")
+    fun updateShop(
+        @Header("Authorization") token: String,
+        @Path("shopId") shopId: String,
+        @Part("userId") userId: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("street") street: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("province") gender: RequestBody,
+        @Part image: MultipartBody.Part,
+    ): Call<EditShopResponse>
 
     @GET("penjualan") // Sesuaikan dengan endpoint API Anda
     fun getPenjualan(): Call<List<PenjualanViewModel.Penjualan>>
