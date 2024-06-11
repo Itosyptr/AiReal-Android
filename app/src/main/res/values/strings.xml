@@ -3,7 +3,7 @@
     <string name="logo_description">Logo Description</string>
     <string name="top">top</string>
     <string name="email">Email</string>
-    <string name="password">Password\n</string>
+    <string name="password">Password</string>
     <string name="don_t_have_an_account">Not have an account?\n</string>
     <string name="register_now">Register</string>
     <string name="massage_email">Please fill in your email</string>
@@ -29,7 +29,7 @@
     <string name="save_changes">Save changes</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="upload_image">Upload Image</string>
-    <string name="full_name">Name</string>
+    <string name="full_name">Full Name</string>
     <string name="full_name_example">fullname</string>
     <string name="gender">Gender</string>
     <string name="gender_example">gender</string>
@@ -159,6 +159,11 @@
     <string name="message_empty_field">empty</string>
     <string name="quantity">Quantity</string>
     <string name="one">1</string>
+    <string name="granted">Permission Request Granted</string>
+    <string name="denied">Permission Request Denied</string>
+    <string name="user_name">Username</string>
+    <string name="user_name_example">username</string>
+    <string name="password_example">Password</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

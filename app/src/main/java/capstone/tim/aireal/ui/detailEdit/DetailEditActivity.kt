@@ -15,6 +15,8 @@ class DetailEditActivity : AppCompatActivity() {
         binding = ActivityDetailEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         val title = intent.getStringExtra(EXTRA_TITLE)
         val formattedTitle = getString(R.string.change_title, title)
         binding.editTitle.text = formattedTitle
