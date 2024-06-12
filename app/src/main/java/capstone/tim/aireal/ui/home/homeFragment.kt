@@ -1,5 +1,6 @@
 package capstone.tim.aireal.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,7 @@ import kotlinx.coroutines.withContext
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
+@Suppress("DEPRECATION")
 class homeFragment : Fragment() {
     private lateinit var _binding: FragmentHomeBinding
     private val binding get() = _binding
@@ -141,6 +143,7 @@ class homeFragment : Fragment() {
         return root
     }
 
+    @SuppressLint("Recycle")
     private fun getListCategories(): ArrayList<Categories> {
         val dataName = resources.getStringArray(R.array.product_categories)
         val dataPhoto = resources.obtainTypedArray(R.array.image_categories)
