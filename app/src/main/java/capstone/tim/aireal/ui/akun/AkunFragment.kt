@@ -2,19 +2,19 @@ package capstone.tim.aireal.ui.akun
 
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import capstone.tim.aireal.R
+import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentAkunBinding
 import capstone.tim.aireal.ui.editProfile.EditProfileActivity
@@ -23,12 +23,18 @@ import capstone.tim.aireal.ui.login.LoginActivity
 import capstone.tim.aireal.ui.orderHistory.OrderHistoryActivity
 import capstone.tim.aireal.ui.pusatinformasi.PusatInformasiActivity
 import capstone.tim.aireal.ui.syarat.SyaratActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.launch
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 @Suppress("DEPRECATION")
 class AkunFragment : Fragment() {
     private lateinit var viewModel: AkunViewModel
+    private var userId: String = ""
+    private var token: String = ""
     private var _binding: FragmentAkunBinding? = null
     private val binding get() = _binding!!
     private lateinit var pref: UserPreference
@@ -36,38 +42,46 @@ class AkunFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAkunBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
         pref = UserPreference.getInstance(requireContext().dataStore)
-        viewModel = ViewModelProvider(this).get(AkunViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(pref, requireContext())
+        )[AkunViewModel::class.java]
 
-        viewModel.profileImage.observe(viewLifecycleOwner, Observer { imageResId ->
-            binding.imageView.setImageResource(imageResId)
-        })
+        viewModel.getUser().observe(viewLifecycleOwner) { user ->
+            userId = user?.userId.toString()
+            token = user?.token.toString()
 
-        viewModel.profileName.observe(viewLifecycleOwner, Observer { name ->
-            binding.nameTextView.text = name
-        })
-
-        // Update profile as an example (replace with real data update mechanism)
-        viewModel.updateProfile(R.drawable.profile_image, "New Name")
-        binding.textViewPesananSaya.setOnClickListener {
-            val intent = Intent(
-                requireContext(),
-                OrderHistoryActivity::class.java
-            )  // Use requireContext() to get the context
-            startActivity(intent)
+            val bearerToken = "Bearer $token"
+            viewModel.fetchUserProfile(bearerToken, userId)
         }
+        viewModel.userProfile.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                binding.nameTextView.text = user.name
+
+                Glide.with(this)
+                    .load(user.imageUrl?.get(0))
+                    .apply(RequestOptions.bitmapTransform(CircleCrop())) // Mengubah gambar menjadi bulat
+                    .error(R.drawable.profile_image)
+                    .into(binding.imageView)
+            }
+        }
+
 
         binding.textViewEditProfile.setOnClickListener {
             val intent = Intent(
                 requireContext(),
                 EditProfileActivity::class.java
+            )  // Use requireContext() to get the context
+            startActivity(intent)
+        }
+        binding.textViewPesananSaya.setOnClickListener {
+            val intent = Intent(
+                requireContext(),
+                OrderHistoryActivity::class.java
             )  // Use requireContext() to get the context
             startActivity(intent)
         }
@@ -102,10 +116,7 @@ class AkunFragment : Fragment() {
                 requireActivity().finish()
             }
         }
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

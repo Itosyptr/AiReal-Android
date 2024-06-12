@@ -12,6 +12,7 @@ import capstone.tim.aireal.response.LoginResponse
 import capstone.tim.aireal.response.ProductByIdResponse
 import capstone.tim.aireal.response.ProductsResponse
 import capstone.tim.aireal.response.UserOrderResponse
+import capstone.tim.aireal.response.UserProfileResponse
 import capstone.tim.aireal.response.regisbg.RegisterResponse
 import capstone.tim.aireal.ui.toko.PenjualanViewModel
 import capstone.tim.aireal.ui.toko.ProdukViewModel
@@ -135,6 +136,12 @@ interface ApiService {
         @Part("stock") stock: RequestBody,
         @Part image: List<MultipartBody.Part>,
     ): Call<CreateProductResponse>
+
+    @GET("users/{userId}")
+    fun getUserProfile(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): Call<UserProfileResponse>
 
     @GET("penjualan") // Sesuaikan dengan endpoint API Anda
     fun getPenjualan(): Call<List<PenjualanViewModel.Penjualan>>

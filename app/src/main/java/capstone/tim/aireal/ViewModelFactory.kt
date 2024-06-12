@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.ui.addProduct.AddProductViewModel
+import capstone.tim.aireal.ui.akun.AkunViewModel
 import capstone.tim.aireal.ui.detailProduct.DetailProductViewModel
 import capstone.tim.aireal.ui.editProfile.EditProfileViewModel
 import capstone.tim.aireal.ui.editShop.EditShopViewModel
@@ -55,7 +56,13 @@ class ViewModelFactory(private val pref: UserPreference, private val context: Co
                 ShopDisplayViewModel(pref, context) as T
             }
 
+            modelClass.isAssignableFrom(AkunViewModel::class.java) -> {
+                AkunViewModel(pref, context) as T
+            }
+
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
+
 }

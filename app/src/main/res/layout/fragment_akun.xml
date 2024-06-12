@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="137dp"
+        android:layout_height="113dp"
         android:layout_marginTop="72dp"
         android:contentDescription="@string/profile"
         android:scaleType="centerCrop"

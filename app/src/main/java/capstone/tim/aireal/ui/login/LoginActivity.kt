@@ -14,7 +14,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-import capstone.tim.aireal.MainActivity
 import capstone.tim.aireal.R
 import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserModel
