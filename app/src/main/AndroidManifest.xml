@@ -45,9 +45,6 @@
             android:name=".ui.orderHistory.OrderHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.explore.ExploreActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.editShop.EditShopActivity"
             android:exported="false" />
         <activity

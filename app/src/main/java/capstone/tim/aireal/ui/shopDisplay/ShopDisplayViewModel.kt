@@ -1,4 +1,4 @@
-package capstone.tim.aireal.ui.explore
+package capstone.tim.aireal.ui.shopDisplay
 
 import android.content.Context
 import android.util.Log
@@ -12,11 +12,10 @@ import capstone.tim.aireal.response.DataItem
 import kotlinx.coroutines.launch
 import retrofit2.await
 
-class ExploreViewModel(
+class ShopDisplayViewModel(
     private val pref: UserPreference,
     private val context: Context
 ) : ViewModel() {
-
     private val _listProducts = MutableLiveData<List<DataItem?>?>()
     val listProducts: MutableLiveData<List<DataItem?>?> = _listProducts
 
@@ -29,19 +28,15 @@ class ExploreViewModel(
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
 
-    companion object {
-        private const val TAG = "ExploreViewModel"
-    }
-
-    fun getProducts(token: String, category: String) {
+    fun getProductsbyShopId(token: String, id: String) {
         _isLoading.value = true
 
         viewModelScope.launch {
             val productResponse = try {
-                ApiConfig.getApiService().getProductbyCategory(token, category).await()
+                ApiConfig.getApiService().getProductbyShopId(token, id).await()
             } catch (e: Exception) {
                 _isError.value = true
-                Log.e(TAG, "onFailure (getProducts): ${e.message}")
+                Log.e(TAG, "onFailure (getProductsbyShopId): ${e.message}")
                 return@launch
             }
 
@@ -60,11 +55,11 @@ class ExploreViewModel(
                     }
                 }
 
-                _listProducts.postValue(products)
                 _listData.addAll(productDetails)
+                _listProducts.postValue(products)
             } else {
                 _isError.value = true
-                Log.e(TAG, "onFailure: ${productResponse.data}")
+                Log.e(TAG, "onFailure (getProductsbyShopId): ${productResponse.data}")
             }
 
             _isLoading.value = false
@@ -73,5 +68,9 @@ class ExploreViewModel(
 
     suspend fun getToken(): String {
         return pref.getToken()
+    }
+
+    companion object {
+        private const val TAG = "ShopDisplayViewModel"
     }
 }

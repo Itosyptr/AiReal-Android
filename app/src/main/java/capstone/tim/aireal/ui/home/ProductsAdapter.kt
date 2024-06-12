@@ -55,7 +55,7 @@ class ProductsAdapter(private val context: Context) :
             binding.productLocation.text = product.location
             binding.productPrice.text = context.getString(R.string.product_price, product.price)
             Glide.with(binding.root)
-                .load(product.imageUrl?.get(1))
+                .load(product.imageUrl?.get(0))
                 .into(binding.productImage)
         }
     }

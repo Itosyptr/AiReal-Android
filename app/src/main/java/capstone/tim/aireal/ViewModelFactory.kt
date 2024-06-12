@@ -8,11 +8,11 @@ import capstone.tim.aireal.ui.addProduct.AddProductViewModel
 import capstone.tim.aireal.ui.detailProduct.DetailProductViewModel
 import capstone.tim.aireal.ui.editProfile.EditProfileViewModel
 import capstone.tim.aireal.ui.editShop.EditShopViewModel
-import capstone.tim.aireal.ui.explore.ExploreViewModel
 import capstone.tim.aireal.ui.home.HomeViewModel
 import capstone.tim.aireal.ui.keranjang.KeranjangViewModel
 import capstone.tim.aireal.ui.login.LoginViewModel
 import capstone.tim.aireal.ui.orderHistory.OrderHistoryViewModel
+import capstone.tim.aireal.ui.shopDisplay.ShopDisplayViewModel
 
 class ViewModelFactory(private val pref: UserPreference, private val context: Context) :
     ViewModelProvider.NewInstanceFactory() {
@@ -29,10 +29,6 @@ class ViewModelFactory(private val pref: UserPreference, private val context: Co
 
             modelClass.isAssignableFrom(DetailProductViewModel::class.java) -> {
                 DetailProductViewModel(pref, context) as T
-            }
-
-            modelClass.isAssignableFrom(ExploreViewModel::class.java) -> {
-                ExploreViewModel(pref, context) as T
             }
 
             modelClass.isAssignableFrom(OrderHistoryViewModel::class.java) -> {
@@ -53,6 +49,10 @@ class ViewModelFactory(private val pref: UserPreference, private val context: Co
 
             modelClass.isAssignableFrom(AddProductViewModel::class.java) -> {
                 AddProductViewModel(pref, context) as T
+            }
+
+            modelClass.isAssignableFrom(ShopDisplayViewModel::class.java) -> {
+                ShopDisplayViewModel(pref, context) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
