@@ -212,6 +212,7 @@
     <string name="password_example">Password</string>
     <string name="product_long_description_example">Product Long Description</string>
     <string name="create_new_product">Are You sure want to add this product?</string>
+    <string name="explore">Explore</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

@@ -8,7 +8,6 @@ import capstone.tim.aireal.ui.addProduct.AddProductViewModel
 import capstone.tim.aireal.ui.detailProduct.DetailProductViewModel
 import capstone.tim.aireal.ui.editProfile.EditProfileViewModel
 import capstone.tim.aireal.ui.editShop.EditShopViewModel
-import capstone.tim.aireal.ui.explore.ExploreViewModel
 import capstone.tim.aireal.ui.home.HomeViewModel
 import capstone.tim.aireal.ui.keranjang.KeranjangViewModel
 import capstone.tim.aireal.ui.login.LoginViewModel
@@ -30,10 +29,6 @@ class ViewModelFactory(private val pref: UserPreference, private val context: Co
 
             modelClass.isAssignableFrom(DetailProductViewModel::class.java) -> {
                 DetailProductViewModel(pref, context) as T
-            }
-
-            modelClass.isAssignableFrom(ExploreViewModel::class.java) -> {
-                ExploreViewModel(pref, context) as T
             }
 
             modelClass.isAssignableFrom(OrderHistoryViewModel::class.java) -> {

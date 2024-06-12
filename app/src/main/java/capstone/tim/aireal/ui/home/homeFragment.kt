@@ -1,12 +1,12 @@
 package capstone.tim.aireal.ui.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -22,7 +22,6 @@ import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentHomeBinding
 import capstone.tim.aireal.response.DataItem
-import capstone.tim.aireal.ui.explore.ExploreActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,6 +38,8 @@ class homeFragment : Fragment() {
     private val list = ArrayList<Categories>()
 
     private lateinit var viewModel: HomeViewModel
+
+    private lateinit var bearerToken: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,8 +59,8 @@ class homeFragment : Fragment() {
                 viewModel.getToken()
             }
 
-            val bearerToken = "Bearer $token"
-            viewModel.getProducts(bearerToken)
+            bearerToken = "Bearer $token"
+            viewModel.getProducts(bearerToken, "", "", "all")
         }
 
         setHasOptionsMenu(true)
@@ -80,6 +81,8 @@ class homeFragment : Fragment() {
                 viewModel.listProducts.observe(viewLifecycleOwner) { listUser ->
                     if (listUser != null && listData != null && listData.size == listUser.size) {
                         var i = 0
+
+                        listDetailProduct.clear()
 
                         for (item in listUser) {
                             listDetailProduct.add(
@@ -113,14 +116,27 @@ class homeFragment : Fragment() {
             showToastError(it)
         }
 
-        binding.view4.setOnClickListener {
-            val intent = Intent(context, ExploreActivity::class.java)
-            startActivity(intent)
-        }
-
         rvCategories = binding.rvCategory
         list.addAll(getListCategories())
         showRecyclerList()
+
+        with(binding) {
+            searchView.setupWithSearchBar(searchBar)
+
+            searchView.editText.setOnEditorActionListener { _, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || event != null) {
+                    val query = searchView.text.toString()
+
+                    viewModel.getProducts(bearerToken, query, "", "name")
+                    productTitle.text = query
+
+                    searchBar.setText(searchView.text)
+                    searchView.hide()
+                }
+                false
+            }
+        }
+
 
         return root
     }
@@ -145,9 +161,8 @@ class homeFragment : Fragment() {
         listCategoryAdapter.setOnItemClickCallback(object :
             ProductCategoriesAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Categories) {
-                val intent = Intent(context, ExploreActivity::class.java)
-                intent.putExtra(ExploreActivity.category, data.name)
-                startActivity(intent)
+                viewModel.getProducts(bearerToken, "", data.name, "category")
+                binding.productTitle.text = data.name
             }
         })
     }

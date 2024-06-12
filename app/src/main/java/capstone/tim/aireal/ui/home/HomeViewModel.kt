@@ -33,12 +33,22 @@ class HomeViewModel(
         private const val TAG = "MainViewModel"
     }
 
-    fun getProducts(token: String) {
+    fun getProducts(token: String, name: String, category: String, kode: String) {
         _isLoading.value = true
 
         viewModelScope.launch {
             val productResponse = try {
-                ApiConfig.getApiService().getProduct(token).await()
+                if (kode == "all") {
+                    ApiConfig.getApiService().getProduct(token).await()
+                } else if (kode == "name") {
+                    ApiConfig.getApiService().getProductbyName(token, name).await()
+                } else if (kode == "category") {
+                    ApiConfig.getApiService().getProductbyCategory(token, category).await()
+                } else {
+                    _isError.value = true
+                    Log.e(TAG, "onFailure: Unknown error")
+                    return@launch
+                }
             } catch (e: Exception) {
                 _isError.value = true
                 Log.e(TAG, "onFailure (getProducts): ${e.message}")
