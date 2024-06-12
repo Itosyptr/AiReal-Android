@@ -32,7 +32,7 @@ class KeranjangAdapter(private val context: Context) :
             binding.tvProductPrice.text = context.getString(R.string.product_price, product.price)
             binding.tvQuantity.text = product.stock
             Glide.with(binding.root)
-                .load(product.imageUrl?.get(1))
+                .load(product.imageUrl?.get(0))
                 .into(binding.ivProductImage)
         }
     }

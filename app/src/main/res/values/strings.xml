@@ -213,6 +213,7 @@
     <string name="product_long_description_example">Product Long Description</string>
     <string name="create_new_product">Are You sure want to add this product?</string>
     <string name="explore">Explore</string>
+    <string name="amount_price">amount price</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>
