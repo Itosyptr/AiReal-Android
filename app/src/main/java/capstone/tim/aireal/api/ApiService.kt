@@ -54,6 +54,12 @@ interface ApiService {
         @Query("category") category: String,
     ): Call<ProductsResponse>
 
+    @GET("products/shop/{shopId}")
+    fun getProductbyShopId(
+        @Header("Authorization") token: String,
+        @Path("shopId") shopId: String,
+    ): Call<ProductsResponse>
+
     @GET("shops/{shopId}")
     fun getShopDetails(
         @Header("Authorization") token: String,
