@@ -81,14 +81,21 @@ class DetailProductActivity : AppCompatActivity() {
             shareButton.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT,"Hey check out this great product: ${productItem.name} on Aireal!")
+                intent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Hey check out this great product: ${productItem.name} on Aireal!"
+                )
                 intent.type = "text/plain"
-                startActivity(Intent.createChooser(intent,"Share To:"))
+                startActivity(Intent.createChooser(intent, "Share To:"))
             }
 
             cart.setOnClickListener {
-                viewModel.addToCart(bearerToken, CartRequest(userId, listOf(ItemsItem(1, productItem.id))))
-                Toast.makeText(this@DetailProductActivity, "Added to cart", Toast.LENGTH_SHORT).show()
+                viewModel.addToCart(
+                    bearerToken,
+                    CartRequest(userId, listOf(ItemsItem(1, productItem.id)))
+                )
+                Toast.makeText(this@DetailProductActivity, "Added to cart", Toast.LENGTH_SHORT)
+                    .show()
             }
 
             buyNow.setOnClickListener {
@@ -101,13 +108,20 @@ class DetailProductActivity : AppCompatActivity() {
         }
 
         viewModel.shopDetail.observe(this) { detail ->
-            val shopData = ShopData(id = detail?.id!!, name = detail?.name!!, city = detail?.city!!, imageUrl = detail?.imageUrl!!, province = detail?.province!!, street = detail?.street!!)
+            val shopData = ShopData(
+                id = detail?.id!!,
+                name = detail?.name!!,
+                city = detail?.city!!,
+                imageUrl = detail?.imageUrl!!,
+                province = detail?.province!!,
+                street = detail?.street!!
+            )
 
             binding.apply {
                 shopName.text = detail?.name
                 shopLocation.text = detail?.city
                 Glide.with(binding.root)
-                    .load(detail?.imageUrl)
+                    .load(detail?.imageUrl.get(0))
                     .into(shopImage)
 
                 visitStore.setOnClickListener {

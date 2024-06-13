@@ -33,6 +33,8 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         pref = UserPreference.getInstance(dataStore)
 
         // Mengatur sumber video

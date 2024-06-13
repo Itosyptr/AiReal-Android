@@ -319,7 +319,6 @@
                     android:id="@+id/user_password"
                     style="@style/CardTextInputFill"
                     android:maxWidth="270dp"
-                    android:text="@string/password_example"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

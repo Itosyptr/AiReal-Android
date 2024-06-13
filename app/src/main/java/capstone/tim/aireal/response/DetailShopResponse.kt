@@ -11,7 +11,10 @@ data class DetailShopResponse(
     val data: ShopData? = null,
 
     @field:SerializedName("status")
-    val status: String? = null
+    val status: String? = null,
+
+    @field:SerializedName("message")
+    val message: String? = null,
 ) : Parcelable
 
 @Parcelize
@@ -30,7 +33,7 @@ data class ShopData(
     val street: String? = null,
 
     @field:SerializedName("image_url")
-    val imageUrl: String? = null,
+    val imageUrl: List<String>? = null,
 
     @field:SerializedName("name")
     val name: String? = null,

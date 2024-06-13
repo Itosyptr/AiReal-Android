@@ -11,5 +11,8 @@ data class ProductByIdResponse(
 	val data: DataItem? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null,
 ) : Parcelable

@@ -14,6 +14,7 @@ import capstone.tim.aireal.ui.keranjang.KeranjangViewModel
 import capstone.tim.aireal.ui.login.LoginViewModel
 import capstone.tim.aireal.ui.orderHistory.OrderHistoryViewModel
 import capstone.tim.aireal.ui.shopDisplay.ShopDisplayViewModel
+import capstone.tim.aireal.ui.toko.TokoViewModel
 
 class ViewModelFactory(private val pref: UserPreference, private val context: Context) :
     ViewModelProvider.NewInstanceFactory() {
@@ -60,6 +61,9 @@ class ViewModelFactory(private val pref: UserPreference, private val context: Co
                 AkunViewModel(pref, context) as T
             }
 
+            modelClass.isAssignableFrom(TokoViewModel::class.java) -> {
+                TokoViewModel(pref, context) as T
+            }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

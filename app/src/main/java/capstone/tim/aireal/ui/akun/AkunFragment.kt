@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -17,6 +18,7 @@ import capstone.tim.aireal.R
 import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentAkunBinding
+import capstone.tim.aireal.response.DataUser
 import capstone.tim.aireal.ui.editProfile.EditProfileActivity
 import capstone.tim.aireal.ui.kebijakan.KebijakanActivity
 import capstone.tim.aireal.ui.login.LoginActivity
@@ -30,11 +32,11 @@ import kotlinx.coroutines.launch
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-@Suppress("DEPRECATION")
 class AkunFragment : Fragment() {
     private lateinit var viewModel: AkunViewModel
     private var userId: String = ""
     private var token: String = ""
+    private var dataUser: DataUser? = null
     private var _binding: FragmentAkunBinding? = null
     private val binding get() = _binding!!
     private lateinit var pref: UserPreference
@@ -58,65 +60,84 @@ class AkunFragment : Fragment() {
             val bearerToken = "Bearer $token"
             viewModel.fetchUserProfile(bearerToken, userId)
         }
+
         viewModel.userProfile.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 binding.nameTextView.text = user.name
-
                 Glide.with(this)
                     .load(user.imageUrl?.get(0))
-                    .apply(RequestOptions.bitmapTransform(CircleCrop())) // Mengubah gambar menjadi bulat
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
                     .error(R.drawable.profile_image)
                     .into(binding.imageView)
+
+                dataUser = user
             }
         }
-
 
         binding.textViewEditProfile.setOnClickListener {
             val intent = Intent(
                 requireContext(),
                 EditProfileActivity::class.java
-            )  // Use requireContext() to get the context
+            )
+            intent.putExtra(EditProfileActivity.DETAIL_USER, dataUser)
             startActivity(intent)
         }
+
         binding.textViewPesananSaya.setOnClickListener {
             val intent = Intent(
                 requireContext(),
                 OrderHistoryActivity::class.java
-            )  // Use requireContext() to get the context
+            )
             startActivity(intent)
         }
+
         binding.textViewPusatInformasi.setOnClickListener {
             val intent = Intent(
                 requireContext(),
                 PusatInformasiActivity::class.java
-            )  // Use requireContext() to get the context
+            )
             startActivity(intent)
         }
+
         binding.textViewSyaratKetentuan.setOnClickListener {
             val intent = Intent(
                 requireContext(),
                 SyaratActivity::class.java
-            )  // Use requireContext() to get the context
+            )
             startActivity(intent)
         }
+
         binding.textViewKebijakanPrivasi.setOnClickListener {
             val intent = Intent(
                 requireContext(),
                 KebijakanActivity::class.java
-            )  // Use requireContext() to get the context
+            )
             startActivity(intent)
         }
 
         binding.btnLogout.setOnClickListener {
+            showConfirmationDialog(R.string.logout_confirmation)
+        }
+
+        return binding.root
+    }
+
+    private fun showConfirmationDialog(message: Int) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(message)
+        builder.setPositiveButton(R.string.yes) { _, _ ->
             lifecycleScope.launch {
-                pref.logout() // Log the user out in DataStore
+                pref.logout()
 
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             }
         }
-        return binding.root
+        builder.setNegativeButton(R.string.no) { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
-
 }

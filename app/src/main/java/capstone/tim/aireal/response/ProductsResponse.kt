@@ -7,7 +7,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ProductsResponse(
     val data: List<DataItem?>? = null,
-    val status: String? = null
+    val status: String? = null,
+    @field:SerializedName("message")
+    val message: String? = null,
 ) : Parcelable
 
 @Parcelize

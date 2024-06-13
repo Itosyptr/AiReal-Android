@@ -54,7 +54,7 @@
     <string name="choose_camera">choose camera</string>
     <string name="choose_gallery">choose gallery</string>
     <string name="choose_photo">choose photo</string>
-    <string name="edit_shop">Edit Shop</string>
+    <string name="edit_shop">Create Shop</string>
     <string name="shop_name">Shop Name</string>
     <string name="shop_name_example">shop name</string>
     <string name="shop_description"> Shop Description</string>
@@ -94,7 +94,7 @@
     <string name="title_cart">Cart</string>
     <string name="title_shop">Shop</string>
     <string name="title_profile">Profile</string>
-    <string name="pesanan_saya">Pesanan Saya\n</string>
+    <string name="pesanan_saya">Pesanan Saya</string>
     <string name="pusat_informasi">Pusat Informasi</string>
     <string name="syarat_dan_ketentuan">Syarat Dan Ketentuan</string>
     <string name="kebijakan_privasi">Kebijakan Privasi</string>
@@ -214,6 +214,10 @@
     <string name="create_new_product">Are You sure want to add this product?</string>
     <string name="explore">Explore</string>
     <string name="amount_price">amount price</string>
+    <string name="logout_confirmation">Are you sure to logout</string>
+    <string name="tab_text_1">Products</string>
+    <string name="tab_text_2">Order</string>
+    <string name="back">Back</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

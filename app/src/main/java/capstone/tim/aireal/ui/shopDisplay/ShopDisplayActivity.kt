@@ -66,7 +66,7 @@ class ShopDisplayActivity : AppCompatActivity() {
             shopLocation.text =
                 shopInformation?.street + ", " + shopInformation?.city + ", " + shopInformation?.province
             Glide.with(binding.root)
-                .load(shopInformation?.imageUrl)
+                .load(shopInformation?.imageUrl?.get(0))
                 .into(shopImage)
 
             imageView5.setOnClickListener {
