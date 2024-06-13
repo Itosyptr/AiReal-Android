@@ -29,6 +29,7 @@ import capstone.tim.aireal.ui.detailEdit.DetailEditActivity
 import capstone.tim.aireal.utils.getImageUri
 import capstone.tim.aireal.utils.reduceFileImage
 import capstone.tim.aireal.utils.uriToFile
+import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -133,9 +134,9 @@ class EditProfileActivity : AppCompatActivity() {
             userPhone.text = detailUser?.phoneNumber
             userAddress.text = detailUser?.address
             binding.userGender.text = detailUser?.gender
-//            Glide.with(this@EditProfileActivity)
-//                .load(detailUser?.imageUrl?.get(0))
-//                .into(binding.profileImage)
+            Glide.with(this@EditProfileActivity)
+                .load(detailUser?.imageUrl?.get(0))
+                .into(binding.profileImage)
 
             backButton.setOnClickListener {
                 showConfirmationDialog(R.string.cancelled_confirmation, 0)
@@ -280,7 +281,12 @@ class EditProfileActivity : AppCompatActivity() {
                 requestPhoneNumber,
                 multipartBody
             )
-            finish()
+
+            viewModel.isLoading.observe(this) {
+                if (it == false) {
+                    finish()
+                }
+            }
         }
     }
 
@@ -309,7 +315,19 @@ class EditProfileActivity : AppCompatActivity() {
             if (type == 0) {
                 finish()
             } else {
-                uploadImage()
+                if (binding.userPassword.text.toString().isEmpty()) {
+                    Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show()
+                } else if (binding.userEmail.text.toString().isEmpty()) {
+                    Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_SHORT).show()
+                } else if (currentImageUri == null) {
+                    Toast.makeText(
+                        this,
+                        "You should edit profile picture or cannot be empty",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    uploadImage()
+                }
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, _ ->
