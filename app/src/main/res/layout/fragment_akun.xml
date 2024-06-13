@@ -36,6 +36,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:gravity="center"
+        android:textColor="@color/white"
         android:text="@string/name"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"

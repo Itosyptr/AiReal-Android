@@ -11,7 +11,10 @@ data class UserOrderResponse(
     val data: List<OrderItem?>? = null,
 
     @field:SerializedName("status")
-    val status: String? = null
+    val status: String? = null,
+
+    @field:SerializedName("message")
+    val message: String? = null,
 ) : Parcelable
 
 @Parcelize

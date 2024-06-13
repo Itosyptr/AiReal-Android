@@ -14,8 +14,6 @@ import capstone.tim.aireal.response.ProductsResponse
 import capstone.tim.aireal.response.UserOrderResponse
 import capstone.tim.aireal.response.UserProfileResponse
 import capstone.tim.aireal.response.regisbg.RegisterResponse
-import capstone.tim.aireal.ui.toko.PenjualanViewModel
-import capstone.tim.aireal.ui.toko.ProdukViewModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -34,11 +32,11 @@ import retrofit2.http.Query
 interface ApiService {
 
     @Headers("Content-Type: application/json")
-    @POST("login") // Sesuaikan dengan endpoint login Anda
+    @POST("login")
     fun login(@Body dataLogin: DataLogin): Call<LoginResponse>
 
     @Headers("Content-Type: application/json")
-    @POST("register") // Sesuaikan dengan endpoint login Anda
+    @POST("register")
     suspend fun register(@Body registerDataRegister: DataRegister): Response<RegisterResponse>
 
     @GET("products")
@@ -68,6 +66,12 @@ interface ApiService {
     fun getShopDetails(
         @Header("Authorization") token: String,
         @Path("shopId") shopId: String
+    ): Call<DetailShopResponse>
+
+    @GET("shops/user/{userId}")
+    fun getShopbyUserId(
+        @Header("Authorization") token: String,
+        @Path("userId") shopId: String
     ): Call<DetailShopResponse>
 
     @GET("products/{id}")
@@ -142,10 +146,4 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("userId") userId: String
     ): Call<UserProfileResponse>
-
-    @GET("penjualan") // Sesuaikan dengan endpoint API Anda
-    fun getPenjualan(): Call<List<PenjualanViewModel.Penjualan>>
-
-    @GET("produk") // Sesuaikan dengan endpoint API untuk mengambil data penjualan
-    fun getProduk(): Call<ArrayList<ProdukViewModel.Product>>
 }
