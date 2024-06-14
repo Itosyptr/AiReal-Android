@@ -99,7 +99,12 @@ class DetailProductActivity : AppCompatActivity() {
             }
 
             buyNow.setOnClickListener {
-                finish()
+                Toast.makeText(
+                    this@DetailProductActivity,
+                    "this feature is not yet available",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             }
         }
 

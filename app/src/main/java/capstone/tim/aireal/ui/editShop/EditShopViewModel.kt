@@ -72,6 +72,49 @@ class EditShopViewModel(
         })
     }
 
+    fun craeteShop(
+        token: String,
+        userId: RequestBody,
+        name: RequestBody,
+        description: RequestBody,
+        street: RequestBody,
+        city: RequestBody,
+        province: RequestBody,
+        image: MultipartBody.Part
+    ) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().createShop(
+            token,
+            userId,
+            name,
+            description,
+            street,
+            city,
+            province,
+            image
+        )
+        client.enqueue(object : Callback<EditShopResponse> {
+            override fun onResponse(
+                call: Call<EditShopResponse>,
+                response: Response<EditShopResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _isError.value = false
+                    Log.d(TAG, "onResponse: ${response.body()?.message}")
+                } else {
+                    _isError.value = true
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<EditShopResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
     fun getUser(): LiveData<UserModel> {
         return pref.getUser().asLiveData()
     }

@@ -12,7 +12,12 @@ import capstone.tim.aireal.data.pref.UserModel
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.response.CartItem
 import capstone.tim.aireal.response.DataItem
+import capstone.tim.aireal.response.OrderResponse
+import capstone.tim.aireal.response.dataOrder
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.await
 
 class KeranjangViewModel(
@@ -79,6 +84,31 @@ class KeranjangViewModel(
 
             _isLoading.postValue(false)
         }
+    }
+
+    fun orderCart(token: String, dataOrder: dataOrder) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().createOrder(token, dataOrder)
+        client.enqueue(object : Callback<OrderResponse> {
+            override fun onResponse(
+                call: Call<OrderResponse>,
+                response: Response<OrderResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    Log.d(TAG, "onResponse: ${response.body()}")
+                } else {
+                    _isError.value = true
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(p0: Call<OrderResponse>, p1: Throwable) {
+                _isLoading.value = false
+                _isError.value = true
+                Log.e(TAG, "onFailure: ${p1.message.toString()}")
+            }
+        })
     }
 
     fun getUser(): LiveData<UserModel> {

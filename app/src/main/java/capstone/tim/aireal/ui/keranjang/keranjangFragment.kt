@@ -18,6 +18,7 @@ import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.FragmentKeranjangBinding
 import capstone.tim.aireal.response.DataItem
+import capstone.tim.aireal.response.dataOrder
 import kotlinx.coroutines.launch
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -97,6 +98,12 @@ class keranjangFragment : Fragment() {
 
         viewModel.isError.observe(viewLifecycleOwner) {
             showToastError(it)
+        }
+
+        binding.btnCheckout.setOnClickListener {
+            val bearerToken = "Bearer $token"
+            viewModel.orderCart(bearerToken, dataOrder(userId))
+            Toast.makeText(this.context, "Checkout Success", Toast.LENGTH_SHORT).show()
         }
 
         return root

@@ -6,27 +6,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import capstone.tim.aireal.api.ApiConfig
 import capstone.tim.aireal.data.pref.UserModel
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.response.DataItem
 import capstone.tim.aireal.response.DetailItem
-import capstone.tim.aireal.response.ProductByIdResponse
-import capstone.tim.aireal.response.UserOrderResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
+import retrofit2.await
 
 class OrderHistoryViewModel(
     private val pref: UserPreference,
     private val context: Context
 ) : ViewModel() {
 
-    private val _listOrder = MutableLiveData<List<DetailItem?>?>()
-    val listOrder: MutableLiveData<List<DetailItem?>?> = _listOrder
+    private val _listCart = MutableLiveData<List<DetailItem?>?>()
+    val listProducts: MutableLiveData<List<DetailItem?>?> = _listCart
 
-    private var listProducts: MutableList<DataItem> = mutableListOf()
-    var mutableLiveDataProducts: MutableLiveData<List<DataItem>> = MutableLiveData(listProducts)
+    var _listData: MutableList<DataItem> = mutableListOf()
+    val listData: MutableLiveData<MutableList<DataItem>> = MutableLiveData(_listData)
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -34,63 +32,49 @@ class OrderHistoryViewModel(
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
 
-    fun getOrderHistory(token: String, userId: String) {
+    fun getOrderByUserId(token: String, userId: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getUserOrder(token, userId)
-        client.enqueue(object : Callback<UserOrderResponse> {
-            override fun onResponse(
-                call: Call<UserOrderResponse>,
-                response: Response<UserOrderResponse>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    Log.d(TAG, "onResponse: ${response.body()?.data}")
-                    _listOrder.value = response.body()?.data?.get(0)?.items
 
-                    val orders = response.body()?.data?.get(0)?.items ?: emptyList()
+        viewModelScope.launch {
+            val orderResponse = try {
+                ApiConfig.getApiService().getUserOrder(token, userId).await()
+            } catch (e: Exception) {
+                _isError.value = true
+                Log.e(TAG, "onFailure (getCart): ${e.message}")
+                return@launch
+            }
 
-                    for (order in orders) {
-                        getDetailProduct(token, order?.productId!!)
+            if (orderResponse.status == "success") {
+                val order = orderResponse.data?.get(0)?.items ?: emptyList()
+
+                val productDetails = mutableListOf<DataItem>()
+                for (orderItem in order) {
+                    val detailResponse =
+                        ApiConfig.getApiService().getProductDetails(token, orderItem?.productId!!)
+                            .await()
+
+                    if (detailResponse.status == "success") {
+                        productDetails.add(
+                            DataItem(
+                                imageUrl = detailResponse.data!!.imageUrl,
+                                name = detailResponse.data!!.name,
+                                price = detailResponse.data!!.price
+                            )
+                        )
+                    } else {
+                        Log.e(TAG, "onFailure (getProductDetails): ${detailResponse.data}")
                     }
-
-                } else {
-                    _isError.value = true
-                    Log.e(TAG, "onFailure: ${response.message()}")
                 }
-            }
 
-            override fun onFailure(call: Call<UserOrderResponse>, t: Throwable) {
-                _isLoading.value = false
+                _listCart.postValue(order)
+                _listData.addAll(productDetails)
+            } else {
                 _isError.value = true
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-    }
-
-    fun getDetailProduct(token: String, id: String) {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().getProductDetails(token, id)
-        client.enqueue(object : Callback<ProductByIdResponse> {
-            override fun onResponse(
-                call: Call<ProductByIdResponse>,
-                response: Response<ProductByIdResponse>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    Log.d(TAG, "onResponse: ${response.body()?.data}")
-                    listProducts.add(response.body()?.data as DataItem)
-                } else {
-                    _isError.value = true
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
+                Log.e(TAG, "onFailure (getCart): ${orderResponse.data}")
             }
 
-            override fun onFailure(call: Call<ProductByIdResponse>, t: Throwable) {
-                _isLoading.value = false
-                _isError.value = true
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
+            _isLoading.postValue(false)
+        }
     }
 
     fun getUser(): LiveData<UserModel> {

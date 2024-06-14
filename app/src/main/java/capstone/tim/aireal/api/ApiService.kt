@@ -9,10 +9,12 @@ import capstone.tim.aireal.response.DetailShopResponse
 import capstone.tim.aireal.response.EditProfileResponse
 import capstone.tim.aireal.response.EditShopResponse
 import capstone.tim.aireal.response.LoginResponse
+import capstone.tim.aireal.response.OrderResponse
 import capstone.tim.aireal.response.ProductByIdResponse
 import capstone.tim.aireal.response.ProductsResponse
 import capstone.tim.aireal.response.UserOrderResponse
 import capstone.tim.aireal.response.UserProfileResponse
+import capstone.tim.aireal.response.dataOrder
 import capstone.tim.aireal.response.regisbg.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -128,6 +130,20 @@ interface ApiService {
         @Part image: MultipartBody.Part,
     ): Call<EditShopResponse>
 
+    @Multipart
+    @POST("shops")
+    fun createShop(
+        @Header("Authorization") token: String,
+        @Part("userId") userId: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("street") street: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("province") gender: RequestBody,
+        @Part image: MultipartBody.Part,
+    ): Call<EditShopResponse>
+
+    @Multipart
     @POST("products")
     fun addProduct(
         @Header("Authorization") token: String,
@@ -146,4 +162,11 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("userId") userId: String
     ): Call<UserProfileResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("order")
+    fun createOrder(
+        @Header("Authorization") token: String,
+        @Body dataOrder: dataOrder
+    ): Call<OrderResponse>
 }
