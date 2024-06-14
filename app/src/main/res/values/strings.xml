@@ -218,6 +218,7 @@
     <string name="tab_text_1">Products</string>
     <string name="tab_text_2">Order</string>
     <string name="back">Back</string>
+    <string name="edit_shop_true">Edit Shop</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

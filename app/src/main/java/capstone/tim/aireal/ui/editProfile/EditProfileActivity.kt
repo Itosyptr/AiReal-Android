@@ -134,9 +134,11 @@ class EditProfileActivity : AppCompatActivity() {
             userPhone.text = detailUser?.phoneNumber
             userAddress.text = detailUser?.address
             binding.userGender.text = detailUser?.gender
-            Glide.with(this@EditProfileActivity)
-                .load(detailUser?.imageUrl?.get(0))
-                .into(binding.profileImage)
+            if (detailUser?.imageUrl?.isNotEmpty() == true) {
+                Glide.with(this@EditProfileActivity)
+                    .load(detailUser.imageUrl.get(0))
+                    .into(binding.profileImage)
+            }
 
             backButton.setOnClickListener {
                 showConfirmationDialog(R.string.cancelled_confirmation, 0)

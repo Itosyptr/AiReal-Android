@@ -27,6 +27,7 @@ import capstone.tim.aireal.ui.detailEdit.DetailEditActivity
 import capstone.tim.aireal.utils.getImageUri
 import capstone.tim.aireal.utils.reduceFileImage
 import capstone.tim.aireal.utils.uriToFile
+import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -41,6 +42,7 @@ class EditShopActivity : AppCompatActivity() {
     private var token: String = ""
     private var userId: String = ""
     private var shopId: String = ""
+    private var typeEdit: Int = 0
     private var currentImageUri: Uri? = null
 
     private val requestPermissionLauncher =
@@ -101,6 +103,13 @@ class EditShopActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        typeEdit = intent.getIntExtra(TYPE, 0)
+        if (typeEdit == 1) {
+
+        } else {
+            binding.textViewTitle.text = getString(R.string.edit_shop_true)
+        }
+
         val detailShop = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra(DETAIL_SHOP, ShopData::class.java)
         } else {
@@ -116,17 +125,19 @@ class EditShopActivity : AppCompatActivity() {
             userId = user.userId
         }
 
-        shopId = detailShop?.id.toString()
+        shopId = detailShop?.id.toString() ?: ""
 
         binding.apply {
-            shopName.text = detailShop?.name
-            shopDescription.text = detailShop?.description
-            shopAddress.text = detailShop?.street
-            shopRegency.text = detailShop?.city
-            shopProvince.text = detailShop?.province
-//            Glide.with(this@EditShopActivity)
-//                .load(detailShop?.imageUrl)
-//                .into(shopImage)
+            shopName.text = detailShop?.name ?: ""
+            shopDescription.text = detailShop?.description ?: ""
+            shopAddress.text = detailShop?.street ?: ""
+            shopRegency.text = detailShop?.city ?: ""
+            shopProvince.text = detailShop?.province ?: ""
+            if (detailShop?.imageUrl?.isNotEmpty() == true) {
+                Glide.with(this@EditShopActivity)
+                    .load(detailShop?.imageUrl.get(0))
+                    .into(shopImage)
+            }
 
             backButton.setOnClickListener {
                 showConfirmationDialog(R.string.cancelled_confirmation, 0)
@@ -236,17 +247,30 @@ class EditShopActivity : AppCompatActivity() {
             val multipartBody =
                 MultipartBody.Part.createFormData("image", imageFile.name, requestImageFile)
 
-            viewModel.updateShop(
-                token,
-                shopId,
-                requestUserId,
-                requestName,
-                requestDescription,
-                requestAddress,
-                requestRegency,
-                requestProvince,
-                multipartBody
-            )
+            if (typeEdit == 0) {
+                viewModel.updateShop(
+                    token,
+                    shopId,
+                    requestUserId,
+                    requestName,
+                    requestDescription,
+                    requestAddress,
+                    requestRegency,
+                    requestProvince,
+                    multipartBody
+                )
+            } else if (typeEdit == 1) {
+                viewModel.craeteShop(
+                    token,
+                    requestUserId,
+                    requestName,
+                    requestDescription,
+                    requestAddress,
+                    requestRegency,
+                    requestProvince,
+                    multipartBody
+                )
+            }
             finish()
         }
     }
@@ -297,6 +321,7 @@ class EditShopActivity : AppCompatActivity() {
 
     companion object {
         const val DETAIL_SHOP = "detail_shop"
+        const val TYPE = "type"
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 }

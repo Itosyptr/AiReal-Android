@@ -130,6 +130,20 @@ interface ApiService {
         @Part image: MultipartBody.Part,
     ): Call<EditShopResponse>
 
+    @Multipart
+    @POST("shops")
+    fun createShop(
+        @Header("Authorization") token: String,
+        @Part("userId") userId: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("street") street: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("province") gender: RequestBody,
+        @Part image: MultipartBody.Part,
+    ): Call<EditShopResponse>
+
+    @Multipart
     @POST("products")
     fun addProduct(
         @Header("Authorization") token: String,

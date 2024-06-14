@@ -24,6 +24,12 @@ import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.ActivityAddProductBinding
 import capstone.tim.aireal.ui.detailEdit.DetailEditActivity
 import capstone.tim.aireal.utils.getImageUri
+import capstone.tim.aireal.utils.reduceFileImage
+import capstone.tim.aireal.utils.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -33,6 +39,7 @@ class AddProductActivity : AppCompatActivity() {
     private lateinit var pref: UserPreference
     private var token: String = ""
     private var categoryProduct = ""
+    private var shopId = ""
     private var currentImageUri: Uri? = null
     private var listImageUri: ArrayList<Uri> = arrayListOf()
 
@@ -94,7 +101,7 @@ class AddProductActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val shopId = intent.getStringExtra(SHOP_ID)
+        shopId = intent.getStringExtra(SHOP_ID).toString()
 
         pref = UserPreference.getInstance(dataStore)
         viewModel =
@@ -219,6 +226,50 @@ class AddProductActivity : AppCompatActivity() {
         }
     }
 
+    private fun uploadImage() {
+        val multipartBodyParts = mutableListOf<MultipartBody.Part>()
+        for (uri in listImageUri) {
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBodyPart =
+                MultipartBody.Part.createFormData("image", imageFile.name, requestImageFile)
+            multipartBodyParts.add(multipartBodyPart)
+        }
+
+        val name = binding.productNameInput.text.toString()
+        val description = binding.productDescriptionInput.text.toString()
+        val longDescription = binding.productLongDescriptionInput.text.toString()
+        val price = binding.productPriceInput.text.toString()
+        val stock = binding.productStockInput.text.toString()
+        val category = categoryProduct
+
+        val requestId = shopId.toRequestBody("text/plain".toMediaType())
+        val requestName = name.toRequestBody("text/plain".toMediaType())
+        val requestDescription = description.toRequestBody("text/plain".toMediaType())
+        val requestLongDescription = longDescription.toRequestBody("text/plain".toMediaType())
+        val requestPrice = price.toRequestBody("text/plain".toMediaType())
+        val requestStock = stock.toRequestBody("text/plain".toMediaType())
+        val requestCategory = category.toRequestBody("text/plain".toMediaType())
+
+        viewModel.createProduct(
+            token,
+            requestId,
+            requestCategory,
+            requestName,
+            requestDescription,
+            requestLongDescription,
+            requestPrice,
+            requestStock,
+            multipartBodyParts
+        )
+
+        viewModel.isLoading.observe(this) {
+            if (it == false) {
+                finish()
+            }
+        }
+    }
+
     private fun showCategoryConfirmationDialog() {
         val category = resources.getStringArray(R.array.product_categories)
         val categoryId = resources.getStringArray(R.array.product_categories_id)
@@ -240,7 +291,7 @@ class AddProductActivity : AppCompatActivity() {
             if (type == 0) {
                 finish()
             } else {
-                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show()
+                uploadImage()
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, _ ->
