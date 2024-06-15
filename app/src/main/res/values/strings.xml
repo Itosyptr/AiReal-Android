@@ -221,6 +221,9 @@
     <string name="edit_shop_true">Edit Shop</string>
     <string name="product_stock_fill">stock : %s</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="stupid_icon">stupid icon</string>
+    <string name="dialog_text">Message</string>
+    <string name="no_shop">Shop not found. Do you want to create new shop?</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

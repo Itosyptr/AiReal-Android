@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -190,7 +191,14 @@ class TokoFragment : Fragment() {
         isDialogShowing = true
 
         val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("Shop not found. Do you want to create new shop?")
+        val inflater = layoutInflater
+        val view = inflater.inflate(R.layout.custom_dialog, null)
+
+        builder.setView(view)
+
+        val dialogMessage = view.findViewById<TextView>(R.id.dialog_message)
+        dialogMessage.text = getString(R.string.no_shop)
+        
         builder.setPositiveButton(R.string.yes) { _, _ ->
             isDialogShowing = false
             val intent = Intent(this.context, EditShopActivity::class.java)

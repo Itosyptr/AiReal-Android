@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -124,7 +125,14 @@ class AkunFragment : Fragment() {
 
     private fun showConfirmationDialog(message: Int) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage(message)
+        val inflater = layoutInflater
+        val view = inflater.inflate(R.layout.custom_dialog, null)
+
+        builder.setView(view)
+
+        val dialogMessage = view.findViewById<TextView>(R.id.dialog_message)
+        dialogMessage.text = getString(message)
+
         builder.setPositiveButton(R.string.yes) { _, _ ->
             lifecycleScope.launch {
                 pref.logout()
