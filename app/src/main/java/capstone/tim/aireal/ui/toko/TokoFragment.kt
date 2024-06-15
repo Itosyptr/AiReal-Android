@@ -39,6 +39,8 @@ class TokoFragment : Fragment() {
     private lateinit var viewModel: TokoViewModel
     private lateinit var pref: UserPreference
 
+    private var isDialogShowing = false
+
     private var userId: String = ""
     private var token: String = ""
     private var shopId: String = ""
@@ -88,8 +90,6 @@ class TokoFragment : Fragment() {
                         it1.updatedAt
                     )
                 }
-            } else {
-                showConfirmationDialog()
             }
         }
 
@@ -126,6 +126,9 @@ class TokoFragment : Fragment() {
                             i++
                         }
 
+                        binding.rvShopProduct.visibility = View.VISIBLE
+                        binding.noDataFound.visibility = View.GONE
+
                         listData.clear()
                         setProductsData(listDetailProduct)
                         showLoading(false)
@@ -137,6 +140,12 @@ class TokoFragment : Fragment() {
         viewModel.isError.observe(viewLifecycleOwner) {
             showToastError(it)
             showConfirmationDialog()
+        }
+
+        viewModel.isError2.observe(viewLifecycleOwner) {
+            showLoading(false)
+            binding.rvShopProduct.visibility = View.GONE
+            binding.noDataFound.visibility = View.VISIBLE
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
@@ -176,14 +185,32 @@ class TokoFragment : Fragment() {
     }
 
     private fun showConfirmationDialog() {
+        if (!isAdded || isDialogShowing) return
+
+        isDialogShowing = true
+
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage("Shop not found. Do you want to create new shop?")
         builder.setPositiveButton(R.string.yes) { _, _ ->
+            isDialogShowing = false
             val intent = Intent(this.context, EditShopActivity::class.java)
             intent.putExtra(EditShopActivity.TYPE, 1)
             startActivity(intent)
         }
+        builder.setNegativeButton(R.string.no) { dialog, _ ->
+            isDialogShowing = false
+            dialog.dismiss()
+
+            if (isAdded) {
+                parentFragmentManager.popBackStack()
+            }
+        }
+        builder.setOnDismissListener {
+            isDialogShowing = false
+        }
+
         val dialog = builder.create()
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
 

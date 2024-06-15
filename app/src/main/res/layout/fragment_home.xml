@@ -106,6 +106,21 @@
                     app:spanCount="2"
                     tools:listitem="@layout/item_product_card" />
 
+                <TextView
+                    android:id="@+id/no_data_found"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/no_data_found"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/product_title"
+                    tools:visibility="visible" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
@@ -117,5 +132,6 @@
             android:visibility="gone"
             app:layout_anchor="@id/rv_products"
             tools:visibility="visible" />
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

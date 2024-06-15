@@ -271,7 +271,12 @@ class EditShopActivity : AppCompatActivity() {
                     multipartBody
                 )
             }
-            finish()
+
+            viewModel.isLoading.observe(this) {
+                if (it == false) {
+                    finish()
+                }
+            }
         }
     }
 
@@ -282,7 +287,40 @@ class EditShopActivity : AppCompatActivity() {
             if (type == 0) {
                 finish()
             } else {
-                uploadImage()
+                when {
+                    binding.shopName.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.shopDescription.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Description cannot be empty", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.shopAddress.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Address cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.shopRegency.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Regency cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.shopProvince.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Province cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    currentImageUri == null -> {
+                        Toast.makeText(
+                            this,
+                            "You should edit Shop picture or cannot be empty",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    else -> {
+                        uploadImage()
+                    }
+                }
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, _ ->

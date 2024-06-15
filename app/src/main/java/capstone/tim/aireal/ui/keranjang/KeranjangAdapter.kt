@@ -28,9 +28,9 @@ class KeranjangAdapter(private val context: Context) :
     class MyViewHolder(private val binding: ItemProdukBinding, private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: DataItem) {
-            binding.tvProductName.text = product.name
+            binding.tvProductName.text = product.name ?: "Not Available"
             binding.tvProductPrice.text = context.getString(R.string.product_price, product.price)
-            binding.tvQuantity.text = product.stock
+            binding.tvQuantity.text = product.stock ?: "Not Available"
             Glide.with(binding.root)
                 .load(product.imageUrl?.get(0))
                 .into(binding.ivProductImage)

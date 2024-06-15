@@ -291,7 +291,52 @@ class AddProductActivity : AppCompatActivity() {
             if (type == 0) {
                 finish()
             } else {
-                uploadImage()
+                when {
+                    listImageUri.isEmpty() -> {
+                        Toast.makeText(this, "You should add product image", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productNameInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product name", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productDescriptionInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(
+                            this,
+                            "You should add product description",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    binding.productLongDescriptionInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(
+                            this,
+                            "You should add product long description",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    binding.productPriceInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product price", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productStockInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product stock", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productCategoryInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product category", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    else -> {
+                        uploadImage()
+                    }
+                }
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, _ ->

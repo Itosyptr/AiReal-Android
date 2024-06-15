@@ -219,6 +219,8 @@
     <string name="tab_text_2">Order</string>
     <string name="back">Back</string>
     <string name="edit_shop_true">Edit Shop</string>
+    <string name="product_stock_fill">stock : %s</string>
+    <string name="no_data_found">No Data Found</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

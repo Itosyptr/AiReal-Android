@@ -35,6 +35,7 @@ class DetailProductActivity : AppCompatActivity() {
     private lateinit var pref: UserPreference
     private var bearerToken = ""
     private var userId = ""
+    private var stok: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +51,7 @@ class DetailProductActivity : AppCompatActivity() {
         }
 
         val shopId = productItem?.shopId
+        stok = productItem?.stock?.toInt() ?: 0
 
         pref = UserPreference.getInstance(this.dataStore)
 
@@ -90,12 +92,17 @@ class DetailProductActivity : AppCompatActivity() {
             }
 
             cart.setOnClickListener {
-                viewModel.addToCart(
-                    bearerToken,
-                    CartRequest(userId, listOf(ItemsItem(1, productItem.id)))
-                )
-                Toast.makeText(this@DetailProductActivity, "Added to cart", Toast.LENGTH_SHORT)
-                    .show()
+                if(stok > 0) {
+                    viewModel.addToCart(
+                        bearerToken,
+                        CartRequest(userId, listOf(ItemsItem(1, productItem.id)))
+                    )
+                    Toast.makeText(this@DetailProductActivity, "Added to cart", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(this@DetailProductActivity, "Out of stock", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
 
             buyNow.setOnClickListener {
@@ -144,9 +151,10 @@ class DetailProductActivity : AppCompatActivity() {
 
     private fun getDetailProduct(detail: DataItem) {
         binding.apply {
-            productName.text = detail.name
+            productName.text = detail.name ?: "Not Available"
             productPrice.text = getString(R.string.product_price, detail.price)
-            productDescription.text = detail.longdescription
+            productStock.text = getString(R.string.product_stock_fill, detail.stock)
+            productDescription.text = detail.longdescription ?: "Not Available"
 
             val sliderDataArrayList = ArrayList<SliderData>()
             val sliderView = findViewById<SliderView>(R.id.slider)

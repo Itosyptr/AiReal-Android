@@ -64,6 +64,8 @@ class keranjangFragment : Fragment() {
             viewModel.listData.observe(viewLifecycleOwner) { listData ->
                 val listDetailCart: MutableList<DataItem?> = mutableListOf()
 
+                listDetailCart.clear()
+
                 viewModel.listProducts.observe(viewLifecycleOwner) { listProducts ->
                     if (listData != null && listProducts != null && listData.size == listProducts.size) {
                         var i = 0
@@ -82,6 +84,9 @@ class keranjangFragment : Fragment() {
                             i++
                         }
 
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.noDataFound.visibility = View.GONE
+
                         binding.tvTotalPrice.text =
                             getString(R.string.product_price, totalPrice.toString())
                         listData.clear()
@@ -98,12 +103,25 @@ class keranjangFragment : Fragment() {
 
         viewModel.isError.observe(viewLifecycleOwner) {
             showToastError(it)
+            showLoading(false)
+            binding.recyclerView.visibility = View.GONE
+            binding.noDataFound.visibility = View.VISIBLE
         }
 
         binding.btnCheckout.setOnClickListener {
             val bearerToken = "Bearer $token"
             viewModel.orderCart(bearerToken, dataOrder(userId))
-            Toast.makeText(this.context, "Checkout Success", Toast.LENGTH_SHORT).show()
+
+            viewModel.isLoading.observe(viewLifecycleOwner) {
+                if (it == false) {
+                    totalPrice = 0
+                    binding.tvTotalPrice.text =
+                        getString(R.string.product_price, totalPrice.toString())
+                    Toast.makeText(this.context, "Checkout Success", Toast.LENGTH_SHORT).show()
+                    binding.recyclerView.visibility = View.GONE
+                    binding.noDataFound.visibility = View.VISIBLE
+                }
+            }
         }
 
         return root

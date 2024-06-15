@@ -106,6 +106,9 @@ class homeFragment : Fragment() {
                             i++
                         }
 
+                        binding.rvProducts.visibility = View.VISIBLE
+                        binding.noDataFound.visibility = View.GONE
+
                         listData.clear()
                         setProductsData(listDetailProduct)
                         showLoading(false)
@@ -116,6 +119,9 @@ class homeFragment : Fragment() {
 
         viewModel.isError.observe(viewLifecycleOwner) {
             showToastError(it)
+            showLoading(false)
+            binding.rvProducts.visibility = View.GONE
+            binding.noDataFound.visibility = View.VISIBLE
         }
 
         rvCategories = binding.rvCategory
@@ -138,7 +144,6 @@ class homeFragment : Fragment() {
                 false
             }
         }
-
 
         return root
     }

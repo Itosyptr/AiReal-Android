@@ -42,6 +42,9 @@ class TokoViewModel(
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
 
+    private val _isError2 = MutableLiveData<Boolean>()
+    val isError2: LiveData<Boolean> = _isError2
+
     fun getDetailShop(token: String, userId: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getShopbyUserId(token, userId)
@@ -78,6 +81,7 @@ class TokoViewModel(
             val productResponse = try {
                 ApiConfig.getApiService().getProductbyShopId(token, id).await()
             } catch (e: Exception) {
+                _isError2.value = true
                 Log.e(TAG, "onFailure (getProductsbyShopId): ${e.message}")
                 return@launch
             }
@@ -93,6 +97,7 @@ class TokoViewModel(
                     if (detailResponse.status == "success") {
                         productDetails.add(detailResponse.data?.city.toString())
                     } else {
+                        _isError2.value = true
                         Log.e(TAG, "onFailure (getProductDetails): ${detailResponse.data}")
                     }
                 }
@@ -100,6 +105,7 @@ class TokoViewModel(
                 _listData.addAll(productDetails)
                 _listProducts.postValue(products)
             } else {
+                _isError2.value = true
                 Log.e(TAG, "onFailure (getProductsbyShopId): ${productResponse.data}")
             }
 
