@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ui.kebijakan.KebijakanActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvJudulKebijakan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/kebijakan_privasi_aireal"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvInformasiYangDikumpulkan"
+            style="@style/KebijakanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/informasi_yang_kami_kumpulkan"
+            app:layout_constraintEnd_toEndOf="@+id/tvJudulKebijakan"
+            app:layout_constraintStart_toStartOf="@+id/tvJudulKebijakan"
+            app:layout_constraintTop_toBottomOf="@+id/tvJudulKebijakan" />
+
+        <TextView
+            android:id="@+id/tvDetailInformasiYangDikumpulkan"
+            style="@style/KebijakanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_informasi_yang_dikumpulkan_aireal"
+            app:layout_constraintEnd_toEndOf="@+id/tvInformasiYangDikumpulkan"
+            app:layout_constraintStart_toStartOf="@+id/tvInformasiYangDikumpulkan"
+            app:layout_constraintTop_toBottomOf="@+id/tvInformasiYangDikumpulkan" />
+
+        <TextView
+            android:id="@+id/tvBagaimanaKamiMenggunakanInformasiAnda"
+            style="@style/KebijakanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/bagaimana_kami_menggunakan_informasi_anda"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailInformasiYangDikumpulkan"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailInformasiYangDikumpulkan"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailInformasiYangDikumpulkan" />
+
+        <TextView
+            android:id="@+id/tvDetailPenggunaanInformasi"
+            style="@style/KebijakanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_penggunaan_informasi_aireal"
+            app:layout_constraintEnd_toEndOf="@+id/tvBagaimanaKamiMenggunakanInformasiAnda"
+            app:layout_constraintStart_toStartOf="@+id/tvBagaimanaKamiMenggunakanInformasiAnda"
+            app:layout_constraintTop_toBottomOf="@+id/tvBagaimanaKamiMenggunakanInformasiAnda" />
+
+        <TextView
+            android:id="@+id/tvBagaimanaKamiMelindungiInformasiAnda"
+            style="@style/KebijakanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/bagaimana_kami_melindungi_informasi_anda"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailPenggunaanInformasi"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailPenggunaanInformasi"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailPenggunaanInformasi" />
+
+        <TextView
+            android:id="@+id/tvDetailBagaimanaKamiMelindungiInformasiAnda"
+            style="@style/KebijakanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_bagaimana_kami_melindungi_informasi_anda"
+            app:layout_constraintEnd_toEndOf="@+id/tvBagaimanaKamiMelindungiInformasiAnda"
+            app:layout_constraintStart_toStartOf="@+id/tvBagaimanaKamiMelindungiInformasiAnda"
+            app:layout_constraintTop_toBottomOf="@+id/tvBagaimanaKamiMelindungiInformasiAnda" />
+
+        <TextView
+            android:id="@+id/tvBerbagiInformasiDenganPihakKetiga"
+            style="@style/KebijakanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/berbagi_informasi_dengan_pihak_ketiga"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailBagaimanaKamiMelindungiInformasiAnda"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailBagaimanaKamiMelindungiInformasiAnda"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailBagaimanaKamiMelindungiInformasiAnda" />
+
+        <TextView
+            android:id="@+id/tvDetailBerbagiInformasiDenganPihakKetiga"
+            style="@style/KebijakanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_berbagi_informasi_dengan_pihak_ketiga"
+            app:layout_constraintEnd_toEndOf="@+id/tvBerbagiInformasiDenganPihakKetiga"
+            app:layout_constraintStart_toStartOf="@+id/tvBerbagiInformasiDenganPihakKetiga"
+            app:layout_constraintTop_toBottomOf="@+id/tvBerbagiInformasiDenganPihakKetiga" />
+
+        <TextView
+            android:id="@+id/tvPerubahanPadaKebijakanPrivasi"
+            style="@style/KebijakanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/perubahan_pada_kebijakan_privasi"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailBerbagiInformasiDenganPihakKetiga"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailBerbagiInformasiDenganPihakKetiga"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailBerbagiInformasiDenganPihakKetiga" />
+
+        <TextView
+            android:id="@+id/tvDetailPerubahanPadaKebijakanPrivasi"
+            style="@style/KebijakanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_perubahan_pada_kebijakan_privasi"
+            app:layout_constraintEnd_toEndOf="@+id/tvPerubahanPadaKebijakanPrivasi"
+            app:layout_constraintStart_toStartOf="@+id/tvPerubahanPadaKebijakanPrivasi"
+            app:layout_constraintTop_toBottomOf="@+id/tvPerubahanPadaKebijakanPrivasi" />
+
+        <TextView
+            android:id="@+id/tvHubungiKami"
+            style="@style/KebijakanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/hubungi_kami"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailPerubahanPadaKebijakanPrivasi"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailPerubahanPadaKebijakanPrivasi"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailPerubahanPadaKebijakanPrivasi" />
+
+        <TextView
+            android:id="@+id/tvDetailHubungiKami"
+            style="@style/KebijakanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_hubungi_kami"
+            app:layout_constraintEnd_toEndOf="@+id/tvHubungiKami"
+            app:layout_constraintStart_toStartOf="@+id/tvHubungiKami"
+            app:layout_constraintTop_toBottomOf="@+id/tvHubungiKami" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

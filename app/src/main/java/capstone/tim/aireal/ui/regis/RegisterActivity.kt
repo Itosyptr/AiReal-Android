@@ -14,7 +14,6 @@ import capstone.tim.aireal.R
 import capstone.tim.aireal.databinding.ActivityRegisterBinding
 import capstone.tim.aireal.ui.login.LoginActivity
 
-
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
@@ -27,22 +26,38 @@ class RegisterActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
-
-        registerViewModel.getRegister.observe(this) { response ->
-            showLoading(false)
-            response?.let {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                if (!it.error) {
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                }
-            }
-        }
+        setupViewModel()
         setUpAction()
         playAnimation()
         buttonEnable()
         passwordEditText()
+    }
+
+    private fun setupViewModel() {
+        registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
+
+        registerViewModel.isLoading.observe(this) { loading ->
+            showLoading(loading)
+        }
+
+        registerViewModel.registerResult.observe(this) { response ->
+            showLoading(false) // Hide loading indicator after getting a response
+            response?.let {
+                if (it.status == "success") {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                } else {
+                    showErrorToast(it.message)
+                }
+            } ?: showErrorToast("Terjadi kesalahan saat registrasi") // Handle null response
+        }
+
+        registerViewModel.errorMessage.observe(this) { errorMessage ->
+            errorMessage?.let {
+                showErrorToast(it)
+            }
+        }
     }
 
     private fun isValidEmail(email: String): Boolean {
@@ -50,9 +65,14 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun validateMinLength(password: String): Boolean {
-        return password.length >= 6 // Atau panjang minimum yang Anda inginkan
+        return password.length >= 6
     }
 
+    private fun buttonEnable() {
+        val emailEditText = binding.edtEmail.text
+        val passwordEditText = binding.edtPassword.text
+        binding.btnRegister.isEnabled = isValidEmail(emailEditText.toString()) && validateMinLength(passwordEditText.toString())
+    }
     private fun setUpAction() {
         binding.btnRegister.setOnClickListener {
             val name = binding.edtName.text.toString()
@@ -75,11 +95,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun buttonEnable() {
-        val emailEditText = binding.edtEmail.text
-        val passwordEditText = binding.edtPassword.text
-        binding.btnRegister.isEnabled = isValidEmail(emailEditText.toString()) && validateMinLength(passwordEditText.toString())
-    }
+
 
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.ivregis, View.TRANSLATION_X, -30f, 30f).apply {
@@ -90,9 +106,9 @@ class RegisterActivity : AppCompatActivity() {
 
         val btnbacktologin = ObjectAnimator.ofFloat(binding.btnBackToLogin, View.ALPHA, 1f).setDuration(500)
         val imagelogo = ObjectAnimator.ofFloat(binding.ivregis, View.ALPHA, 1f).setDuration(500)
-        val edtname = ObjectAnimator.ofFloat(binding.edtName, View.ALPHA, 1f).setDuration(500)
-        val edtemail = ObjectAnimator.ofFloat(binding.edtEmail, View.ALPHA, 1f).setDuration(500)
-        val edtpassword = ObjectAnimator.ofFloat(binding.edtPassword, View.ALPHA, 1f).setDuration(500)
+        val edtname = ObjectAnimator.ofFloat(binding.UsernameEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val edtemail = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val edtpassword = ObjectAnimator.ofFloat(binding.PasswordEditTextLayout, View.ALPHA, 1f).setDuration(500)
         val btnRegister = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
         val together = AnimatorSet().apply {
             playTogether(edtname, edtemail, edtpassword)
@@ -107,6 +123,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun showLoading(loading: Boolean) {
         binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
+
+    private fun showErrorToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun passwordEditText() {
         binding.edtPassword.addTextChangedListener(object : TextWatcher {

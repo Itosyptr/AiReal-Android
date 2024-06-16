@@ -2,12 +2,13 @@
     <string name="app_name">AIREAL</string>
     <string name="logo_description">Logo Description</string>
     <string name="top">top</string>
-    <string name="password">Password\n</string>
-    <string name="don_t_have_an_account">Not have an account?\n</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="register_now">Register</string>
     <string name="massage_email">Please fill in your email</string>
     <string name="massage_password">Please fill in your password</string>
-    <string name="name_hint">Name\n</string>
+    <string name="username_hint">Username\n</string>
     <string name="registerbutton">Register\n</string>
     <string name="back_to_login_description">back to login</string>
     <string name="name">Name</string>
@@ -22,19 +23,18 @@
     <string name="total">Total</string>
     <string name="profile">Image Profile</string>
     <string name="massage_name">Please enter your name.</string>
-    <string name="Loginbutton">LoginButon\n</string>
+    <string name="Loginbutton">Login\n</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="back_button">Back to activity</string>
     <string name="save_changes">Save changes</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="upload_image">Upload Image</string>
-    <string name="full_name">Name</string>
+    <string name="full_name">Full Name</string>
     <string name="full_name_example">fullname</string>
     <string name="gender">Gender</string>
     <string name="gender_example">gender</string>
     <string name="birthdate">Birth Date</string>
     <string name="birthdate_example">birthdate</string>
-    <string name="email">Email</string>
     <string name="email_example">email address</string>
     <string name="phone_number">Phone Number</string>
     <string name="phone_number_example">phone number</string>
@@ -54,7 +54,7 @@
     <string name="choose_camera">choose camera</string>
     <string name="choose_gallery">choose gallery</string>
     <string name="choose_photo">choose photo</string>
-    <string name="edit_shop">Edit Shop</string>
+    <string name="edit_shop">Create Shop</string>
     <string name="shop_name">Shop Name</string>
     <string name="shop_name_example">shop name</string>
     <string name="shop_description"> Shop Description</string>
@@ -94,6 +94,139 @@
     <string name="title_cart">Cart</string>
     <string name="title_shop">Shop</string>
     <string name="title_profile">Profile</string>
+    <string name="pesanan_saya">Pesanan Saya</string>
+    <string name="pusat_informasi">Pusat Informasi</string>
+    <string name="syarat_dan_ketentuan">Syarat Dan Ketentuan</string>
+    <string name="kebijakan_privasi">Kebijakan Privasi</string>
+    <string name="action_logout">Logout</string>
+
+    <string name="kebijakan_privasi_aireal">Kebijakan Privasi Aplikasi AIREAL</string>
+
+    <string name="informasi_yang_kami_kumpulkan">Informasi yang Kami Kumpulkan</string>
+    <string name="detail_informasi_yang_dikumpulkan_aireal">
+        Kami dapat mengumpulkan informasi berikut:
+        \n• Informasi yang Anda berikan secara langsung: Nama, alamat email, nomor telepon, alamat pengiriman, informasi pembayaran, dan informasi lain yang Anda berikan saat membuat akun, melakukan pembelian, atau menghubungi layanan pelanggan.
+        \n• Informasi penggunaan: Informasi tentang bagaimana Anda menggunakan aplikasi AIREAL, termasuk halaman yang Anda kunjungi, produk yang Anda lihat, dan tindakan yang Anda lakukan.
+        \n• Informasi perangkat: Informasi tentang perangkat yang Anda gunakan untuk mengakses aplikasi AIREAL, seperti model perangkat, sistem operasi, dan alamat IP.
+    </string>
+
+    <string name="bagaimana_kami_menggunakan_informasi_anda">Bagaimana Kami Menggunakan Informasi Anda</string>
+    <string name="detail_penggunaan_informasi_aireal">
+        Kami menggunakan informasi Anda untuk:
+        \n• Memproses pesanan dan pembayaran Anda.
+        \n• Mengirimkan produk yang Anda beli.
+        \n• Memberikan layanan pelanggan dan dukungan.
+        \n• Meningkatkan pengalaman pengguna dan layanan kami.
+        \n• Mengirimkan informasi tentang produk, layanan, promosi, dan penawaran khusus (Anda dapat memilih untuk tidak menerima informasi ini).
+        \n• Mencegah penipuan dan aktivitas ilegal lainnya.
+        \n• Mematuhi kewajiban hukum kami.
+    </string>
+
+    <string name="bagaimana_kami_melindungi_informasi_anda">Bagaimana Kami Melindungi Informasi Anda</string>
+    <string name="detail_bagaimana_kami_melindungi_informasi_anda">
+        Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, penggunaan, atau pengungkapan yang tidak sah. Namun, tidak ada metode transmisi melalui Internet atau metode penyimpanan elektronik yang 100% aman.
+    </string>
+
+    <string name="berbagi_informasi_dengan_pihak_ketiga">Berbagi Informasi dengan Pihak Ketiga</string>
+    <string name="detail_berbagi_informasi_dengan_pihak_ketiga">
+        Kami tidak akan menjual atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali:
+        \n• Penyedia layanan pihak ketiga: Kami dapat berbagi informasi Anda dengan penyedia layanan pihak ketiga yang membantu kami dalam menjalankan bisnis kami, seperti penyedia layanan pembayaran, pengiriman, dan pemasaran.
+        \n• Kewajiban hukum: Kami dapat mengungkapkan informasi Anda jika diwajibkan oleh hukum, peraturan, atau proses hukum.
+    </string>
+
+    <string name="perubahan_pada_kebijakan_privasi">Perubahan pada Kebijakan Privasi</string>
+    <string name="detail_perubahan_pada_kebijakan_privasi">
+        Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Kami akan memberi tahu Anda tentang perubahan apa pun dengan memposting kebijakan privasi yang baru di aplikasi AIREAL.
+    </string>
+
+    <string name="hubungi_kami">Hubungi Kami</string>
+    <string name="detail_hubungi_kami">
+        Jika Anda memiliki pertanyaan atau masalah tentang kebijakan privasi ini, silakan hubungi kami melalui:
+        \n• Email: [Airealgood@gmail.com]
+        \n• Telepon: [6664129]
+    </string>
+
+
+    <string name="selamat_datang_di_aireal">Selamat datang di AIREAL! Syarat dan ketentuan ini ("Syarat") mengatur penggunaan Anda atas aplikasi AIREAL ("Aplikasi") dan layanan yang terkait ("Layanan"). Dengan mengakses atau menggunakan Aplikasi dan Layanan, Anda menyetujui untuk terikat oleh Syarat ini. Jika Anda tidak setuju dengan Syarat ini, jangan gunakan Aplikasi atau Layanan.</string>
+
+    <string name="akun_pengguna">Akun Pengguna</string>
+    <string name="detail_akun_pengguna">
+        \u2022 Anda harus berusia minimal 18 tahun atau memiliki izin orang tua/wali untuk menggunakan Aplikasi.
+        \n\u2022 Anda bertanggung jawab untuk menjaga kerahasiaan akun dan kata sandi Anda.
+        \n\u2022 Anda setuju untuk memberikan informasi yang akurat, lengkap, dan terbaru saat membuat akun.
+    </string>
+
+    <string name="penggunaan_aplikasi">Penggunaan Aplikasi</string>
+    <string name="detail_penggunaan_aplikasi">
+        \u2022 Anda hanya boleh menggunakan Aplikasi untuk tujuan yang sah dan sesuai dengan Syarat ini.
+        \n\u2022 Anda dilarang menggunakan Aplikasi untuk melakukan aktivitas ilegal, menipu, atau merugikan pihak lain.
+        \n\u2022 Anda dilarang mengunggah, memposting, atau mengirimkan konten yang melanggar hak kekayaan intelektual, mengandung unsur pornografi, kekerasan, atau diskriminasi.
+    </string>
+
+    <string name="transaksi">Transaksi</string>
+    <string name="detail_transaksi">
+        \u2022 AIREAL menyediakan platform untuk penjual dan pembeli untuk melakukan transaksi.
+        \n\u2022 Anda bertanggung jawab penuh atas transaksi yang Anda lakukan melalui Aplikasi.
+        \n\u2022 AIREAL tidak bertanggung jawab atas kualitas, keamanan, atau legalitas produk atau layanan yang ditawarkan oleh penjual.
+    </string>
+
+    <string name="hak_kekayaan_intelektual">Hak Kekayaan Intelektual</string>
+    <string name="detail_hak_kekayaan_intelektual">
+        \u2022 Aplikasi dan Layanan dilindungi oleh hak cipta, merek dagang, dan hak kekayaan intelektual lainnya.
+        \n\u2022 Anda dilarang menyalin, memodifikasi, mendistribusikan, atau membuat karya turunan dari Aplikasi dan Layanan tanpa izin tertulis dari AIREAL.
+    </string>
+
+    <string name="pembatasan_tanggung_jawab">Pembatasan Tanggung Jawab</string>
+    <string name="detail_pembatasan_tanggung_jawab">
+        \u2022 AIREAL tidak bertanggung jawab atas kerugian atau kerusakan yang timbul akibat penggunaan Aplikasi atau Layanan, termasuk namun tidak terbatas pada kerugian finansial, kehilangan data, atau kerusakan perangkat.
+        \n\u2022 AIREAL tidak menjamin bahwa Aplikasi atau Layanan akan selalu tersedia, bebas dari kesalahan, atau aman dari virus atau malware.
+    </string>
+
+    <string name="perubahan_syarat">Perubahan Syarat</string>
+    <string name="detail_perubahan_syarat">
+        \u2022 AIREAL berhak untuk mengubah Syarat ini sewaktu-waktu tanpa pemberitahuan sebelumnya.
+        \n\u2022 Anda bertanggung jawab untuk memeriksa Syarat ini secara berkala.
+        \n\u2022 Penggunaan Anda atas Aplikasi atau Layanan setelah perubahan Syarat ini merupakan persetujuan Anda terhadap perubahan tersebut.
+    </string>
+
+    <string name="hukum_yang_berlaku">Hukum yang Berlaku</string>
+    <string name="detail_hukum_yang_berlaku">
+        \u2022 Syarat ini diatur dan ditafsirkan sesuai dengan hukum Indonesia.
+        \n\u2022 Setiap perselisihan yang timbul dari Syarat ini akan diselesaikan melalui pengadilan yang berwenang di Indonesia.
+    </string>
+
+    <string name="ketentuan_lain">Ketentuan Lain</string>
+    <string name="detail_ketentuan_lain">
+        \u2022 Jika ada ketentuan dalam Syarat ini yang dianggap tidak sah atau tidak dapat dilaksanakan, ketentuan tersebut akan dipisahkan dari Syarat ini tanpa mempengaruhi keabsahan dan keberlakuan ketentuan lainnya.
+        \n\u2022 Kegagalan AIREAL untuk menegakkan hak atau ketentuan dalam Syarat ini tidak akan dianggap sebagai pengabaian hak atau ketentuan tersebut.
+    </string>
+    <string name="persetujuan">Dengan menggunakan Aplikasi AIREAL, Anda menyetujui untuk mematuhi Syarat dan Ketentuan ini.</string>
+    <string name="login_success">Login Success</string>
+    <string name="message_empty_field">empty</string>
+    <string name="quantity">Quantity</string>
+    <string name="one">1</string>
+    <string name="granted">Permission Request Granted</string>
+    <string name="denied">Permission Request Denied</string>
+    <string name="user_name">Username</string>
+    <string name="user_name_example">username</string>
+    <string name="password_example">Password</string>
+    <string name="product_long_description_example">Product Long Description</string>
+    <string name="create_new_product">Are You sure want to add this product?</string>
+    <string name="explore">Explore</string>
+    <string name="amount_price">amount price</string>
+    <string name="logout_confirmation">Are you sure to logout</string>
+    <string name="tab_text_1">Products</string>
+    <string name="tab_text_2">Order</string>
+    <string name="back">Back</string>
+    <string name="edit_shop_true">Edit Shop</string>
+    <string name="product_stock_fill">stock : %s</string>
+    <string name="no_data_found">No Data Found</string>
+    <string name="stupid_icon">stupid icon</string>
+    <string name="dialog_text">Message</string>
+    <string name="no_shop">Shop not found. Do you want to create new shop?</string>
+    <string name="success">Success</string>
+    <string name="message">message</string>
+    <string name="failed">Failed</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>
@@ -101,13 +234,28 @@
         <item>Accessories</item>
         <item>Beauty</item>
         <item>Kids</item>
-        <item>Sports &amp; Outdoors</item>
+        <item>Sports</item>
         <item>Food</item>
         <item>Books</item>
         <item>Tools</item>
         <item>Furniture</item>
         <item>Shoes</item>
         <item>Other</item>
+    </string-array>
+
+    <string-array name="product_categories_id">
+        <item>FO1D1XSsegItYXIvZ8TM</item>
+        <item>WswewCUeqdwXA9kw7RpJ</item>
+        <item>vBzuguSpv7MRNqEpGu00</item>
+        <item>kWf3d85yOtgWT4ny65aJ</item>
+        <item>yDSN5zCyBIvfhVERlMJF</item>
+        <item>hfo5tKPDUaqwaqxURDFj</item>
+        <item>zoZy0V8ptiV8QHEaWavS</item>
+        <item>aSVYsfqgtyzKHdEWx7xF</item>
+        <item>sUVZIGevQglgkhToGIZ3</item>
+        <item>3VoTa8fYX3pQToWRthXW</item>
+        <item>xze22Hpgd5ULNCBGmHkP</item>
+        <item>lVdkB9459EJwEuYY7h0Y</item>
     </string-array>
 
     <integer-array name="image_categories">
@@ -124,6 +272,5 @@
         <item>@drawable/shoes</item>
         <item>@drawable/other</item>
     </integer-array>
-
 
 </resources>

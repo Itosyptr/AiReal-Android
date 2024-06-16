@@ -1,24 +1,123 @@
 package capstone.tim.aireal.ui.toko
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import capstone.tim.aireal.R
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import capstone.tim.aireal.api.ApiConfig
+import capstone.tim.aireal.data.pref.UserModel
+import capstone.tim.aireal.data.pref.UserPreference
+import capstone.tim.aireal.response.DataItem
+import capstone.tim.aireal.response.DetailShopResponse
+import capstone.tim.aireal.response.ShopData
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.await
 
-class TokoViewModel : ViewModel() {
+class TokoViewModel(
+    private val pref: UserPreference,
+    private val context: Context
+) : ViewModel() {
 
-    private val _profileImage = MutableLiveData<Int>().apply {
-        value = R.drawable.logo // Default image
+    private val _listProducts = MutableLiveData<List<DataItem?>?>()
+    val listProducts: MutableLiveData<List<DataItem?>?> = _listProducts
+
+    var _listData: MutableList<String> = mutableListOf()
+    val listData: MutableLiveData<MutableList<String>> = MutableLiveData(_listData)
+
+    private val _shopDetail = MutableLiveData<ShopData?>()
+    val shopDetail: MutableLiveData<ShopData?> = _shopDetail
+
+    private val _message = MutableLiveData<String?>()
+    val message: MutableLiveData<String?> = _message
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _isError = MutableLiveData<Boolean>()
+    val isError: LiveData<Boolean> = _isError
+
+    private val _isError2 = MutableLiveData<Boolean>()
+    val isError2: LiveData<Boolean> = _isError2
+
+    fun getDetailShop(token: String, userId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getShopbyUserId(token, userId)
+        client.enqueue(object : Callback<DetailShopResponse> {
+            override fun onResponse(
+                call: Call<DetailShopResponse>,
+                response: Response<DetailShopResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    Log.d(TAG, "onResponse: ${response.body()?.data}")
+                    _message.value = response.body()?.message
+                    _shopDetail.value = response.body()?.data
+                    getProductsbyShopId(token, response.body()?.data?.id.toString())
+                } else {
+                    _isError.value = true
+                    _message.value = response.body()?.message
+                    Log.d(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DetailShopResponse>, t: Throwable) {
+                _isLoading.value = false
+                _isError.value = true
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
     }
-    val profileImage: LiveData<Int> = _profileImage
 
-    private val _profileName = MutableLiveData<String>().apply {
-        value = "Nama Toko" // Default name
+    fun getProductsbyShopId(token: String, id: String) {
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            val productResponse = try {
+                ApiConfig.getApiService().getProductbyShopId(token, id).await()
+            } catch (e: Exception) {
+                _isError2.value = true
+                Log.e(TAG, "onFailure (getProductsbyShopId): ${e.message}")
+                return@launch
+            }
+
+            if (productResponse.status == "success") {
+                val products = productResponse.data ?: emptyList()
+
+                val productDetails = mutableListOf<String>()
+                for (product in products) {
+                    val detailResponse =
+                        ApiConfig.getApiService().getShopDetails(token, product?.shopId!!).await()
+
+                    if (detailResponse.status == "success") {
+                        productDetails.add(detailResponse.data?.city.toString())
+                    } else {
+                        _isError2.value = true
+                        Log.e(TAG, "onFailure (getProductDetails): ${detailResponse.data}")
+                    }
+                }
+
+                _listData.addAll(productDetails)
+                _listProducts.postValue(products)
+            } else {
+                _isError2.value = true
+                Log.e(TAG, "onFailure (getProductsbyShopId): ${productResponse.data}")
+            }
+
+            _isLoading.value = false
+        }
     }
-    val profileName: LiveData<String> = _profileName
 
-    fun updateProfile(imageResId: Int, name: String) {
-        _profileImage.value = imageResId
-        _profileName.value = name
+    fun getUser(): LiveData<UserModel> {
+        return pref.getUser().asLiveData()
+    }
+
+    companion object {
+        private const val TAG = "TokoViewModel"
     }
 }

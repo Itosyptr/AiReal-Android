@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.syarat.SyaratActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvJudulSyarat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/syarat_dan_ketentuan"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvIsiSyarat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:justificationMode="inter_word"
+            android:text="@string/selamat_datang_di_aireal"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvJudulSyarat"
+            app:layout_constraintStart_toStartOf="@+id/tvJudulSyarat"
+            app:layout_constraintTop_toBottomOf="@+id/tvJudulSyarat" />
+
+        <TextView
+            android:id="@+id/tvAkunPengguna"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/akun_pengguna"
+            app:layout_constraintEnd_toEndOf="@+id/tvIsiSyarat"
+            app:layout_constraintStart_toStartOf="@+id/tvIsiSyarat"
+            app:layout_constraintTop_toBottomOf="@+id/tvIsiSyarat" />
+
+        <TextView
+            android:id="@+id/tvDetailAkunPengguna"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_akun_pengguna"
+            app:layout_constraintEnd_toEndOf="@+id/tvAkunPengguna"
+            app:layout_constraintStart_toStartOf="@+id/tvAkunPengguna"
+            app:layout_constraintTop_toBottomOf="@+id/tvAkunPengguna" />
+
+        <TextView
+            android:id="@+id/tvPenggunaanAplikasi"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/penggunaan_aplikasi"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailAkunPengguna"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailAkunPengguna"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailAkunPengguna" />
+
+        <TextView
+            android:id="@+id/tvDetailPenggunaanAplikasi"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_penggunaan_aplikasi"
+            app:layout_constraintEnd_toEndOf="@+id/tvPenggunaanAplikasi"
+            app:layout_constraintStart_toStartOf="@+id/tvPenggunaanAplikasi"
+            app:layout_constraintTop_toBottomOf="@+id/tvPenggunaanAplikasi" />
+
+        <TextView
+            android:id="@+id/tvTransaksi"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/transaksi"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailPenggunaanAplikasi"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailPenggunaanAplikasi"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailPenggunaanAplikasi" />
+
+        <TextView
+            android:id="@+id/tvDetailTransaksi"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_transaksi"
+            app:layout_constraintEnd_toEndOf="@+id/tvTransaksi"
+            app:layout_constraintStart_toStartOf="@+id/tvTransaksi"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransaksi" />
+
+        <TextView
+            android:id="@+id/tvHakKekayaanIntelektual"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/hak_kekayaan_intelektual"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailTransaksi"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailTransaksi"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailTransaksi" />
+
+        <TextView
+            android:id="@+id/tvDetailHakKekayaanIntelektual"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_hak_kekayaan_intelektual"
+            app:layout_constraintEnd_toEndOf="@+id/tvHakKekayaanIntelektual"
+            app:layout_constraintStart_toStartOf="@+id/tvHakKekayaanIntelektual"
+            app:layout_constraintTop_toBottomOf="@+id/tvHakKekayaanIntelektual" />
+
+        <TextView
+            android:id="@+id/tvPembatasanTanggungJawab"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/pembatasan_tanggung_jawab"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailHakKekayaanIntelektual"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailHakKekayaanIntelektual"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailHakKekayaanIntelektual" />
+
+        <TextView
+            android:id="@+id/tvDetailPembatasanTanggungJawab"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_pembatasan_tanggung_jawab"
+            app:layout_constraintEnd_toEndOf="@+id/tvPembatasanTanggungJawab"
+            app:layout_constraintStart_toStartOf="@+id/tvPembatasanTanggungJawab"
+            app:layout_constraintTop_toBottomOf="@+id/tvPembatasanTanggungJawab" />
+
+        <TextView
+            android:id="@+id/tvPerubahanSyarat"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/perubahan_syarat"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailPembatasanTanggungJawab"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailPembatasanTanggungJawab"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailPembatasanTanggungJawab" />
+
+        <TextView
+            android:id="@+id/tvDetailPerubahanSyarat"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_perubahan_syarat"
+            app:layout_constraintEnd_toEndOf="@+id/tvPerubahanSyarat"
+            app:layout_constraintStart_toStartOf="@+id/tvPerubahanSyarat"
+            app:layout_constraintTop_toBottomOf="@+id/tvPerubahanSyarat" />
+
+        <TextView
+            android:id="@+id/tvHukumYangBerlaku"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/hukum_yang_berlaku"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailPerubahanSyarat"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailPerubahanSyarat"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailPerubahanSyarat" />
+
+        <TextView
+            android:id="@+id/tvDetailHukumYangBerlaku"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_hukum_yang_berlaku"
+            app:layout_constraintEnd_toEndOf="@+id/tvHukumYangBerlaku"
+            app:layout_constraintStart_toStartOf="@+id/tvHukumYangBerlaku"
+            app:layout_constraintTop_toBottomOf="@+id/tvHukumYangBerlaku" />
+
+        <TextView
+            android:id="@+id/tvKetentuanLain"
+            style="@style/SyaratDanKetentuanHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ketentuan_lain"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailHukumYangBerlaku"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailHukumYangBerlaku"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailHukumYangBerlaku" />
+
+        <TextView
+            android:id="@+id/tvDetailKetentuanLain"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/detail_ketentuan_lain"
+            app:layout_constraintEnd_toEndOf="@+id/tvKetentuanLain"
+            app:layout_constraintStart_toStartOf="@+id/tvKetentuanLain"
+            app:layout_constraintTop_toBottomOf="@+id/tvKetentuanLain" />
+
+        <TextView
+            android:id="@+id/tvPersetujuan"
+            style="@style/SyaratDanKetentuanBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/persetujuan"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailKetentuanLain"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailKetentuanLain"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailKetentuanLain" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

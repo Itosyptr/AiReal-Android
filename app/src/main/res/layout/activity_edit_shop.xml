@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_title"
             style="@style/TitleEdit"
             android:text="@string/edit_shop"
             app:layout_constraintBottom_toBottomOf="@+id/back_button"
@@ -52,7 +52,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="@+id/textView_title" />
 
         <ImageButton
             android:id="@+id/upload_image"

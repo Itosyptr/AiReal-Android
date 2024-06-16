@@ -1,25 +1,33 @@
 package capstone.tim.aireal.response
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
 
-data class LoginResponse (
-    @field:SerializedName("error")
-    val error: Boolean,
+@Parcelize
+data class LoginResponse(
+	val data: Data? = null,
+	val status: String? = null,
+	val token: String? = null,
+	val message: String?,
+	val error: Boolean
+) : Parcelable
 
-    @field:SerializedName("message")
-    val message: String?,
+@Parcelize
+data class Data(
+	val createdAt: CreatedAt? = null,
+	val password: String? = null,
+	val address: String? = null,
+	val gender: String? = null,
+	val imageUrl: List<String?>? = null,
+	val name: String? = null,
+	val phoneNumber: String? = null,
+	val id: String? = null,
+	val email: String? = null,
+	val username: String? = null,
+	val updatedAt: UpdatedAt? = null
+) : Parcelable
 
-    @field:SerializedName("loginResult")
-    val loginResult: Login
-    )
-
-data class Login(
-    @field:SerializedName("userId")
-    val userId: String?,
-
-    @field:SerializedName("name")
-    val name: String?,
-
-    @field:SerializedName("token")
-    val token: String?
+data class DataLogin(
+	val email: String,
+	val password: String
 )

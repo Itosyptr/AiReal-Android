@@ -4,107 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.akun.AkunFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="72dp"
-        tools:src="@tools:sample/avatars"
-        android:scaleType="centerCrop"
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="36dp"
+        android:contentDescription="@string/profile"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/nameTextView"
-        android:layout_width="101dp"
-        android:layout_height="37dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semi_bold"
         android:gravity="center"
+        android:textColor="@color/white"
         android:text="@string/name"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <View
-        android:id="@+id/backgroundView"
-        android:layout_width="411dp"
-        android:layout_height="447dp"
-        android:background="#DFDEDE"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/btnLogout"
+        android:layout_width="39dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/save_changes"
+        android:src="@drawable/logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
-        app:layout_constraintVertical_bias="0.949" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewPesananSaya"
-        android:layout_width="411dp"
+        style="@style/menu_profile"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
-        android:padding="16dp"
-        android:text="Pesanan Saya"
-        app:layout_constraintEnd_toEndOf="@+id/nameTextView"
-        app:layout_constraintStart_toStartOf="@+id/nameTextView"
-        tools:layout_editor_absoluteY="337dp"
-        tools:ignore="MissingConstraints"
-        app:drawableStartCompat="@drawable/ic_pesanaan" />
+        android:layout_marginTop="36dp"
+        android:text="@string/pesanan_saya"
+        app:drawableStartCompat="@drawable/ic_pesanaan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundView" />
 
     <TextView
         android:id="@+id/textViewEditProfile"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
+        style="@style/menu_profile"
         android:layout_marginTop="8dp"
-        android:drawablePadding="8dp"
-        android:padding="16dp"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
+        app:drawableStartCompat="@drawable/ic_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPesananSaya"
-        app:drawableStartCompat="@drawable/ic_account" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPesananSaya" />
 
     <TextView
         android:id="@+id/textViewPusatInformasi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/menu_profile"
         android:layout_marginTop="8dp"
-        android:drawablePadding="8dp"
-        android:padding="16dp"
-        android:text="Pusat Informasi"
+        android:text="@string/pusat_informasi"
+        app:drawableStartCompat="@drawable/ic_call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewEditProfile"
-        app:drawableStartCompat="@drawable/ic_call" />
+        app:layout_constraintTop_toBottomOf="@id/textViewEditProfile" />
 
     <TextView
         android:id="@+id/textViewSyaratKetentuan"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:drawablePadding="8dp"
-        android:padding="16dp"
-        android:text="Syarat dan Ketentuan"
+        style="@style/menu_profile"
+        android:layout_marginTop="8dp"
+        android:text="@string/syarat_dan_ketentuan"
         app:drawableStartCompat="@drawable/ic_syarat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewPusatInformasi" />
 
     <TextView
         android:id="@+id/textViewKebijakanPrivasi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:drawablePadding="8dp"
-        android:padding="16dp"
-        android:text="Kebijakan Privasi"
+        style="@style/menu_profile"
+        android:layout_marginTop="8dp"
+        android:text="@string/kebijakan_privasi"
         app:drawableStartCompat="@drawable/ic_privasi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSyaratKetentuan" />
 
