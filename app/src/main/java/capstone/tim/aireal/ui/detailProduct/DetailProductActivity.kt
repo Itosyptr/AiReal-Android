@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
@@ -16,6 +18,7 @@ import capstone.tim.aireal.R
 import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.ActivityDetailProductBinding
+import capstone.tim.aireal.databinding.CustomToastFailedBinding
 import capstone.tim.aireal.response.CartRequest
 import capstone.tim.aireal.response.DataItem
 import capstone.tim.aireal.response.ItemsItem
@@ -97,21 +100,14 @@ class DetailProductActivity : AppCompatActivity() {
                         bearerToken,
                         CartRequest(userId, listOf(ItemsItem(1, productItem.id)))
                     )
-                    Toast.makeText(this@DetailProductActivity, "Added to cart", Toast.LENGTH_SHORT)
-                        .show()
+                    customToast("Added to cart")
                 } else {
-                    Toast.makeText(this@DetailProductActivity, "Out of stock", Toast.LENGTH_SHORT)
-                        .show()
+                    customToastFailed("This product is out of stock")
                 }
             }
 
             buyNow.setOnClickListener {
-                Toast.makeText(
-                    this@DetailProductActivity,
-                    "this feature is not yet available",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                customToastFailed("This feature is not available yet")
             }
         }
 
@@ -179,6 +175,26 @@ class DetailProductActivity : AppCompatActivity() {
             "Terjadi kesalahan!! Mohon Bersabar",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun customToast(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_success,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
+    }
+
+    private fun customToastFailed(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_failed,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast_fail).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
     }
 
     companion object {

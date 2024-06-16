@@ -2,9 +2,11 @@ package capstone.tim.aireal.ui.keranjang
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -117,7 +119,7 @@ class keranjangFragment : Fragment() {
                     totalPrice = 0
                     binding.tvTotalPrice.text =
                         getString(R.string.product_price, totalPrice.toString())
-                    Toast.makeText(this.context, "Checkout Success", Toast.LENGTH_SHORT).show()
+                    customToast("Checkout successfully")
                     binding.recyclerView.visibility = View.GONE
                     binding.noDataFound.visibility = View.VISIBLE
                 }
@@ -143,5 +145,15 @@ class keranjangFragment : Fragment() {
             "Terjadi kesalahan!! Mohon Bersabar",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun customToast(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_success,null)
+        val customToast = Toast(this.context)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
     }
 }

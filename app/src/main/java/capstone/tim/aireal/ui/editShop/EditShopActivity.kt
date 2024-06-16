@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -274,6 +276,7 @@ class EditShopActivity : AppCompatActivity() {
 
             viewModel.isLoading.observe(this) {
                 if (it == false) {
+                    customToast("Shop Updated")
                     finish()
                 }
             }
@@ -355,6 +358,16 @@ class EditShopActivity : AppCompatActivity() {
             startGallery()
             dialog.dismiss()
         }
+    }
+
+    private fun customToast(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_success,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
     }
 
     companion object {

@@ -224,6 +224,9 @@
     <string name="stupid_icon">stupid icon</string>
     <string name="dialog_text">Message</string>
     <string name="no_shop">Shop not found. Do you want to create new shop?</string>
+    <string name="success">Success</string>
+    <string name="message">message</string>
+    <string name="failed">Failed</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>
