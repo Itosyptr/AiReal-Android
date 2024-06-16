@@ -4,7 +4,7 @@
     <string name="top">top</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="don_t_have_an_account">Not have an account?\n</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="register_now">Register</string>
     <string name="massage_email">Please fill in your email</string>
     <string name="massage_password">Please fill in your password</string>

@@ -106,9 +106,9 @@ class RegisterActivity : AppCompatActivity() {
 
         val btnbacktologin = ObjectAnimator.ofFloat(binding.btnBackToLogin, View.ALPHA, 1f).setDuration(500)
         val imagelogo = ObjectAnimator.ofFloat(binding.ivregis, View.ALPHA, 1f).setDuration(500)
-        val edtname = ObjectAnimator.ofFloat(binding.edtName, View.ALPHA, 1f).setDuration(500)
-        val edtemail = ObjectAnimator.ofFloat(binding.edtEmail, View.ALPHA, 1f).setDuration(500)
-        val edtpassword = ObjectAnimator.ofFloat(binding.edtPassword, View.ALPHA, 1f).setDuration(500)
+        val edtname = ObjectAnimator.ofFloat(binding.UsernameEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val edtemail = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val edtpassword = ObjectAnimator.ofFloat(binding.PasswordEditTextLayout, View.ALPHA, 1f).setDuration(500)
         val btnRegister = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
         val together = AnimatorSet().apply {
             playTogether(edtname, edtemail, edtpassword)
