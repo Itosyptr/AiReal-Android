@@ -229,13 +229,13 @@ class AddProductActivity : AppCompatActivity() {
         viewModel.modelresult.observe(this) { result ->
             if (result != null && currentImageUri != null) {
                 if (result.is_blurry == false) {
-                    customToast("Gambar Anda Tidak Blur Dengan Akurasi ${result.percentage}")
+                    customToast("Gambar Anda Jelas Dengan Akurasi ${result.percentage}")
                     if (!listImageUri.contains(currentImageUri)) {
                         listImageUri.add(currentImageUri!!)
                     }
                     setImageData(listImageUri)
                 } else {
-                    customToastFailed("Burik Cok ${result.percentage}")
+                    customToastFailed("Gambar Kurang Jelas Dengan Akurasi ${result.percentage}")
                 }
                 showLoading(false)
                 currentImageUri = null
