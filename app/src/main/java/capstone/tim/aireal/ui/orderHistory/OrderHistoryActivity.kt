@@ -74,6 +74,9 @@ class OrderHistoryActivity : AppCompatActivity() {
                             i++
                         }
 
+                        binding.rvProductHistory.visibility = View.VISIBLE
+                        binding.noDataFound.visibility = View.GONE
+
                         listData.clear()
                         setCartData(listDetailOrder)
                         showLoading(false)
@@ -88,6 +91,9 @@ class OrderHistoryActivity : AppCompatActivity() {
 
         viewModel.isError.observe(this) {
             showToastError(it)
+            showLoading(false)
+            binding.rvProductHistory.visibility = View.GONE
+            binding.noDataFound.visibility = View.VISIBLE
         }
     }
 

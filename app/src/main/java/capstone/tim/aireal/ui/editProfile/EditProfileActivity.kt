@@ -9,6 +9,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -255,7 +257,7 @@ class EditProfileActivity : AppCompatActivity() {
             val name = binding.userName.text.toString()
             val email = binding.userEmail.text.toString()
             val password = binding.userPassword.text.toString()
-            val username = binding.userName.text.toString()
+            val username = binding.name.text.toString()
             val phoneNumber = binding.userPhone.text.toString()
             val address = binding.userAddress.text.toString()
             val gender = binding.userGender.text.toString()
@@ -286,6 +288,7 @@ class EditProfileActivity : AppCompatActivity() {
 
             viewModel.isLoading.observe(this) {
                 if (it == false) {
+                    customToast("Profile Updated")
                     finish()
                 }
             }
@@ -317,19 +320,49 @@ class EditProfileActivity : AppCompatActivity() {
             if (type == 0) {
                 finish()
             } else {
-                if (binding.userPassword.text.toString().isEmpty()) {
-                    Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show()
-                } else if (binding.userEmail.text.toString().isEmpty()) {
-                    Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_SHORT).show()
-                } else if (currentImageUri == null) {
-                    Toast.makeText(
-                        this,
-                        "You should edit profile picture or cannot be empty",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    uploadImage()
+                when {
+                    binding.userPassword.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.userEmail.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    currentImageUri == null -> {
+                        Toast.makeText(
+                            this,
+                            "You should edit profile picture or cannot be empty",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    binding.userPhone.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Phone number cannot be empty", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.userAddress.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Address cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.userName.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Fullname cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.userGender.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Gender cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.name.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> {
+                        uploadImage()
+                    }
                 }
+
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, _ ->
@@ -364,6 +397,16 @@ class EditProfileActivity : AppCompatActivity() {
             startGallery()
             dialog.dismiss()
         }
+    }
+
+    private fun customToast(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_success,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
     }
 
     companion object {

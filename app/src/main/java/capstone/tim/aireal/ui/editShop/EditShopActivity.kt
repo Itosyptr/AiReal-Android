@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -271,7 +273,13 @@ class EditShopActivity : AppCompatActivity() {
                     multipartBody
                 )
             }
-            finish()
+
+            viewModel.isLoading.observe(this) {
+                if (it == false) {
+                    customToast("Shop Updated")
+                    finish()
+                }
+            }
         }
     }
 
@@ -282,7 +290,40 @@ class EditShopActivity : AppCompatActivity() {
             if (type == 0) {
                 finish()
             } else {
-                uploadImage()
+                when {
+                    binding.shopName.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.shopDescription.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Description cannot be empty", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.shopAddress.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Address cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.shopRegency.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Regency cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.shopProvince.text.toString().isEmpty() -> {
+                        Toast.makeText(this, "Province cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+
+                    currentImageUri == null -> {
+                        Toast.makeText(
+                            this,
+                            "You should edit Shop picture or cannot be empty",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    else -> {
+                        uploadImage()
+                    }
+                }
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, _ ->
@@ -317,6 +358,16 @@ class EditShopActivity : AppCompatActivity() {
             startGallery()
             dialog.dismiss()
         }
+    }
+
+    private fun customToast(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_success,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
     }
 
     companion object {

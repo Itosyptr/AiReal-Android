@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -265,6 +267,7 @@ class AddProductActivity : AppCompatActivity() {
 
         viewModel.isLoading.observe(this) {
             if (it == false) {
+                customToast("Product added successfully")
                 finish()
             }
         }
@@ -291,7 +294,52 @@ class AddProductActivity : AppCompatActivity() {
             if (type == 0) {
                 finish()
             } else {
-                uploadImage()
+                when {
+                    listImageUri.isEmpty() -> {
+                        Toast.makeText(this, "You should add product image", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productNameInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product name", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productDescriptionInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(
+                            this,
+                            "You should add product description",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    binding.productLongDescriptionInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(
+                            this,
+                            "You should add product long description",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    binding.productPriceInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product price", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productStockInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product stock", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    binding.productCategoryInput.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "You should add product category", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    else -> {
+                        uploadImage()
+                    }
+                }
             }
         }
         builder.setNegativeButton(R.string.no) { dialog, _ ->
@@ -331,6 +379,16 @@ class AddProductActivity : AppCompatActivity() {
     private fun setImageData(listImageUri: ArrayList<Uri>) {
         val adapter = ImageAdapter(listImageUri)
         binding.rvImage.adapter = adapter
+    }
+
+    private fun customToast(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_success,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
     }
 
     companion object {

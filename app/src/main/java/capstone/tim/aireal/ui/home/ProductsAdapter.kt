@@ -51,8 +51,8 @@ class ProductsAdapter(private val context: Context) :
     class MyViewHolder(private val binding: ItemProductCardBinding, private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: DataItem) {
-            binding.productName.text = product.name
-            binding.productLocation.text = product.location
+            binding.productName.text = product.name ?: "Not Available"
+            binding.productLocation.text = product.location ?:"Not Available"
             binding.productPrice.text = context.getString(R.string.product_price, product.price)
             Glide.with(binding.root)
                 .load(product.imageUrl?.get(0))

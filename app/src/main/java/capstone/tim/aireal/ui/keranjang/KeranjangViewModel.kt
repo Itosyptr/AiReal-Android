@@ -78,6 +78,7 @@ class KeranjangViewModel(
                 _listCart.postValue(cart)
                 _listData.addAll(productDetails)
             } else {
+                _isLoading.value = false
                 _isError.value = true
                 Log.e(TAG, "onFailure (getCart): ${cartResponse.data}")
             }
