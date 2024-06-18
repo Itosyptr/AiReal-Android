@@ -99,6 +99,19 @@
     <string name="syarat_dan_ketentuan">Syarat Dan Ketentuan</string>
     <string name="kebijakan_privasi">Kebijakan Privasi</string>
     <string name="action_logout">Logout</string>
+    <string name="login_failed">Login failed</string>
+    <string name="login_error">Login Error</string>
+    <string name="kontak_admin">Untuk bantuan lebih lanjut, silakan hubungi admin AIREAL melalui:
+
+\n Email: admin@aireal.com
+
+\n Telepon: 66-64-629</string>
+
+
+
+
+
+
 
     <string name="kebijakan_privasi_aireal">Kebijakan Privasi Aplikasi AIREAL</string>
 
