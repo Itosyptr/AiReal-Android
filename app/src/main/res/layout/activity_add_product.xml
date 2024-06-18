@@ -105,25 +105,22 @@
                             app:layout_constraintStart_toStartOf="@+id/upload_image"
                             app:layout_constraintTop_toTopOf="@+id/upload_image" />
 
-                        <HorizontalScrollView
-                            android:id="@+id/scroll_bar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
-                            android:scrollbars="none"
-                            app:layout_constraintBottom_toBottomOf="@+id/upload_image"
-                            app:layout_constraintStart_toEndOf="@+id/upload_image"
-                            app:layout_constraintTop_toTopOf="@+id/upload_image">
+
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rv_image"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                tools:listitem="@layout/item_photos" />
+                                tools:listitem="@layout/item_photos"
+                                android:layout_marginEnd="10dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/upload_image"
+                                app:layout_constraintStart_toEndOf="@+id/upload_image"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/upload_image"/>
 
-                        </HorizontalScrollView>
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
