@@ -1,5 +1,6 @@
 package capstone.tim.aireal.api
 
+import capstone.tim.aireal.response.BlurResponse
 import capstone.tim.aireal.response.CartRequest
 import capstone.tim.aireal.response.CartResponse
 import capstone.tim.aireal.response.CreateProductResponse
@@ -169,4 +170,9 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Body dataOrder: dataOrder
     ): Call<OrderResponse>
+    @Multipart
+    @POST("https://blur-guard-e3ex54u6sq-et.a.run.app/")
+    fun checkblur(
+        @Part image:MultipartBody.Part
+    ): Call<BlurResponse>
 }

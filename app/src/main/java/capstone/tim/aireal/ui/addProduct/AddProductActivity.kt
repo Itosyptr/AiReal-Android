@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -32,6 +33,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.http.Multipart
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -204,7 +206,7 @@ class AddProductActivity : AppCompatActivity() {
     ) { uri ->
         if (uri != null) {
             currentImageUri = uri
-            showImage()
+            checkblur()
         }
     }
 
@@ -217,15 +219,37 @@ class AddProductActivity : AppCompatActivity() {
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
-            showImage()
+            checkblur()
         }
     }
 
-    private fun showImage() {
+    private fun checkblur(){
         currentImageUri?.let {
-            listImageUri.add(it)
-            setImageData(listImageUri)
+            val imageFile = uriToFile(it, this).reduceFileImage()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBodyPart = MultipartBody.Part.createFormData("file", imageFile.name, requestImageFile)
+            viewModel.checkblur(multipartBodyPart)
+            viewModel.isLoading.observe(this) { it1 ->
+                showLoading(true)
+                if (it1 == false) {
+                    showLoading(false)
+                    viewModel.modelresult.observe(this){result ->
+                        if (result.is_blurry == false){
+                            customToast("Gambar Anda Tidak Blur Dengan Akurasi ${result.percentage}")
+                            listImageUri.add(it)
+                            setImageData(listImageUri)
+                        }
+                        else {
+                            customToastFailed("Burik Cok ${result.percentage}")
+                        }
+
+                    }
+
+                }
+            }
+
         }
+        currentImageUri = null
     }
 
     private fun uploadImage() {
@@ -233,8 +257,7 @@ class AddProductActivity : AppCompatActivity() {
         for (uri in listImageUri) {
             val imageFile = uriToFile(uri, this).reduceFileImage()
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-            val multipartBodyPart =
-                MultipartBody.Part.createFormData("image", imageFile.name, requestImageFile)
+            val multipartBodyPart = MultipartBody.Part.createFormData("image", imageFile.name, requestImageFile)
             multipartBodyParts.add(multipartBodyPart)
         }
 
@@ -389,6 +412,20 @@ class AddProductActivity : AppCompatActivity() {
         customToast.setGravity(Gravity.CENTER,0,0)
         customToast.duration = Toast.LENGTH_LONG
         customToast.show()
+    }
+    private fun customToastFailed(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_failed,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast_fail).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
+    }
+
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {
