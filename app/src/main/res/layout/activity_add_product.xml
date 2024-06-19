@@ -417,12 +417,29 @@
 
         </ScrollView>
 
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_marginHorizontal="48dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:background="@color/black_overlay"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/performing_blur_detection_on_images_please_be_patient"
+            android:textSize="18sp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:visibility="gone"
+            android:layout_marginBottom="78dp"
+            tools:visibility="visible" />
+
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:layout_gravity="center"
             android:visibility="gone"
             tools:visibility="visible" />
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

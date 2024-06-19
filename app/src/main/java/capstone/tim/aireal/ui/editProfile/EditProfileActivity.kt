@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -264,6 +265,9 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.isLoading.observe(this) { isLoading ->
+            showLoading(isLoading)
+        }
     }
 
     private fun checkblur() {
@@ -449,6 +453,11 @@ class EditProfileActivity : AppCompatActivity() {
         customToast.setGravity(Gravity.CENTER,0,0)
         customToast.duration = Toast.LENGTH_LONG
         customToast.show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {

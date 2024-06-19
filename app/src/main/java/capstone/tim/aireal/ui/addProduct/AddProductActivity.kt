@@ -430,6 +430,7 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
+        binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
