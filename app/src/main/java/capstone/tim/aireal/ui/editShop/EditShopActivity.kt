@@ -192,8 +192,11 @@ class EditShopActivity : AppCompatActivity() {
                 intent.putExtra(DetailEditActivity.EXTRA_TITLE, getString(R.string.province))
                 intent.putExtra(DetailEditActivity.EXTRA_HINT, binding.shopProvince.text.toString())
                 resultLauncher.launch(intent)
+
+
             }
         }
+        setupObservers()
     }
 
     private fun startGallery() {
@@ -205,7 +208,7 @@ class EditShopActivity : AppCompatActivity() {
     ) { uri ->
         if (uri != null) {
             currentImageUri = uri
-            showImage()
+            checkblur()
         }
     }
 
@@ -218,9 +221,35 @@ class EditShopActivity : AppCompatActivity() {
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
-            showImage()
+            checkblur()
         }
     }
+
+    private fun setupObservers() {
+        viewModel.modelresult.observe(this) { result ->
+            if (result != null && currentImageUri != null) {
+                if (result.is_blurry == false) {
+                    customToast("Gambar Anda Jelas Dengan Akurasi ${result.percentage}")
+                    showImage()
+                } else {
+                    customToastFailed("Gambar Kurang Jelas Dengan Akurasi ${result.percentage}")
+                }
+                currentImageUri = null
+            }
+        }
+
+    }
+
+    private fun checkblur() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBodyPart = MultipartBody.Part.createFormData("file", imageFile.name, requestImageFile)
+            viewModel.checkblur(multipartBodyPart)
+        }
+    }
+
+
 
     private fun showImage() {
         currentImageUri?.let {
@@ -369,6 +398,16 @@ class EditShopActivity : AppCompatActivity() {
         customToast.duration = Toast.LENGTH_LONG
         customToast.show()
     }
+    private fun customToastFailed(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_failed,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast_fail).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
+    }
+
 
     companion object {
         const val DETAIL_SHOP = "detail_shop"

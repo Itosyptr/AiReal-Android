@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import capstone.tim.aireal.api.ApiConfig
+import capstone.tim.aireal.api.ApiConfigModel
 import capstone.tim.aireal.data.pref.UserModel
 import capstone.tim.aireal.data.pref.UserPreference
+import capstone.tim.aireal.response.BlurResponse
 import capstone.tim.aireal.response.EditProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -26,6 +28,9 @@ class EditProfileViewModel(
 
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
+
+    private val _modelresult = MutableLiveData<BlurResponse>()
+    val modelresult: LiveData<BlurResponse> = _modelresult
 
     fun updateProfile(
         token: String,
@@ -69,6 +74,36 @@ class EditProfileViewModel(
             override fun onFailure(call: Call<EditProfileResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun checkblur(
+        file: MultipartBody.Part
+    ) {
+        _isLoading.value = true
+        val client = ApiConfigModel.getApiService().checkblur(
+            file
+        )
+        client.enqueue(object : Callback<BlurResponse> {
+            override fun onResponse(
+                call: Call<BlurResponse>,
+                response: Response<BlurResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _modelresult.value = response.body()
+                    _isError.value = false
+                } else {
+                    _isError.value = true
+                    Log.e(TAG, "onResponse: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<BlurResponse>, t: Throwable) {
+                _isLoading.value = false
+                _isError.value = true
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }
