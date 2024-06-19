@@ -11,7 +11,7 @@ object ApiConfigModel {
         val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
-            .callTimeout(0, TimeUnit.MILLISECONDS)
+            .readTimeout(25, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .build()
 

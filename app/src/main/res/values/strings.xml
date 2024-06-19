@@ -240,6 +240,7 @@
     <string name="success">Success</string>
     <string name="message">message</string>
     <string name="failed">Failed</string>
+    <string name="app_logo">Aplication Logo</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

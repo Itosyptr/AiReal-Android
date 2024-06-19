@@ -54,8 +54,7 @@
                 android:id="@+id/rvProductHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_order_history" />
-
+                tools:listitem="@layout/item_produk" />
         </ScrollView>
 
         <ProgressBar
