@@ -96,10 +96,10 @@ interface ApiService {
         @Query("userId") userId: String,
     ): Call<CartResponse>
 
-    @GET("order/")
+    @GET("orders/user/{userId}")
     fun getUserOrder(
         @Header("Authorization") token: String,
-        @Query("userId") userId: String,
+        @Path("userId") userId: String,
     ): Call<UserOrderResponse>
 
     @Multipart
@@ -170,9 +170,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Body dataOrder: dataOrder
     ): Call<OrderResponse>
+
     @Multipart
     @POST("https://blur-guard-e3ex54u6sq-et.a.run.app/")
     fun checkblur(
-        @Part image:MultipartBody.Part
+        @Part image: MultipartBody.Part
     ): Call<BlurResponse>
 }
