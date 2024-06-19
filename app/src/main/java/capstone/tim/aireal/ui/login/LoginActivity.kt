@@ -44,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
         setupInputListeners()
         playAnimation()
         setUpAction()
-         // Periksa status login di awal
     }
 
 
@@ -65,11 +64,12 @@ class LoginActivity : AppCompatActivity() {
                         token = response.token ?: "",
                         isLogin = true
                     ))
+                    showSuccessToast(getString(R.string.login_success))
                 } else {
                     // Login gagal
-                    showErrorToast(response.message ?: "Login gagal")
+                    showErrorToast(response.message ?: getString(R.string.login_failed))
                 }
-            } ?: showErrorToast("Terjadi kesalahan saat login")
+            } ?: showErrorToast(getString(R.string.login_error))
         }
     }
 
@@ -141,6 +141,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showErrorToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showSuccessToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

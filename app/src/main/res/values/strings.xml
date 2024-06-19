@@ -99,6 +99,19 @@
     <string name="syarat_dan_ketentuan">Syarat Dan Ketentuan</string>
     <string name="kebijakan_privasi">Kebijakan Privasi</string>
     <string name="action_logout">Logout</string>
+    <string name="login_failed">Login failed</string>
+    <string name="login_error">Login Error</string>
+    <string name="kontak_admin">Untuk bantuan lebih lanjut, silakan hubungi admin AIREAL melalui:
+
+\n Email: admin@aireal.com
+
+\n Telepon: 66-64-629</string>
+
+
+
+
+
+
 
     <string name="kebijakan_privasi_aireal">Kebijakan Privasi Aplikasi AIREAL</string>
 
@@ -227,6 +240,8 @@
     <string name="success">Success</string>
     <string name="message">message</string>
     <string name="failed">Failed</string>
+    <string name="app_logo">Aplication Logo</string>
+    <string name="performing_blur_detection_on_images_please_be_patient">Performing blur detection on image, please wait…</string>
 
     <string-array name="product_categories">
         <item>Electronics</item>

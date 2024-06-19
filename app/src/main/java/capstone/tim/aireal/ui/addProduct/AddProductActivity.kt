@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -32,6 +33,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -193,6 +195,8 @@ class AddProductActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvImage.layoutManager = layoutManager
+
+        setupObservers()
     }
 
     private fun startGallery() {
@@ -204,7 +208,7 @@ class AddProductActivity : AppCompatActivity() {
     ) { uri ->
         if (uri != null) {
             currentImageUri = uri
-            showImage()
+            checkblur()
         }
     }
 
@@ -217,14 +221,39 @@ class AddProductActivity : AppCompatActivity() {
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
-            showImage()
+            checkblur()
         }
     }
 
-    private fun showImage() {
-        currentImageUri?.let {
-            listImageUri.add(it)
-            setImageData(listImageUri)
+    private fun setupObservers() {
+        viewModel.modelresult.observe(this) { result ->
+            if (result != null && currentImageUri != null) {
+                if (result.is_blurry == false) {
+                    customToast("Gambar Anda Jelas Dengan Akurasi ${result.percentage}")
+                    if (!listImageUri.contains(currentImageUri)) {
+                        listImageUri.add(currentImageUri!!)
+                    }
+                    setImageData(listImageUri)
+                } else {
+                    customToastFailed("Gambar Kurang Jelas Dengan Akurasi ${result.percentage}")
+                }
+                showLoading(false)
+                currentImageUri = null
+            }
+        }
+
+        viewModel.isLoading2.observe(this) { isLoading ->
+            binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
+            showLoading(isLoading)
+        }
+    }
+
+    private fun checkblur() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBodyPart = MultipartBody.Part.createFormData("file", imageFile.name, requestImageFile)
+            viewModel.checkblur(multipartBodyPart)
         }
     }
 
@@ -233,8 +262,7 @@ class AddProductActivity : AppCompatActivity() {
         for (uri in listImageUri) {
             val imageFile = uriToFile(uri, this).reduceFileImage()
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-            val multipartBodyPart =
-                MultipartBody.Part.createFormData("image", imageFile.name, requestImageFile)
+            val multipartBodyPart = MultipartBody.Part.createFormData("image", imageFile.name, requestImageFile)
             multipartBodyParts.add(multipartBodyPart)
         }
 
@@ -266,6 +294,7 @@ class AddProductActivity : AppCompatActivity() {
         )
 
         viewModel.isLoading.observe(this) {
+            showLoading(it)
             if (it == false) {
                 customToast("Product added successfully")
                 finish()
@@ -379,6 +408,7 @@ class AddProductActivity : AppCompatActivity() {
     private fun setImageData(listImageUri: ArrayList<Uri>) {
         val adapter = ImageAdapter(listImageUri)
         binding.rvImage.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     private fun customToast(text: String) {
@@ -391,8 +421,24 @@ class AddProductActivity : AppCompatActivity() {
         customToast.show()
     }
 
+    private fun customToastFailed(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_failed,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast_fail).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
     companion object {
         const val SHOP_ID = "shop_id"
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 }
+

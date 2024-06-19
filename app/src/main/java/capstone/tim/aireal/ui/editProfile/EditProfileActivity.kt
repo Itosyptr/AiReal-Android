@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -22,11 +23,13 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import capstone.tim.aireal.R
 import capstone.tim.aireal.ViewModelFactory
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.databinding.ActivityEditProfileBinding
 import capstone.tim.aireal.response.DataUser
+import capstone.tim.aireal.ui.addProduct.ImageAdapter
 import capstone.tim.aireal.ui.detailEdit.DetailEditActivity
 import capstone.tim.aireal.utils.getImageUri
 import capstone.tim.aireal.utils.reduceFileImage
@@ -47,6 +50,7 @@ class EditProfileActivity : AppCompatActivity() {
     private var token: String = ""
     private var userId: String = ""
     private var currentImageUri: Uri? = null
+    private var listImageUri: ArrayList<Uri> = arrayListOf()
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -214,9 +218,14 @@ class EditProfileActivity : AppCompatActivity() {
                 intent.putExtra(DetailEditActivity.EXTRA_TITLE, getString(R.string.address))
                 intent.putExtra(DetailEditActivity.EXTRA_HINT, binding.userAddress.text.toString())
                 resultLauncher.launch(intent)
+
+
             }
+            setupObservers()
         }
     }
+
+
 
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -227,7 +236,7 @@ class EditProfileActivity : AppCompatActivity() {
     ) { uri ->
         if (uri != null) {
             currentImageUri = uri
-            showImage()
+            checkblur()
         }
     }
 
@@ -240,8 +249,46 @@ class EditProfileActivity : AppCompatActivity() {
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
-            showImage()
+            checkblur()
         }
+    }
+    private fun setupObservers() {
+        viewModel.modelresult.observe(this) { result ->
+            if (result != null && currentImageUri != null) {
+                if (result.is_blurry == false) {
+                    customToast("Gambar Anda Jelas Dengan Akurasi ${result.percentage}")
+                    showImage()
+                } else {
+                    customToastFailed("Gambar Kurang Jelas Dengan Akurasi ${result.percentage}")
+                }
+
+            }
+        }
+
+        viewModel.isLoading2.observe(this) { isLoading ->
+            binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
+            showLoading(isLoading)
+        }
+    }
+
+    private fun checkblur() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBodyPart = MultipartBody.Part.createFormData("file", imageFile.name, requestImageFile)
+            viewModel.checkblur(multipartBodyPart)
+        }
+    }
+
+
+    private fun customToastFailed(text: String) {
+        val customToastLayout = layoutInflater.inflate(R.layout.custom_toast_failed,null)
+        val customToast = Toast(this)
+        customToast.view = customToastLayout
+        customToastLayout.findViewById<TextView>(R.id.message_toast_fail).text = text
+        customToast.setGravity(Gravity.CENTER,0,0)
+        customToast.duration = Toast.LENGTH_LONG
+        customToast.show()
     }
 
     private fun showImage() {
@@ -287,6 +334,7 @@ class EditProfileActivity : AppCompatActivity() {
             )
 
             viewModel.isLoading.observe(this) {
+                showLoading(it)
                 if (it == false) {
                     customToast("Profile Updated")
                     finish()
@@ -407,6 +455,11 @@ class EditProfileActivity : AppCompatActivity() {
         customToast.setGravity(Gravity.CENTER,0,0)
         customToast.duration = Toast.LENGTH_LONG
         customToast.show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {

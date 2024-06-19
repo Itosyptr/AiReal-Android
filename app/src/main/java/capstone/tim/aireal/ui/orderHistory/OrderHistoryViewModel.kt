@@ -11,7 +11,7 @@ import capstone.tim.aireal.api.ApiConfig
 import capstone.tim.aireal.data.pref.UserModel
 import capstone.tim.aireal.data.pref.UserPreference
 import capstone.tim.aireal.response.DataItem
-import capstone.tim.aireal.response.DetailItem
+import capstone.tim.aireal.response.ProductOrderItem
 import kotlinx.coroutines.launch
 import retrofit2.await
 
@@ -20,8 +20,8 @@ class OrderHistoryViewModel(
     private val context: Context
 ) : ViewModel() {
 
-    private val _listCart = MutableLiveData<List<DetailItem?>?>()
-    val listProducts: MutableLiveData<List<DetailItem?>?> = _listCart
+    private val _listCart = MutableLiveData<List<ProductOrderItem?>?>()
+    val listProducts: MutableLiveData<List<ProductOrderItem?>?> = _listCart
 
     var _listData: MutableList<DataItem> = mutableListOf()
     val listData: MutableLiveData<MutableList<DataItem>> = MutableLiveData(_listData)
@@ -45,28 +45,38 @@ class OrderHistoryViewModel(
             }
 
             if (orderResponse.status == "success") {
-                val order = orderResponse.data?.get(0)?.items ?: emptyList()
+                val order = orderResponse.data ?: emptyList()
 
                 val productDetails = mutableListOf<DataItem>()
+                val productData = mutableListOf<ProductOrderItem>()
                 for (orderItem in order) {
-                    val detailResponse =
-                        ApiConfig.getApiService().getProductDetails(token, orderItem?.productId!!)
-                            .await()
+                    val productOrder = orderItem?.items ?: emptyList()
+                    for (product in productOrder) {
+                        val detailResponse =
+                            ApiConfig.getApiService().getProductDetails(token, product?.productId!!)
+                                .await()
 
-                    if (detailResponse.status == "success") {
-                        productDetails.add(
-                            DataItem(
-                                imageUrl = detailResponse.data!!.imageUrl,
-                                name = detailResponse.data!!.name,
-                                price = detailResponse.data!!.price
+                        if (detailResponse.status == "success") {
+                            productDetails.add(
+                                DataItem(
+                                    imageUrl = detailResponse.data!!.imageUrl,
+                                    name = detailResponse.data.name,
+                                    price = detailResponse.data.price
+                                )
                             )
-                        )
-                    } else {
-                        Log.e(TAG, "onFailure (getProductDetails): ${detailResponse.data}")
+                            productData.add(
+                                ProductOrderItem(
+                                    quantity = product.quantity,
+                                    productId = product.productId
+                                )
+                            )
+                        } else {
+                            Log.e(TAG, "onFailure (getProductDetails): ${detailResponse.data}")
+                        }
                     }
                 }
 
-                _listCart.postValue(order)
+                _listCart.postValue(productData)
                 _listData.addAll(productDetails)
             } else {
                 _isError.value = true
