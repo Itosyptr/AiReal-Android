@@ -26,6 +26,9 @@ class AddProductViewModel(
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading2 = MutableLiveData<Boolean>()
+    val isLoading2: LiveData<Boolean> = _isLoading2
+
     private val _modelresult = MutableLiveData<BlurResponse>()
     val modelresult: LiveData<BlurResponse> = _modelresult
 
@@ -82,7 +85,7 @@ class AddProductViewModel(
         file: MultipartBody.Part
 
     ) {
-        _isLoading.value = true
+        _isLoading2.value = true
         val client = ApiConfigModel.getApiService().checkblur(
             file
         )
@@ -91,7 +94,7 @@ class AddProductViewModel(
                 call: Call<BlurResponse>,
                 response: Response<BlurResponse>
             ) {
-                _isLoading.value = false
+                _isLoading2.value = false
                 if (response.isSuccessful) {
                     _modelresult.value = response.body()
                     _isError.value = false
@@ -102,7 +105,7 @@ class AddProductViewModel(
             }
 
             override fun onFailure(call: Call<BlurResponse>, t: Throwable) {
-                _isLoading.value = false
+                _isLoading2.value = false
                 _isError.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }

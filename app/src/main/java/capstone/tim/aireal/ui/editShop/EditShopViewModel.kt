@@ -27,6 +27,9 @@ class EditShopViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isLoading2= MutableLiveData<Boolean>()
+    val isLoading2: LiveData<Boolean> = _isLoading2
+
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
 
@@ -123,7 +126,7 @@ class EditShopViewModel(
     fun checkblur(
         file: MultipartBody.Part
     ) {
-        _isLoading.value = true
+        _isLoading2.value = true
         val client = ApiConfigModel.getApiService().checkblur(
             file
         )
@@ -132,7 +135,7 @@ class EditShopViewModel(
                 call: Call<BlurResponse>,
                 response: Response<BlurResponse>
             ) {
-                _isLoading.value = false
+                _isLoading2.value = false
                 if (response.isSuccessful) {
                     _modelresult.value = response.body()
                     _isError.value = false
@@ -143,7 +146,7 @@ class EditShopViewModel(
             }
 
             override fun onFailure(call: Call<BlurResponse>, t: Throwable) {
-                _isLoading.value = false
+                _isLoading2.value = false
                 _isError.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }

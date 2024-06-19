@@ -261,11 +261,12 @@ class EditProfileActivity : AppCompatActivity() {
                 } else {
                     customToastFailed("Gambar Kurang Jelas Dengan Akurasi ${result.percentage}")
                 }
-                currentImageUri = null
+
             }
         }
 
-        viewModel.isLoading.observe(this) { isLoading ->
+        viewModel.isLoading2.observe(this) { isLoading ->
+            binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
             showLoading(isLoading)
         }
     }
@@ -333,6 +334,7 @@ class EditProfileActivity : AppCompatActivity() {
             )
 
             viewModel.isLoading.observe(this) {
+                showLoading(it)
                 if (it == false) {
                     customToast("Profile Updated")
                     finish()
@@ -456,7 +458,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
+
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

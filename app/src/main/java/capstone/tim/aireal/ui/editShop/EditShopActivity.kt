@@ -235,11 +235,12 @@ class EditShopActivity : AppCompatActivity() {
                 } else {
                     customToastFailed("Gambar Kurang Jelas Dengan Akurasi ${result.percentage}")
                 }
-                currentImageUri = null
+
             }
         }
 
-        viewModel.isLoading.observe(this) { isLoading ->
+        viewModel.isLoading2.observe(this) { isLoading ->
+            binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
             showLoading(isLoading)
         }
     }
@@ -308,6 +309,7 @@ class EditShopActivity : AppCompatActivity() {
             }
 
             viewModel.isLoading.observe(this) {
+                showLoading(it)
                 if (it == false) {
                     customToast("Shop Updated")
                     finish()
@@ -413,7 +415,6 @@ class EditShopActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

@@ -242,7 +242,8 @@ class AddProductActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.isLoading.observe(this) { isLoading ->
+        viewModel.isLoading2.observe(this) { isLoading ->
+            binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
             showLoading(isLoading)
         }
     }
@@ -293,6 +294,7 @@ class AddProductActivity : AppCompatActivity() {
         )
 
         viewModel.isLoading.observe(this) {
+            showLoading(it)
             if (it == false) {
                 customToast("Product added successfully")
                 finish()
@@ -430,7 +432,7 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressText.visibility = if (isLoading) View.VISIBLE else View.GONE
+
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
