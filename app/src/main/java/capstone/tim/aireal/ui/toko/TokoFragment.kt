@@ -46,6 +46,7 @@ class TokoFragment : Fragment() {
     private var token: String = ""
     private var shopId: String = ""
     private var data: ShopData? = null
+    private var status: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +72,7 @@ class TokoFragment : Fragment() {
 
         viewModel.shopDetail.observe(viewLifecycleOwner) { shop ->
             if (shop?.id != null) {
+                status = "success"
                 shopId = shop?.id.toString()
                 binding.tvShopName.text = shop?.name
                 Glide.with(binding.root)
@@ -139,7 +141,6 @@ class TokoFragment : Fragment() {
         }
 
         viewModel.isError.observe(viewLifecycleOwner) {
-            showToastError(it)
             showConfirmationDialog()
         }
 
@@ -186,7 +187,7 @@ class TokoFragment : Fragment() {
     }
 
     private fun showConfirmationDialog() {
-        if (!isAdded || isDialogShowing) return
+        if (!isAdded || isDialogShowing || status == "success") return
 
         isDialogShowing = true
 
@@ -220,14 +221,6 @@ class TokoFragment : Fragment() {
         val dialog = builder.create()
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
-    }
-
-    private fun showToastError(isError: Boolean) {
-        if (isError) Toast.makeText(
-            this.context,
-            "Terjadi kesalahan!! Mohon Bersabar",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     private fun showLoading(isLoading: Boolean) {
